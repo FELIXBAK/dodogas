@@ -4,18 +4,15 @@ var SITE = {
   // true면 샘플 표시가 보입니다. 실제 내용을 다 채운 뒤 false로 바꾸세요.
   sample: true,
   // 연락처 링크. 비워 두면 버튼이 비활성으로 보입니다.
-  contacts: {
-    discord: "https://discord.gg/BZ4kRyAuhT",
-    cafe: "https://cafe.naver.com/liquidation",
-    youtube: "https://www.youtube.com/@dodogas",
-    telegram: "https://t.me/+kSnaeCAx_QUxNzQ1"
-  }
+  contacts: { discord: "https://discord.gg/BZ4kRyAuhT" }
 };
 
 // 제공 서비스 (홈 화면). link가 있으면 '바로가기' 버튼이 보입니다.
 var SERVICES = [
-  { name: "붐붐이 Lite", tag: "텔레그램", access: "전체 공개", desc: "텔레그램 채널로 제공되는 붐붐이 Lite입니다. 누구나 무료로 볼 수 있습니다.", link: "https://t.me/+kSnaeCAx_QUxNzQ1" },
-  { name: "킹피셔", tag: "링크", access: "", desc: "킹피셔 바로가기입니다.", link: "https://app.thekingfisher.io/?ref=7O0MaNch" }
+  { name: "디스코드", tag: "커뮤니티", access: "", desc: "dodogas 디스코드 커뮤니티입니다.", link: "https://discord.gg/BZ4kRyAuhT" },
+  { name: "유튜브", tag: "영상", access: "", desc: "dodogas 유튜브 채널입니다.", link: "https://www.youtube.com/@dodogas" },
+  { name: "네이버 카페", tag: "커뮤니티", access: "", desc: "dodogas 네이버 카페입니다.", link: "https://cafe.naver.com/liquidation" },
+  { name: "붐붐이 Lite", tag: "텔레그램", access: "전체 공개", desc: "텔레그램 채널로 제공되는 붐붐이 Lite입니다. 누구나 무료로 볼 수 있습니다.", link: "https://t.me/+kSnaeCAx_QUxNzQ1" }
 ];
 
 // 거래소 혜택 비교 (홈 화면 표). 페이백·수수료·추천인 코드는 실제 값으로 채워 주세요.
