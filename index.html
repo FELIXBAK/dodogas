@@ -28,7 +28,7 @@
       <div class="section-head"><h2>거래소 혜택 비교<span id="ex-flag"></span></h2></div>
       <div class="scroll">
         <table>
-          <thead><tr><th>거래소</th><th>페이백</th><th>수수료</th><th>추천인 코드</th><th>가입</th></tr></thead>
+          <thead><tr><th>거래소</th><th>혜택</th><th>추천인 코드</th><th>가입</th></tr></thead>
           <tbody id="ex-body"></tbody>
         </table>
       </div>
@@ -75,7 +75,7 @@
   document.getElementById("ex-body").innerHTML = EXCHANGES.map(function (x) {
     var dash = '<span class="dash">–</span>';
     var join = x.link ? '<a class="btn" href="' + esc(x.link) + '" rel="noopener" target="_blank">가입하기</a>' : dash;
-    return "<tr><th scope=\"row\">" + esc(x.name) + "</th><td>" + (esc(x.payback) || dash) + "</td><td>" + (esc(x.fee) || dash) + "</td><td>" + (x.code ? '<button type="button" class="copy-code" data-code="' + esc(x.code) + '" title="클릭하면 복사됩니다"><span class="cp-text">' + esc(x.code) + '</span><svg class="cp-ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button>' : dash) + "</td><td>" + join + "</td></tr>";
+    return "<tr><th scope=\"row\">" + esc(x.name) + "</th><td>" + (esc(x.benefit) || dash) + "</td><td>" + (x.code ? '<button type="button" class="copy-code" data-code="' + esc(x.code) + '" title="클릭하면 복사됩니다"><span class="cp-text">' + esc(x.code) + '</span><svg class="cp-ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button>' : dash) + "</td><td>" + join + "</td></tr>";
   }).join("");
 
   document.getElementById("sv-grid").innerHTML = SERVICES.map(function (v) {
