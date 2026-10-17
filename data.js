@@ -17,11 +17,11 @@ var SERVICES = [
 
 // 거래소 혜택 비교 (홈 화면 표). 페이백·수수료·추천인 코드는 실제 값으로 채워 주세요.
 var EXCHANGES = [
-  { id: "binance", name: "Binance", payback: "", fee: "", code: "", link: "https://accounts.binance.com/register?ref=361097924" },
-  { id: "okx",     name: "OKX",     payback: "", fee: "", code: "", link: "https://okx.com/join/67654160" },
-  { id: "bybit",   name: "Bybit",   payback: "", fee: "", code: "", link: "https://partner.bybit.com/b/37560" },
-  { id: "bitget",  name: "Bitget",  payback: "", fee: "", code: "", link: "https://www.bitget.com/en-GB/expressly?channelCode=ff1k&vipCode=wfx8&languageType=3" },
-  { id: "tethermax", name: "TetherMax", payback: "", fee: "", code: "", link: "https://tethermax.io/ko/signup?inviteCode=3032" }
+  { id: "binance", name: "Binance", payback: "", fee: "", code: "361097924", link: "https://accounts.binance.com/register?ref=361097924" },
+  { id: "okx",     name: "OKX",     payback: "", fee: "", code: "67654160", link: "https://okx.com/join/67654160" },
+  { id: "bybit",   name: "Bybit",   payback: "", fee: "", code: "37560", link: "https://partner.bybit.com/b/37560" },
+  { id: "bitget",  name: "Bitget",  payback: "", fee: "", code: "wfx8", link: "https://www.bitget.com/en-GB/expressly?channelCode=ff1k&vipCode=wfx8&languageType=3" },
+  { id: "tethermax", name: "TetherMax", payback: "", fee: "", code: "3032", link: "https://tethermax.io/ko/signup?inviteCode=3032" }
 ];
 
 // 이벤트·대회. start/end는 YYYY-MM-DD, end가 오늘보다 앞서면 자동으로 "종료" 처리됩니다.
