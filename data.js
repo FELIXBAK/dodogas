@@ -153,10 +153,16 @@ var FAQ = [
 // 한국어 사이트에서 숨길 거래소. 데이터는 지우지 않고 ALL_* 에 그대로 남겨 두었다가
 // 나중에 외국어 페이지에서 다시 씁니다. 다시 보이게 하려면 목록에서 빼면 됩니다.
 var HIDDEN_EXCHANGES = ["binance"];
+// 한국어 사이트에서 거래소가 보이는 순서 (혜택 표·가입 가이드·추천인 확인 공통)
+var EXCHANGE_ORDER = ["okx", "bitget", "bybit", "tethermax"];
 var ALL_EXCHANGES = EXCHANGES, ALL_GUIDES = GUIDES, ALL_REFCHECK = REFCHECK;
 (function () {
   function keep(x) { return HIDDEN_EXCHANGES.indexOf(x.id) < 0; }
-  EXCHANGES = EXCHANGES.filter(keep);
-  GUIDES = GUIDES.filter(keep);
-  REFCHECK = REFCHECK.filter(keep);
+  function byOrder(a, b) {
+    var i = EXCHANGE_ORDER.indexOf(a.id), j = EXCHANGE_ORDER.indexOf(b.id);
+    return (i < 0 ? 99 : i) - (j < 0 ? 99 : j);
+  }
+  EXCHANGES = EXCHANGES.filter(keep).sort(byOrder);
+  GUIDES = GUIDES.filter(keep).sort(byOrder);
+  REFCHECK = REFCHECK.filter(keep).sort(byOrder);
 })();
