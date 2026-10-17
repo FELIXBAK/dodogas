@@ -31,11 +31,23 @@
 <script src="site.js"></script>
 <script>
 (function () {
-  var cur = 0;
-  try {
-    var m = /^#(.+)$/.exec(location.hash);
-    if (m) GUIDES.forEach(function (g, i) { if (g.id === m[1]) cur = i; });
-  } catch (e) {}
+  // 주소 끝 #okx 는 OKX 가이드, #okx-change 처럼 붙이면 그 거래소의 해당 단계로 바로 이동합니다.
+  var cur = 0, jumpTo = "";
+  function readHash() {
+    var m = /^#([a-z0-9]+)(?:-([a-z]+))?$/.exec(location.hash), found = -1;
+    if (m) GUIDES.forEach(function (g, i) { if (g.id === m[1]) found = i; });
+    if (found < 0) return false;
+    cur = found; jumpTo = m[2] ? "g-" + m[2] : "";
+    return true;
+  }
+  try { readHash(); } catch (e) {}
+  function jump() {
+    if (!jumpTo) return;
+    var t = document.getElementById(jumpTo);
+    jumpTo = "";
+    if (t) setTimeout(function () { t.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60);
+  }
+  window.addEventListener("hashchange", function () { if (readHash()) { draw(); jump(); } });
   var ICO = '<svg class="cp-ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>';
   var CHECK = '<svg class="cp-ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>';
 
@@ -186,6 +198,7 @@
     }).join("");
   })();
   draw();
+  jump();
 })();
 </script>
 </body>

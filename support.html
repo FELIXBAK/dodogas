@@ -35,7 +35,10 @@
 (function () {
   document.getElementById("flag").innerHTML = sampleFlag();
   document.getElementById("faq").innerHTML = FAQ.map(function (f) {
-    return "<details><summary>" + esc(f.q) + "</summary><p>" + esc(f.a) + "</p></details>";
+    var links = (f.links || []).map(function (l) {
+      return '<a class="faq-link" href="' + esc(l.href) + '">' + esc(l.label) + ' <span aria-hidden="true">→</span></a>';
+    }).join("");
+    return "<details><summary>" + esc(f.q) + "</summary><p>" + esc(f.a) + "</p>" + (links ? '<div class="faq-links">' + links + "</div>" : "") + "</details>";
   }).join("");
   var labels = { discord: "디스코드" };
   document.getElementById("contacts").innerHTML = Object.keys(labels).map(function (k) {
