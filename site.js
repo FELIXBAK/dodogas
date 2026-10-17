@@ -61,6 +61,43 @@
     "</div>";
   document.body.appendChild(footer);
 
+  // 오른쪽 아래 '도움이 필요하세요?' 버튼 (모든 페이지)
+  var dc = (typeof SITE !== "undefined" && SITE.contacts && SITE.contacts.discord) || "";
+  var HELP = [
+    dc ? { href: dc, label: "디스코드 1:1 문의", sub: "운영진에게 바로 물어보기", ext: true } : null,
+    { href: "guides.html", label: "가입·KYC 가이드", sub: "거래소 가입부터 본인인증까지" },
+    { href: "guides.html#referral-check", label: "내 추천인 확인", sub: "추천 코드가 잘 등록됐는지" },
+    { href: "vip.html", label: "VIP 기준 보기", sub: "레벨업 조건과 인증 방법" },
+    { href: "support.html", label: "고객센터", sub: "자주 묻는 질문" }
+  ].filter(Boolean);
+  var help = document.createElement("div");
+  help.className = "help-fab";
+  help.innerHTML =
+    '<div class="help-menu" id="help-menu" role="menu" hidden>' +
+    HELP.map(function (h) {
+      return '<a role="menuitem" href="' + h.href + '"' + (h.ext ? ' target="_blank" rel="noopener"' : "") + "><strong>" + h.label + "</strong><span>" + h.sub + "</span></a>";
+    }).join("") + "</div>" +
+    '<button type="button" class="help-btn" aria-expanded="false" aria-controls="help-menu">도움이 필요하세요?' +
+    '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button>';
+  document.body.appendChild(help);
+  var hb = help.querySelector(".help-btn"), hm = help.querySelector(".help-menu");
+  function setHelp(open) { hm.hidden = !open; hb.setAttribute("aria-expanded", String(open)); help.classList.toggle("open", open); }
+  hb.addEventListener("click", function () { setHelp(hm.hidden); });
+  document.addEventListener("click", function (e) { if (!help.contains(e.target)) setHelp(false); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") setHelp(false); });
+  hm.addEventListener("click", function (e) {
+    var a = e.target.closest("a");
+    if (!a) return;
+    setHelp(false);
+    // 같은 페이지 안의 추천인 확인으로 갈 때는 그 위치로 바로 이동합니다.
+    var href = a.getAttribute("href"), here = location.pathname.replace(/\/$/, "").split("/").pop() || "index";
+    if (href.indexOf("guides.html#") === 0 && /^guides/.test(here)) {
+      e.preventDefault();
+      var t = document.getElementById(href.split("#")[1]);
+      if (t) t.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+
   // 위에 고정되는 메뉴가 헤더 바로 아래에 붙도록 헤더 높이를 기록합니다.
   function setHdr() {
     var h = document.querySelector(".site-header");
