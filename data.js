@@ -153,7 +153,7 @@ var FAQ = [
       { label: "Bitget · KYC 해제 후 새 계정", href: "guides.html#bitget-change" },
       { label: "Bybit · KYC를 새 계정으로 이전", href: "guides.html#bybit-change" }
     ] },
-  { q: "멤버십 등급은 어떻게 바뀌나요?", a: "Basic·Trillion 등급은 가입한 멤버십(구독) 단계에 따라 정해집니다. VIP는 dodogas 추천으로 가입한 거래소 계정의 월 거래량 기준을 충족하고 인증하면 1달 동안 적용되며, 이후에는 거래량에 따라 자동으로 연장됩니다. 자세한 기준은 아래에서 확인하세요.",
+  { q: "멤버십 등급은 어떻게 바뀌나요?", a: "멤버십 등급은 구독 단계와 거래량 기준에 따라 정해집니다. 자세한 내용은 아래 VIP 레벨업 기준에서 확인하실 수 있습니다.",
     links: [
       { label: "VIP 레벨업 기준 보기", href: "vip.html" },
       { label: "멤버십별 게시판 보기", href: "membership.html" }
