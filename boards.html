@@ -55,7 +55,7 @@
 
   function card(b) {
     var has = b.summary || (b.usage && b.usage.length) || b.tip || b.img;
-    var chipText = TIERS[b.minTier] + " 이상";
+    var chipText = TIERS[b.minTier];
     var body = "";
     if (has) {
       if (b.summary) body += '<p class="b-summary">' + esc(b.summary) + '</p>';
