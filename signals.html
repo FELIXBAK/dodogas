@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>붐붐이·라인·지수 안내 | dodogas</title>
+<meta name="description" content="붐붐이 알림, 라인 차트, 지수 신호 게시판을 한곳에서 자세히 설명합니다.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%233f51d6%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2718%27 font-family=%27sans-serif%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27white%27%3Ed%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="signals">
+<main>
+  <div class="container">
+    <div class="page-head">
+      <p class="eyebrow">signals</p>
+      <h1>붐붐이 · 라인 · 지수 안내</h1>
+      <p class="lead">디스코드에서 올라오는 알림과 차트를 종류별로 나누어 설명합니다. 아래 목차로 원하는 부분으로 바로 이동하세요.</p>
+    </div>
+    <nav class="g-nav sg-nav" aria-label="목차">
+      <a href="#boomboom">붐붐이</a><a href="#line">라인</a><a href="#index">지수</a>
+    </nav>
+    <div id="sg"></div>
+    <section class="section">
+      <p class="callout">보는 방법과 해석 기준 등 자세한 내용은 계속 보강될 예정입니다. 궁금한 점은 <a href="support.html">고객센터</a>에서 편하게 문의해 주세요.</p>
+    </section>
+  </div>
+</main>
+<script src="data.js"></script>
+<script src="boards-data.js"></script>
+<script src="site.js"></script>
+<script>
+(function () {
+  var TIERS = ["Basic", "Trillion", "VIP"];
+  var SECTIONS = [
+    { id: "boomboom", title: "붐붐이", pick: function (b) { return /붐붐|BOOM-BOOM/i.test(b.name); },
+      intro: "붐붐이는 신호가 생길 때마다 디스코드 알림 카드로 올라옵니다. 카드 제목에 “LLLL 1”, “SSSS 2” 같은 문구가 표시됩니다. 텔레그램 “붐붐이 Lite”는 멤버십과 관계없이 전체 공개입니다.",
+      extra: '<a class="btn" href="' + esc((SERVICES.filter(function (s) { return s.name.indexOf("붐붐이 Lite") === 0; })[0] || {}).link || "#") + '" target="_blank" rel="noopener">텔레그램 붐붐이 Lite 열기</a>' },
+    { id: "line", title: "라인", pick: function (b) { return /^LINE/.test(b.group) && /_Line$|^Line-/.test(b.name) && !/free_chat/.test(b.name); },
+      intro: "운영자가 TradingView 차트에 라인을 직접 표시해 이미지로 올립니다. 올라오는 간격은 일정하지 않으며, 종목별(비트코인·알트코인·나스닥·금속·코스피200)로 게시판이 나뉘어 있습니다." },
+    { id: "index", title: "지수", pick: function (b) { return /_index$/.test(b.name); },
+      intro: "“L dodo 0”, “Pitched battle 0~3”처럼 짧은 문구로 지수 신호가 올라옵니다. 올라오는 간격은 일정하지 않습니다." }
+  ];
+  var html = SECTIONS.map(function (S) {
+    var items = BOARD_INFO.filter(S.pick);
+    var cards = items.map(function (b) {
+      return '<article class="sg-card"><div class="sg-top"><h3>' + esc(b.name) + '</h3><span class="sg-tier">' + TIERS[b.minTier] + ' 이상</span></div>' +
+        '<p>' + esc(b.summary) + '</p>' +
+        (b.img ? '<img class="sg-img" src="' + esc(b.img) + '" alt="' + esc(b.name) + ' 예시 화면" loading="lazy">' : '') +
+        '</article>';
+    }).join("");
+    return '<section class="section" id="' + S.id + '"><div class="section-head"><h2>' + S.title + '</h2></div>' +
+      '<p class="sg-intro">' + S.intro + '</p>' + (S.extra ? '<div class="actions" style="margin:0 0 14px">' + S.extra + '</div>' : '') +
+      '<div class="sg-grid">' + cards + '</div></section>';
+  }).join("");
+  document.getElementById("sg").innerHTML = html;
+  if (window.watchSticky) { try { watchSticky(document.querySelector(".sg-nav")); } catch (e) {} }
+})();
+</script>
+</body>
+</html>

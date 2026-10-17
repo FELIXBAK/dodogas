@@ -342,3 +342,15 @@ details p { margin: 0 0 14px; color: var(--muted); }
 .support-note { margin: 0 0 12px; color: var(--muted); }
 .g-link { align-self: flex-start; }
 .g-nav { gap: 6px; } .g-nav a { padding: 6px 11px; font-size: 13.5px; }
+
+/* 붐붐이·라인·지수 안내 */
+.sg-nav { margin-bottom: 18px; }
+.sg-intro { color: var(--muted); margin: 0 0 14px; line-height: 1.7; }
+.sg-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+.sg-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; min-width: 0; }
+.sg-card h3 { margin: 0; font-size: 16px; overflow-wrap: anywhere; }
+.sg-card p { margin: 8px 0 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
+.sg-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.sg-tier { font-size: 12px; font-weight: 600; color: var(--accent); background: var(--accent-soft); padding: 3px 9px; border-radius: 999px; }
+.sg-img { width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); margin-top: 12px; display: block; }
+@media (max-width: 640px) { .sg-grid { grid-template-columns: 1fr; } }

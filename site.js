@@ -17,6 +17,7 @@
     { id: "guides", href: "guides.html", label: "가입·KYC 가이드" },
     { id: "membership", href: "membership.html", label: "멤버십" },
     { id: "support", href: "support.html", label: "고객센터" },
+    { id: "signals", href: "signals.html", label: "시그널 안내" },
     { id: "events", href: "events.html", label: "이벤트·대회" }
   ];
   var current = document.body.getAttribute("data-page");
