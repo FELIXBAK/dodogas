@@ -15,7 +15,7 @@
     <div class="page-head">
       <p class="eyebrow">step by step</p>
       <h1>가입·KYC 가이드</h1>
-      <p class="lead">거래소를 고르면 회원가입부터 KYC 본인인증까지 순서대로 안내합니다. 추천인 코드를 꼭 넣어 가입하고, 반드시 본인 명의 정보로 진행하세요.</p>
+      <p class="lead">거래소를 고르고 STEP 순서대로 따라 하세요. 가입할 때 dodogas 추천인 코드가 들어갔는지 꼭 확인하고, 본인 명의 정보로 진행하세요.</p>
     </div>
     <div class="chips" id="chips" role="group" aria-label="거래소 선택"></div>
     <div id="guide" aria-live="polite"></div>
@@ -37,26 +37,65 @@
 
   function draw() {
     document.getElementById("chips").innerHTML = GUIDES.map(function (g, i) {
-      return '<button type="button" class="chip-btn" aria-pressed="' + (i === cur) + '" data-i="' + i + '">' + esc(g.name) + "</button>";
+      var ex = exOf(g.id);
+      return '<button type="button" class="chip-btn g-chip" aria-pressed="' + (i === cur) + '" data-i="' + i + '">' + (ex.icon ? '<img src="' + esc(ex.icon) + '" alt="" width="18" height="18">' : "") + esc(g.name) + "</button>";
     }).join("");
     var g = GUIDES[cur], ex = exOf(g.id), code = ex.code || "";
-    function fill(t) { return esc(t).replace(/\{CODE\}/g, "<strong>" + esc(code) + "</strong>"); }
-    var head = '<div class="g-head"><div><span class="g-label">' + esc(g.name) + ' 추천인 코드</span> ' +
-      '<button type="button" class="copy-code" data-code="' + esc(code) + '" title="클릭하면 복사됩니다"><span class="cp-text">' + esc(code) + "</span>" + ICO + "</button></div>" +
-      (ex.link ? '<a class="btn" href="' + esc(ex.link) + '" rel="noopener" target="_blank">가입 링크 열기</a>' : "") + "</div>";
+    function fill(t) {
+      return esc(t).replace(/\{CODE\}/g, '<strong class="g-code">' + esc(code) + "</strong>")
+        .replace(/\[([^\]\n]+)\]/g, '<span class="ui-btn">$1</span>');
+    }
+    var HAND = '<span class="ph-hand">👆</span>';
+    var FACE = '<svg viewBox="0 0 120 120" width="110" height="110"><circle cx="60" cy="60" r="54" fill="none" stroke="#2bd4c4" stroke-width="4" stroke-dasharray="10 6"/><circle cx="60" cy="52" r="22" fill="#f1c9a5"/><path d="M38 50c0-16 10-24 22-24s22 8 22 24c-4-8-12-12-22-12s-18 4-22 12z" fill="#2b2b2b"/><circle cx="52" cy="54" r="2.5" fill="#222"/><circle cx="68" cy="54" r="2.5" fill="#222"/><path d="M52 63q8 6 16 0" stroke="#222" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M26 104c6-18 20-26 34-26s28 8 34 26" fill="#3a4a5a"/></svg>';
+    var IDC = '<svg viewBox="0 0 160 100" width="170" height="106"><rect x="6" y="6" width="148" height="88" rx="8" fill="#eef2f6"/><rect x="16" y="20" width="38" height="48" rx="4" fill="#c9d3dd"/><circle cx="35" cy="38" r="9" fill="#8a99a8"/><path d="M21 66c3-10 9-14 14-14s11 4 14 14" fill="#8a99a8"/><rect x="64" y="22" width="76" height="8" rx="3" fill="#9aa8b6"/><rect x="64" y="38" width="60" height="6" rx="3" fill="#c0cad4"/><rect x="64" y="52" width="68" height="6" rx="3" fill="#c0cad4"/><rect x="16" y="76" width="124" height="6" rx="3" fill="#c0cad4"/><path d="M2 20V2h18M140 2h18v18M158 80v18h-18M20 98H2V80" stroke="#2bd4c4" stroke-width="4" fill="none"/></svg>';
+    function sub(v) { return esc(String(v).replace(/\{CODE\}/g, code)); }
+    function btn(t, hl) { return '<div class="ph-btn' + (hl ? " hl" : "") + '">' + sub(t) + (hl ? HAND : "") + "</div>"; }
+    function screen(s) {
+      var k = s.k || "form", body = "";
+      if (k === "tap") body = '<div class="ph-line"></div><div class="ph-line short"></div>' + btn(s.btn, true) + (s.alt ? '<div class="ph-btn ghost">' + sub(s.alt) + "</div>" : "");
+      else if (k === "form") {
+        var anyHl = (s.rows || []).some(function (r) { return r.hl; });
+        body = (s.rows || []).map(function (r) {
+          return '<div class="ph-row"><span>' + sub(r.l) + '</span><div class="ph-val' + (r.hl ? " hl" : "") + '">' + sub(r.v) + (r.hl ? HAND : "") + "</div></div>";
+        }).join("") + (s.btn ? btn(s.btn, !anyHl) : "");
+      }
+      else if (k === "otp") body = '<p class="ph-note">메일·문자로 받은 숫자 6자리</p><div class="ph-otp hl">' + [1, 2, 3, 4, 5, 6].map(function (n) { return "<b>" + n + "</b>"; }).join("") + HAND + "</div>" + (s.btn ? btn(s.btn) : "");
+      else if (k === "pw") body = '<div class="ph-row"><span>Password</span><div class="ph-val hl">●●●●●●●●' + HAND + '</div></div><ul class="ph-rules"><li>8자 이상</li><li>영문 대문자</li><li>숫자</li><li>특수문자</li></ul>' + btn(s.btn);
+      else if (k === "menu") body = '<ul class="ph-menu">' + s.items.map(function (x, i) { return '<li' + (i === s.hl ? ' class="hl"' : "") + ">" + sub(x) + "<i>›</i>" + (i === s.hl ? HAND : "") + "</li>"; }).join("") + "</ul>";
+      else if (k === "id") body = '<div class="ph-pic">' + IDC + (s.paper ? '<span class="ph-paper">' + sub(s.paper) + "</span>" : "") + '</div><p class="ph-note">앞면 → 뒷면 순서로 촬영</p>';
+      else if (k === "face") body = '<div class="ph-pic">' + FACE + '</div><p class="ph-note">모자·안경·마스크를 벗고 정면</p>';
+      else if (k === "done") body = '<div class="ph-pic"><span class="ph-ok">✓</span></div><p class="ph-note big">' + sub(s.title) + "</p>";
+      else if (k === "mail") body = '<div class="ph-row"><span>받는 사람</span><div class="ph-val hl">' + sub(s.to) + HAND + '</div></div><div class="ph-row"><span>제목</span><div class="ph-val">' + sub(s.subj) + "</div></div>" + (s.attach ? '<div class="ph-row"><span>첨부</span><div class="ph-val">📎 사진·캡처 파일</div></div>' : "");
+      else if (k === "check") body = '<ul class="ph-menu check">' + s.items.map(function (x) { return "<li><i>✓</i>" + sub(x) + "</li>"; }).join("") + "</ul>";
+      return '<div class="phone" role="img" aria-label="' + esc((s.title || "") + " 화면 예시") + '"><div class="ph-title">' + (k === "mail" ? "새 메일" : k === "done" ? "완료" : sub(s.title || "")) + "</div>" + body + "</div>";
+    }
+    var head = '<div class="g-head"><div class="g-ex">' + (ex.icon ? '<img src="' + esc(ex.icon) + '" alt="" width="40" height="40">' : "") +
+      '<div><strong>' + esc(g.name) + '</strong><span>' + esc(ex.benefit || "") + '</span></div></div>' +
+      '<div class="g-act"><span class="g-label">추천인 코드</span><button type="button" class="copy-code" data-code="' + esc(code) + '" title="클릭하면 복사됩니다"><span class="cp-text">' + esc(code) + "</span>" + ICO + "</button>" +
+      (ex.link ? '<a class="btn" href="' + esc(ex.link) + '" rel="noopener" target="_blank">가입 링크 열기</a>' : "") + "</div></div>";
+    var nav = '<nav class="g-nav" aria-label="가이드 목차">' + g.sections.map(function (s, i) {
+      return '<a href="#g-' + esc(s.id) + '"><b>' + (i + 1) + "</b>" + esc(s.title.replace(/^이미 가입했다면: /, "가입했다면 · ")) + "</a>";
+    }).join("") + "</nav>";
     var body = g.sections.map(function (s) {
-      return '<section class="g-sec"><h2>' + esc(s.title) + "</h2>" +
-        (s.intro ? '<p class="g-intro">' + fill(s.intro) + "</p>" : "") +
-        (s.warn ? '<p class="g-warn">⚠ ' + fill(s.warn) + "</p>" : "") +
-        '<ol class="steps">' + s.steps.map(function (t) {
-          return "<li><h3>" + esc(t.title) + "</h3><p>" + fill(t.text) + "</p>" + (t.warn ? '<p class="g-warn">⚠ ' + fill(t.warn) + "</p>" : "") + "</li>";
+      return '<section class="g-sec" id="g-' + esc(s.id) + '"><div class="g-sec-head"><h2>' + esc(s.title) + "</h2>" + (s.time ? '<span class="g-time">' + esc(s.time) + "</span>" : "") + "</div>" +
+        (s.warn ? '<p class="g-warn"><b>!</b><span>' + fill(s.warn) + "</span></p>" : "") +
+        '<ol class="g-steps">' + s.steps.map(function (t, i) {
+          var n = i + 1 < 10 ? "0" + (i + 1) : String(i + 1);
+          var cp = t.copy ? t.copy.replace(/\{CODE\}/g, code) : "";
+          return '<li class="g-step"><span class="g-badge">STEP ' + n + "</span><h3>" + esc(t.title) + "</h3>" +
+            (t.screen ? screen(t.screen) : "") +
+            '<ul class="g-do">' + t.do.map(function (x) { return "<li>" + fill(x) + "</li>"; }).join("") + "</ul>" +
+            (t.copy ? '<div class="g-copy"><pre>' + esc(cp) + '</pre><button type="button" class="copy-code" data-code="' + esc(cp) + '" data-label="내용 복사"><span class="cp-text">내용 복사</span>' + ICO + "</button></div>" : "") +
+            (t.tip ? '<p class="g-tip"><b>TIP</b><span>' + fill(t.tip) + "</span></p>" : "") +
+            (t.warn ? '<p class="g-warn"><b>!</b><span>' + fill(t.warn) + "</span></p>" : "") + "</li>";
         }).join("") + "</ol></section>";
     }).join("");
-    document.getElementById("guide").innerHTML = head + body;
+    var tail = '<div class="card cta-card g-next"><div><h3>가입과 KYC를 마쳤다면</h3><p>추천 가입 계정은 거래량에 따라 VIP 권한을 받을 수 있습니다.</p></div><a class="btn" href="vip.html">VIP 기준 보기 →</a></div>';
+    document.getElementById("guide").innerHTML = head + nav + body + tail;
   }
   document.getElementById("chips").addEventListener("click", function (ev) {
     var b = ev.target.closest(".chip-btn");
-    if (b) { cur = Number(b.getAttribute("data-i")); draw(); }
+    if (b) { cur = Number(b.getAttribute("data-i")); draw(); try { history.replaceState(null, "", "#" + GUIDES[cur].id); } catch (e) {} }
   });
 
   function copyText(t) {
@@ -76,7 +115,7 @@
     var b = e.target.closest(".copy-code");
     if (!b) return;
     var code = b.getAttribute("data-code"), txt = b.querySelector(".cp-text");
-    function reset() { txt.textContent = code; b.classList.remove("copied"); b.querySelector(".cp-ico").outerHTML = ICO; }
+    function reset() { txt.textContent = b.getAttribute("data-label") || code; b.classList.remove("copied"); b.querySelector(".cp-ico").outerHTML = ICO; }
     copyText(code).then(function () {
       txt.textContent = "복사됨"; b.classList.add("copied"); b.querySelector(".cp-ico").outerHTML = CHECK;
     }, function () { txt.textContent = "길게 눌러 복사"; }).then(function () { setTimeout(reset, 1500); });
