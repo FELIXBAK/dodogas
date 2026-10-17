@@ -17,11 +17,11 @@ var SERVICES = [
 
 // 거래소 혜택 비교 (홈 화면 표). icon에 로고 이미지 경로(예: "img/ex/binance.png")를 넣으면 글자 아이콘 대신 로고가 보입니다. 혜택·추천인 코드는 실제 값으로 채워 주세요.
 var EXCHANGES = [
-  { id: "binance", name: "Binance", benefit: "수수료 20% 할인", code: "361097924", link: "https://accounts.binance.com/register?ref=361097924" },
-  { id: "okx",     name: "OKX",     benefit: "수수료 20% 페이백", code: "67654160", link: "https://okx.com/join/67654160" },
-  { id: "bybit",   name: "Bybit",   benefit: "수수료 20% 할인", code: "37560", link: "https://partner.bybit.com/b/37560" },
-  { id: "bitget",  name: "Bitget",  benefit: "수수료 50% 할인", code: "wfx8", link: "https://www.bitget.com/en-GB/expressly?channelCode=ff1k&vipCode=wfx8&languageType=3" },
-  { id: "tethermax", name: "TetherMax", benefit: "최대 90% 환급 (홈페이지 확인)", code: "3032", link: "https://tethermax.io/ko/signup?inviteCode=3032" }
+  { id: "binance", icon: "img/ex/binance.png", name: "Binance", benefit: "수수료 20% 할인", code: "361097924", link: "https://accounts.binance.com/register?ref=361097924" },
+  { id: "okx", icon: "img/ex/okx.png",     name: "OKX",     benefit: "수수료 20% 페이백", code: "67654160", link: "https://okx.com/join/67654160" },
+  { id: "bybit", icon: "img/ex/bybit.png",   name: "Bybit",   benefit: "수수료 20% 할인", code: "37560", link: "https://partner.bybit.com/b/37560" },
+  { id: "bitget", icon: "img/ex/bitget.png",  name: "Bitget",  benefit: "수수료 50% 할인", code: "wfx8", link: "https://www.bitget.com/en-GB/expressly?channelCode=ff1k&vipCode=wfx8&languageType=3" },
+  { id: "tethermax", icon: "img/ex/tethermax.png", name: "TetherMax", benefit: "최대 90% 환급 (홈페이지 확인)", code: "3032", link: "https://tethermax.io/ko/signup?inviteCode=3032" }
 ];
 
 // 이벤트·대회. start/end는 YYYY-MM-DD, end가 오늘보다 앞서면 자동으로 "종료" 처리됩니다.
