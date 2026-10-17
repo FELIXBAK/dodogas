@@ -71,7 +71,7 @@ var GUIDES = [
     ]},
     { "id":"refchange","title":"이미 가입했다면: 추천인 코드 변경 신청","warn":"계정을 삭제하지 않고 추천인 코드만 바꿀 수 있는 방법입니다. 아래 조건 중 하나만 충족해도 변경이 허용되니, 계정 삭제보다 먼저 확인하세요.", "steps": [
       {"title":"변경 가능 조건 확인","do":["가입 후 7일 이내","가입 후 7~30일, 총 거래량 ≤ 400,000","가입 후 30~90일, 총 거래량 ≤ 500,000","가입 후 90일 초과, 최근 90일 거래량 ≤ 5,000,000"],"tip":"4가지 중 하나만 충족하면 됩니다. 해당하지 않으면 아래 '계정 삭제 후 재가입'으로 진행하세요."},
-      {"title":"변경 신청 페이지 열기","do":["OKX에 로그인한 상태에서 아래 버튼으로 초대코드 변경 페이지를 엽니다."],"link":{"label":"OKX 초대코드 변경 페이지 열기","href":"https://www.okx.com/ul/J6l2R5"}},
+      {"title":"변경 신청 페이지 열기","do":["OKX에 로그인한 상태에서 아래 버튼으로 신청 페이지를 엽니다. 코드는 자동 입력되지 않으며, 신청 후 OKX 검토를 거쳐 승인됩니다."],"link":{"label":"OKX 초대코드 변경 페이지 열기","href":"https://www.okx.com/bind-channel"}},
       {"title":"초대코드·사유 입력","do":["Invite Code 칸에 {CODE}를 입력합니다.","Reason for joining 칸에 변경 사유를 영어로 입력합니다."],"copy":"Change referral code","screen":{"k":"form","title":"Change invite code","rows":[{"l":"Invite Code","v":"{CODE}","hl":true},{"l":"Reason for joining","v":"Change referral code"}],"btn":"Submit"}},
       {"title":"적용 확인","do":["처리가 끝나면 위의 '추천인 적용 확인' 순서대로 Invite perks에서 {CODE}가 보이는지 확인합니다."],"tip":"자산 이동과 계정 탈퇴·KYC 변경 전에는 거래소의 최신 정책을 다시 확인해 주세요."}
     ]},
