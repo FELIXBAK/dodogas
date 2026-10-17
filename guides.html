@@ -15,10 +15,16 @@
     <div class="page-head">
       <p class="eyebrow">step by step</p>
       <h1>가입·KYC 가이드</h1>
-      <p class="lead">거래소를 고르고 STEP 순서대로 따라 하세요. 가입할 때 dodogas 추천인 코드가 들어갔는지 꼭 확인하고, 본인 명의 정보로 진행하세요.</p>
+      <p class="lead">거래소를 고르고 STEP 순서대로 따라 하세요. 가입할 때 dodogas 추천인 코드가 들어갔는지 꼭 확인하고, 본인 명의 정보로 진행하세요. 이미 가입했다면 <a href="#referral-check">내 추천인 적용 확인 방법</a>을 먼저 보세요.</p>
     </div>
     <div class="chips" id="chips" role="group" aria-label="거래소 선택"></div>
     <div id="guide" aria-live="polite"></div>
+    <section class="section rc" id="referral-check">
+      <p class="eyebrow">referral check</p>
+      <h2>내 추천인 적용 확인 방법</h2>
+      <p class="lead">가입할 때 dodogas 추천인이 제대로 적용됐는지 확인하는 방법입니다.</p>
+      <div class="rc-list" id="rc-list"></div>
+    </section>
   </div>
 </main>
 <script src="data.js"></script>
@@ -120,6 +126,21 @@
       txt.textContent = "복사됨"; b.classList.add("copied"); b.querySelector(".cp-ico").outerHTML = CHECK;
     }, function () { txt.textContent = "길게 눌러 복사"; }).then(function () { setTimeout(reset, 1500); });
   });
+  // 내 추천인 적용 확인
+  (function () {
+    var dc = (SITE.contacts || {}).discord;
+    document.getElementById("rc-list").innerHTML = REFCHECK.map(function (r, i) {
+      var ex = exOf(r.id), code = ex.code || "";
+      function f(t) { return esc(t).replace(/\{CODE\}/g, '<strong class="g-code">' + esc(code) + "</strong>"); }
+      return '<details class="rc-item"' + (i === 0 ? " open" : "") + '><summary>' +
+        (ex.icon ? '<img src="' + esc(ex.icon) + '" alt="" width="40" height="40">' : "") +
+        '<span class="rc-name"><strong>' + esc(ex.name || r.id) + '</strong><small>' + (r.steps ? "직접 확인 가능" : "고객센터 확인") + "</small></span>" +
+        '<span class="rc-sum">' + esc(r.summary) + '</span><span class="rc-tg" aria-hidden="true"></span></summary><div class="rc-body">' +
+        (r.steps ? '<ol class="rc-steps">' + r.steps.map(function (s) { return "<li>" + f(s) + "</li>"; }).join("") + "</ol>" : "") +
+        (r.note ? '<p class="rc-note">' + f(r.note) + "</p>" : "") +
+        (dc ? '<a class="btn" href="' + esc(dc) + '" target="_blank" rel="noopener">디스코드 1:1 문의</a>' : "") + "</div></details>";
+    }).join("");
+  })();
   draw();
 })();
 </script>

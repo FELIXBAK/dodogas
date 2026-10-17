@@ -126,6 +126,15 @@ var GUIDES = [
   ]}
 ];
 
+// 내 추천인 적용 확인 방법 (가입·KYC 가이드 페이지 아래). steps가 없으면 고객센터 문의로 안내합니다.
+var REFCHECK = [
+  { id: "okx", summary: "OKX 앱의 Invite perks에서 직접 확인할 수 있습니다.", steps: ["OKX 앱 메인 화면 왼쪽 위의 9개 점 메뉴를 누릅니다.", "Account settings(계정 설정)로 들어갑니다.", "Account information에서 Invite perks를 누릅니다.", "Invite code에 표시된 추천인 코드를 확인합니다."], note: "Invite code가 {CODE}로 보이면 dodogas 추천인이 적용된 계정입니다. 앱 버전에 따라 메뉴 이름이나 위치가 조금 다를 수 있습니다." },
+  { id: "bybit", summary: "Bybit Account Info에서 등록된 Affiliate Code를 확인할 수 있습니다.", steps: ["Bybit에 로그인합니다.", "프로필 → Account 페이지로 이동합니다.", "Account Info 탭에서 등록된 Affiliate Code 항목을 선택합니다.", "표시되는 Affiliate ID를 확인합니다."], note: "파트너의 개인정보 설정에 따라 Affiliate ID가 보이지 않을 수 있습니다. 코드가 보이지 않거나 판단이 어려우면 고객센터로 문의해 주세요." },
+  { id: "binance", summary: "Binance 추천인 적용 여부는 dodogas 고객센터에서 확인해 드립니다.", note: "직접 확인하는 경로가 확인되지 않아 고객센터에서 확인을 도와드립니다." },
+  { id: "bitget", summary: "Bitget 추천인 적용 여부는 dodogas 고객센터에서 확인해 드립니다.", note: "직접 확인하는 경로가 확인되지 않아 고객센터에서 확인을 도와드립니다." },
+  { id: "tethermax", summary: "TetherMax 추천인 적용 여부는 dodogas 고객센터에서 확인해 드립니다.", note: "직접 확인하는 경로가 확인되지 않아 고객센터에서 확인을 도와드립니다." }
+];
+
 // 자주 묻는 질문
 var FAQ = [
   { q: "페이백은 언제 들어오나요?", a: "거래소마다 지급 시점이 다릅니다. 실제 지급 시간표를 여기에 적어 주세요." },
