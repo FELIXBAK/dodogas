@@ -22,8 +22,10 @@
       <p class="callout">텔레그램 <strong>붐붐이 Lite</strong>는 멤버십 단계와 관계없이 전체공개로 제공하고 있습니다.</p>
     </div>
     <div class="wrap-m">
-      <div class="tabs" role="tablist" aria-label="멤버십 단계" id="tabs"></div>
-      <section class="panel" id="panel" role="tabpanel" aria-live="polite"></section>
+      <div class="tier-block">
+        <div class="tabs" role="tablist" aria-label="멤버십 단계" id="tabs"></div>
+        <section class="panel" id="panel" role="tabpanel" aria-live="polite"></section>
+      </div>
       <section class="matrix-wrap">
         <h2>전체 비교표</h2>
         <div class="scroll"><table id="matrix"></table></div>
@@ -235,6 +237,17 @@ document.getElementById("tabs").addEventListener("keydown", function (e) {
 
 select(current, false);
 watchSticky(document.getElementById("tabs"));
+// 비교표 머리줄이 위에 붙으면 그림자를 보여 줍니다.
+(function () {
+  function on() {
+    var head = document.querySelector("#matrix thead"), th = head && head.querySelector("th");
+    if (!th) return;
+    var top = parseFloat(getComputedStyle(th).top) || 0, tb = document.querySelector("#matrix tbody");
+    head.classList.toggle("stuck", th.getBoundingClientRect().top <= top + 0.5 && tb.getBoundingClientRect().top < th.getBoundingClientRect().bottom + 2);
+  }
+  window.addEventListener("scroll", on, { passive: true });
+  window.addEventListener("resize", on);
+})();
 </script>
 </body>
 </html>

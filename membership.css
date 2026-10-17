@@ -143,3 +143,10 @@ tbody th.grp { background: var(--lock-soft); }
   .wrap-m .scroll thead th:not(:first-child) { width: 50px; }
   .wrap-m .scroll thead th { font-size: 11px; }
 }
+
+/* 단계 선택은 게시판 목록까지만 고정되고, 비교표로 내려가면 비교표 머리줄이 고정됩니다 */
+.tier-block { display: flex; flex-direction: column; gap: 28px; }
+.matrix-wrap .scroll { overflow: clip; }
+#matrix thead th { position: sticky; top: var(--hdr-h); z-index: 5; background: var(--surface); box-shadow: inset 0 -1px 0 var(--line); }
+#matrix thead th.cur { background: var(--accent-soft); }
+#matrix thead.stuck th { box-shadow: inset 0 -1px 0 var(--line), 0 8px 10px -8px rgba(0, 0, 0, .3); }
