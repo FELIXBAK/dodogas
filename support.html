@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>고객센터 | dodogas</title>
+<meta name="description" content="거래소 혜택, 이벤트, 가입 가이드, 멤버십 안내를 한곳에서 확인하세요.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%233f51d6%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2718%27 font-family=%27sans-serif%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27white%27%3Ed%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="support">
+<main>
+  <div class="container">
+    <div class="page-head">
+      <p class="eyebrow">support</p>
+      <h1>고객센터</h1>
+      <p class="lead">자주 묻는 질문을 먼저 확인해 보시고, 해결되지 않으면 1:1로 문의해 주세요.</p>
+    </div>
+
+    <section class="section">
+      <div class="section-head"><h2>자주 묻는 질문<span id="flag"></span></h2></div>
+      <div id="faq"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>1:1 문의</h2></div>
+      <div class="actions" id="contacts" style="margin-top:0"></div>
+    </section>
+  </div>
+</main>
+<script src="data.js"></script>
+<script src="site.js"></script>
+<script>
+(function () {
+  document.getElementById("flag").innerHTML = sampleFlag();
+  document.getElementById("faq").innerHTML = FAQ.map(function (f) {
+    return "<details><summary>" + esc(f.q) + "</summary><p>" + esc(f.a) + "</p></details>";
+  }).join("");
+  var labels = { kakao: "카카오톡", telegram: "텔레그램", discord: "디스코드", youtube: "유튜브" };
+  document.getElementById("contacts").innerHTML = Object.keys(labels).map(function (k) {
+    var url = SITE.contacts[k];
+    return url
+      ? '<a class="btn" href="' + esc(url) + '" target="_blank" rel="noopener">' + labels[k] + "</a>"
+      : '<span class="btn ghost" aria-disabled="true">' + labels[k] + " 준비 중</span>";
+  }).join("");
+})();
+</script>
+</body>
+</html>

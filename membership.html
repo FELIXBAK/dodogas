@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>멤버십 게시판 안내 | dodogas</title>
+<meta name="description" content="거래소 혜택, 이벤트, 가입 가이드, 멤버십 안내를 한곳에서 확인하세요.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%233f51d6%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2718%27 font-family=%27sans-serif%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27white%27%3Ed%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet" href="membership.css">
+</head>
+<body data-page="membership">
+<main>
+  <div class="container">
+    <div class="page-head">
+      <p class="eyebrow">membership</p>
+      <h1>멤버십별 게시판 안내</h1>
+      <p class="lead">가입한 멤버십 단계에 따라 디스코드에서 볼 수 있는 게시판이 다릅니다. 내 단계를 골라 열람 가능한 게시판을 확인하세요.</p>
+    </div>
+    <div class="wrap-m">
+      <div class="tabs" role="tablist" aria-label="멤버십 단계" id="tabs"></div>
+      <section class="panel" id="panel" role="tabpanel" aria-live="polite"></section>
+      <section class="matrix-wrap">
+        <h2>전체 비교표</h2>
+        <div class="scroll"><table id="matrix"></table></div>
+      </section>
+      <p class="note">게시판 이름과 열람 범위는 2026년 10월 17일 기준 디스코드 화면을 따랐습니다.</p>
+    </div>
+  </div>
+</main>
+<script src="site.js"></script>
+<script>
+// 단계 정보. known이 true인 단계만 열람 범위가 확정된 상태입니다.
+var TIERS = [
+  { name: "Basic", sub: "기본 (Million, Billion)", known: true },
+  { name: "Trillion", sub: "트릴리언", known: true },
+  { name: "VIP", sub: "VIP 멤버", known: true }
+];
+// 게시판 목록(VIP 화면 기준). minTier는 열람 가능한 최저 단계(0=Basic, 1=Trillion, 2=VIP)입니다.
+var BOARDS = [
+
+  { group: "Archive - BTC", icon: "💬", name: "붐붐이-m1-테스트", minTier: 1 },
+  { group: "Archive - BTC", icon: "💬", name: "붐붐이-보조1-테스트", minTier: 2 },
+  { group: "Archive - BTC", icon: "💬", name: "붐붐이-보조2-테스트", minTier: 2 },
+  { group: "Archive - BTC", icon: "💬", name: "붐붐이-보조3-테스트", minTier: 2 },
+  { group: "Archive - BTC", icon: "⏰", name: "BOOM-BOOM-Alert", minTier: 1 },
+  { group: "Archive - BTC", icon: "📊", name: "BTC_Liquidation_map", minTier: 0 },
+  { group: "Archive - BTC", icon: "🔥", name: "BTC_hit_map_KF", minTier: 0 },
+  { group: "Archive - BTC", icon: "📚", name: "BTC_hit_map_CG", minTier: 0 },
+  { group: "Archive - BTC", icon: "", name: "DODO_index", minTier: 2 },
+  { group: "Archive - BTC", icon: "🧨", name: "High_Leverage_Frenzy_index", minTier: 2 },
+
+  { group: "Archive - Altcoins", icon: "📊", name: "ETH_Liquidation_map", minTier: 0 },
+  { group: "Archive - Altcoins", icon: "🔥", name: "ETH_hit_map", minTier: 0 },
+  { group: "Archive - Altcoins", icon: "📚", name: "ETH_hit_map_CG", minTier: 0 },
+  { group: "Archive - Altcoins", icon: "📊", name: "XRP_Liquidation_map", minTier: 0 },
+  { group: "Archive - Altcoins", icon: "🔥", name: "XRP_hit_map", minTier: 0 },
+  { group: "Archive - Altcoins", icon: "📊", name: "SOL_Liquidation_map", minTier: 0 },
+  { group: "Archive - Altcoins", icon: "🔥", name: "SOL_hit_map", minTier: 0 },
+  { group: "Archive - Altcoins", icon: "📊", name: "ALT_Liquidation_map", minTier: 0 },
+
+  { group: "LINE - BTC, Crypto.", icon: "⛔", name: "BOOST-PHASE_Line", minTier: 2 },
+  { group: "LINE - BTC, Crypto.", icon: "🀄", name: "MID-COURSE_Line", minTier: 1 },
+  { group: "LINE - BTC, Crypto.", icon: "🚀", name: "APOCALYPTIC_Line", minTier: 1 },
+  { group: "LINE - BTC, Crypto.", icon: "💠", name: "Line-altcoins", minTier: 1 },
+  { group: "LINE - BTC, Crypto.", icon: "💬", name: "Line-free_chat", minTier: 0 },
+  { group: "LINE - BTC, Crypto.", icon: "💬", name: "altcoins-request", minTier: 1 },
+
+  { group: "LINE - NASDAQ, etc.", icon: "💠", name: "Line-NASDAQ", minTier: 1 },
+  { group: "LINE - NASDAQ, etc.", icon: "🥇", name: "Line-METALS", minTier: 1 },
+  { group: "LINE - NASDAQ, etc.", icon: "💠", name: "Line-KOSPI-200", minTier: 1 },
+
+  { group: "Laboratory (non public)", icon: "📊", name: "gex-BTC", minTier: 0 },
+  { group: "Laboratory (non public)", icon: "📊", name: "gex-ETH", minTier: 0 },
+
+
+];
+
+var current = 2;
+try {
+  var h = location.hash.replace("#", "");
+  var m = /^t([0-2])$/.exec(h);
+  if (m) current = Number(m[1]);
+} catch (e) {}
+
+function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+function dotsHtml(level) {
+  var s = '<span class="dots" aria-hidden="true">';
+  for (var i = 0; i < TIERS.length; i++) s += '<i' + (i <= level ? ' class="on"' : '') + '></i>';
+  return s + '</span>';
+}
+
+function groupsOf() {
+  var groups = [];
+  BOARDS.forEach(function (b) { if (groups.indexOf(b.group) < 0) groups.push(b.group); });
+  return groups;
+}
+
+function renderTabs() {
+  var el = document.getElementById("tabs");
+  el.innerHTML = TIERS.map(function (t, i) {
+    return '<button class="tab" role="tab" id="tab-' + i + '" aria-selected="' + (i === current) + '" aria-controls="panel" tabindex="' + (i === current ? 0 : -1) + '" data-i="' + i + '">' +
+      dotsHtml(i) + '<span class="name">' + esc(t.name) + '</span><span class="sub">' + esc(t.sub) + '</span></button>';
+  }).join("");
+}
+
+function renderPanel() {
+  var known = TIERS[current].known;
+  var openCount = BOARDS.filter(function (b) { return b.minTier <= current; }).length;
+  var html = '<div class="panel-head"><h2>' + esc(TIERS[current].name) + ' 단계</h2>';
+
+  if (known) {
+    html += '<p class="count">전체 ' + BOARDS.length + '개 중 <strong>' + openCount + '개</strong> 게시판을 볼 수 있습니다.</p>' +
+      '<div class="meter" aria-hidden="true">' + BOARDS.map(function (b) { return '<i' + (b.minTier <= current ? ' class="on"' : '') + '></i>'; }).join("") + '</div>';
+  } else {
+    html += '<p class="notice">이 단계에서 열리는 게시판은 아직 확정되지 않았습니다. 아래는 VIP 단계 기준 전체 목록입니다.</p>';
+  }
+  html += '</div>';
+
+  groupsOf().forEach(function (g) {
+    var items = BOARDS.filter(function (b) { return b.group === g; });
+    html += '<div class="group"><h3>' + esc(g) + '<span class="n">' + items.length + '</span></h3><ul class="boards">';
+    items.forEach(function (b) {
+      var state = !known ? 'pending' : (b.minTier <= current ? 'open' : 'locked');
+      var chip = state === 'open' ? '열람 가능' : state === 'locked' ? esc(TIERS[b.minTier].name) + '부터' : '확인 중';
+      html += '<li class="board ' + state + '">' +
+        '<span class="title"><span class="hash">#</span><span class="ico">' + esc(b.icon || "") + '</span><span class="bname">' + esc(b.name) + '</span></span>' +
+        '<span class="chip">' + chip + '</span></li>';
+    });
+    html += '</ul></div>';
+  });
+  document.getElementById("panel").innerHTML = html;
+  document.getElementById("panel").setAttribute("aria-labelledby", "tab-" + current);
+}
+
+function renderMatrix() {
+  var head = '<thead><tr><th scope="col" style="text-align:left">게시판</th>' + TIERS.map(function (t, i) {
+    return '<th scope="col" class="' + (i === current ? 'cur' : '') + '">' + esc(t.name) + '</th>';
+  }).join("") + '</tr></thead>';
+  var body = '<tbody>';
+  groupsOf().forEach(function (g) {
+    body += '<tr><th class="grp" colspan="' + (TIERS.length + 1) + '">' + esc(g) + '</th></tr>';
+    BOARDS.filter(function (b) { return b.group === g; }).forEach(function (b) {
+      body += '<tr><th scope="row"><span class="hash">#</span>' + esc(b.name) + '</th>' + TIERS.map(function (t, i) {
+        var cell;
+        if (!t.known) cell = '<span class="no" aria-label="미확인">?</span>';
+        else if (b.minTier <= i) cell = '<span class="yes" aria-label="열람 가능">✓</span>';
+        else cell = '<span class="no" aria-label="열람 불가">–</span>';
+        return '<td class="' + (i === current ? 'cur' : '') + '">' + cell + '</td>';
+      }).join("") + '</tr>';
+    });
+  });
+  body += '</tbody>';
+  document.getElementById("matrix").innerHTML = head + body;
+}
+
+function select(i, focus) {
+  current = i;
+  renderTabs(); renderPanel(); renderMatrix();
+  if (focus) document.getElementById("tab-" + i).focus();
+}
+
+document.getElementById("tabs").addEventListener("click", function (e) {
+  var b = e.target.closest(".tab");
+  if (b) select(Number(b.getAttribute("data-i")), false);
+});
+document.getElementById("tabs").addEventListener("keydown", function (e) {
+  var d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+  if (!d) return;
+  e.preventDefault();
+  select((current + d + TIERS.length) % TIERS.length, true);
+});
+
+select(current, false);
+</script>
+</body>
+</html>
