@@ -27,7 +27,7 @@ var EXCHANGES = [
 
 // 이벤트·대회. start/end는 YYYY-MM-DD, end가 오늘보다 앞서면 자동으로 "종료" 처리됩니다.
 var EVENTS = [
-  // 예시: { exchange: "Binance", title: "이벤트 이름", tag: "대회", start: "2026-11-01", end: "2026-11-30", desc: "참여 조건과 혜택", link: "https://..." },
+  // 예시: { exchange: "OKX", title: "이벤트 이름", tag: "대회", start: "2026-11-01", end: "2026-11-30", desc: "참여 조건과 혜택", link: "https://..." },
 ];
 
 // 가입·KYC 가이드. 문구 안의 {CODE}는 해당 거래소 추천인 코드로, [버튼] 은 버튼 모양으로 바뀝니다.
@@ -148,3 +148,14 @@ var FAQ = [
   { q: "이미 가입한 계정도 혜택을 받을 수 있나요?", a: "가능 여부와 방법을 여기에 적어 주세요." },
   { q: "멤버십 등급은 어떻게 바뀌나요?", a: "등급 기준과 변경 방법을 여기에 적어 주세요." }
 ];
+
+// 한국어 사이트에서 숨길 거래소. 데이터는 지우지 않고 ALL_* 에 그대로 남겨 두었다가
+// 나중에 외국어 페이지에서 다시 씁니다. 다시 보이게 하려면 목록에서 빼면 됩니다.
+var HIDDEN_EXCHANGES = ["binance"];
+var ALL_EXCHANGES = EXCHANGES, ALL_GUIDES = GUIDES, ALL_REFCHECK = REFCHECK;
+(function () {
+  function keep(x) { return HIDDEN_EXCHANGES.indexOf(x.id) < 0; }
+  EXCHANGES = EXCHANGES.filter(keep);
+  GUIDES = GUIDES.filter(keep);
+  REFCHECK = REFCHECK.filter(keep);
+})();
