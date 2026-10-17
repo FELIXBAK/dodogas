@@ -2,97 +2,12 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>게시판 안내·활용법 | dodogas</title>
-<meta name="description" content="게시판별 설명과 활용 방법을 자세히 안내합니다.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%233f51d6%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2718%27 font-family=%27sans-serif%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27white%27%3Ed%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="boards.css">
+<title>멤버십 게시판 안내 | dodogas</title>
+<meta http-equiv="refresh" content="0; url=membership.html">
+<link rel="canonical" href="membership.html">
+<script>location.replace("membership.html" + location.hash);</script>
 </head>
-<body data-page="boards">
-<main>
-  <div class="container">
-    <div class="page-head">
-      <p class="eyebrow">board guide</p>
-      <h1>게시판 안내·활용법</h1>
-      <p class="lead">게시판마다 어떤 내용이 올라오는지, 어떻게 활용하면 좋은지 안내합니다. 열람 가능한 단계는 <a href="membership.html">멤버십 페이지</a>에서 한눈에 비교할 수 있습니다.</p>
-    </div>
-
-    <div class="filters">
-      <div class="filter-row">
-        <span class="filter-label">분류</span>
-        <div class="chips" id="group-chips" role="group" aria-label="게시판 분류"></div>
-      </div>
-    </div>
-
-    <div id="list" aria-live="polite"></div>
-  </div>
-</main>
-<script src="boards-data.js"></script>
-<script src="site.js"></script>
-<script>
-(function () {
-  var TIERS = ["Basic", "Trillion", "VIP"];
-  var group = "전체";
-
-  var groups = ["전체"];
-  BOARD_INFO.forEach(function (b) { if (groups.indexOf(b.group) < 0) groups.push(b.group); });
-
-  // 주소 끝의 #게시판이름 으로 바로 열기
-  var openName = "";
-  try { openName = decodeURIComponent(location.hash.replace("#", "")); } catch (e) {}
-  if (openName) BOARD_INFO.forEach(function (b) { if (b.name === openName) group = "전체"; });
-
-  function chip(label, pressed, attr) {
-    return '<button type="button" class="chip-btn" aria-pressed="' + pressed + '" ' + attr + '>' + esc(label) + '</button>';
-  }
-
-  function drawFilters() {
-    document.getElementById("group-chips").innerHTML =
-      groups.map(function (g) { return chip(g, group === g, 'data-group="' + esc(g) + '"'); }).join("");
-  }
-
-  function card(b) {
-    var has = b.summary || (b.usage && b.usage.length) || b.tip || b.img;
-    var chipText = TIERS[b.minTier];
-    var body = "";
-    if (has) {
-      if (b.summary) body += '<p class="b-summary">' + esc(b.summary) + '</p>';
-      if (b.usage && b.usage.length) {
-        body += '<h4>이렇게 활용하세요</h4><ol class="b-usage">' + b.usage.map(function (u) { return "<li>" + esc(u) + "</li>"; }).join("") + "</ol>";
-      }
-      if (b.img) body += '<img class="b-img" src="' + esc(b.img) + '" alt="' + esc(b.name) + ' 활용 예시" loading="lazy">';
-      if (b.tip) body += '<p class="b-tip"><strong>참고</strong> ' + esc(b.tip) + '</p>';
-    } else {
-      body = '<p class="b-empty">상세 안내 준비 중입니다.</p>';
-    }
-    return '<details class="bcard" id="' + esc(b.name) + '"' + (b.name === openName ? " open" : "") + '>' +
-      '<summary><span class="b-title"><span class="ico">' + esc(b.icon || "") + '</span><span class="b-name">' + esc(b.name) + '</span></span>' +
-      '<span class="b-chip">' + chipText + '</span></summary>' +
-      '<div class="b-body">' + body + '</div></details>';
-  }
-
-  function drawList() {
-    var html = "";
-    groups.slice(1).forEach(function (g) {
-      if (group !== "전체" && group !== g) return;
-      var items = BOARD_INFO.filter(function (b) { return b.group === g; });
-      html += '<section class="bgroup"><h2>' + esc(g) + '<span class="n">' + items.length + '</span></h2>' + items.map(card).join("") + "</section>";
-    });
-    document.getElementById("list").innerHTML = html;
-  }
-
-  function draw() { drawFilters(); drawList(); }
-
-  document.getElementById("group-chips").addEventListener("click", function (e) {
-    var b = e.target.closest(".chip-btn");
-    if (b) { group = b.getAttribute("data-group"); draw(); }
-  });
-
-  draw();
-  if (openName) { var el = document.getElementById(openName); if (el) el.scrollIntoView({ block: "center" }); }
-})();
-</script>
+<body>
+<p>게시판 안내는 <a href="membership.html">멤버십 페이지</a>로 옮겨졌습니다.</p>
 </body>
 </html>
