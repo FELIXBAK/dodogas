@@ -113,7 +113,7 @@ tbody th { font-weight: 600; }
 .tag.end { background: var(--lock-soft); color: var(--muted); }
 .cta-card { background: var(--accent-soft); border-color: transparent; flex-direction: row; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 22px; }
 .cta-card h3 { font-size: 18px; }
-.cta-card p { color: var(--fg); opacity: 0.8; }
+.cta-card p { color: var(--fg); opacity: 0.8; word-break: keep-all; }
 
 /* filter chips */
 .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 18px 0 16px; }

@@ -1,0 +1,16 @@
+.vip-box { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
+.vip-head { padding: 14px 18px; font-weight: 700; border-bottom: 1px solid var(--line); background: var(--surface-2, var(--accent-soft)); }
+.vip-body { padding: 16px; }
+.vip-note { margin: 0 0 12px; padding: 10px 14px; border-radius: 8px; background: var(--accent-soft); color: var(--accent); font-size: 14px; word-break: keep-all; }
+.vip-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.vip-list li { display: flex; gap: 12px; align-items: flex-start; padding: 14px; border: 1px solid var(--line); border-radius: 10px; }
+.vip-list strong { display: block; font-size: 15px; word-break: keep-all; }
+.vip-list span { display: block; margin-top: 2px; font-size: 13.5px; color: var(--muted); word-break: keep-all; }
+.vip-check { flex: none; width: 22px; height: 22px; border-radius: 6px; background: var(--accent); color: var(--on-accent); display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; margin-top: 1px; font-family: Arial, sans-serif; line-height: 1; }
+.vip-list span.vip-check { margin-top: 1px; color: var(--on-accent); }
+.vip-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.vip-steps .card { text-align: center; align-items: center; }
+.vip-steps h3 { margin: 6px 0 4px; font-size: 16px; }
+.vip-steps p { margin: 0; font-size: 13.5px; color: var(--muted); word-break: keep-all; }
+.vip-ico { font-size: 24px; }
+@media (max-width: 640px) { .vip-steps { grid-template-columns: 1fr; } }
