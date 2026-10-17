@@ -337,3 +337,6 @@ details p { margin: 0 0 14px; color: var(--muted); }
 .faq-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
 .faq-link { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--accent); color: var(--accent); background: var(--accent-soft); font-size: 14px; font-weight: 600; text-decoration: none; }
 .faq-link:hover { background: var(--accent); color: var(--on-accent); }
+.faq-list { margin: -6px 0 14px; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+.faq-note { font-size: 13px; }
+.support-note { margin: 0 0 12px; color: var(--muted); }

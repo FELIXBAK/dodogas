@@ -15,16 +15,17 @@
     <div class="page-head">
       <p class="eyebrow">support</p>
       <h1>고객센터</h1>
-      <p class="lead">자주 묻는 질문을 먼저 확인해 보시고, 해결되지 않으면 1:1로 문의해 주세요.</p>
+      <p class="lead">궁금한 점은 자주 묻는 질문에서 먼저 확인해 보세요. 더 알고 싶은 내용이 있다면 언제든 편하게 1:1로 문의해 주세요.</p>
     </div>
 
     <section class="section">
-      <div class="section-head"><h2>자주 묻는 질문<span id="flag"></span></h2></div>
+      <div class="section-head"><h2>자주 묻는 질문</h2></div>
       <div id="faq"></div>
     </section>
 
     <section class="section">
       <div class="section-head"><h2>1:1 문의</h2></div>
+      <p class="support-note">궁금한 점이 생기면 언제든 편하게 물어보세요. 운영진이 친절하게 도와드리겠습니다.</p>
       <div class="actions" id="contacts" style="margin-top:0"></div>
     </section>
   </div>
@@ -33,14 +34,15 @@
 <script src="site.js"></script>
 <script>
 (function () {
-  document.getElementById("flag").innerHTML = sampleFlag();
   document.getElementById("faq").innerHTML = FAQ.map(function (f) {
     var links = (f.links || []).map(function (l) {
       return '<a class="faq-link" href="' + esc(l.href) + '">' + esc(l.label) + ' <span aria-hidden="true">→</span></a>';
     }).join("");
-    return "<details><summary>" + esc(f.q) + "</summary><p>" + esc(f.a) + "</p>" + (links ? '<div class="faq-links">' + links + "</div>" : "") + "</details>";
+    return "<details><summary>" + esc(f.q) + "</summary><p>" + esc(f.a) + "</p>" +
+      (f.list ? '<ul class="faq-list">' + f.list.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" : "") +
+      (f.note ? '<p class="faq-note">' + esc(f.note) + "</p>" : "") + (links ? '<div class="faq-links">' + links + "</div>" : "") + "</details>";
   }).join("");
-  var labels = { discord: "디스코드" };
+  var labels = { discord: "디스코드로 문의하기" };
   document.getElementById("contacts").innerHTML = Object.keys(labels).map(function (k) {
     var url = SITE.contacts[k];
     return url
