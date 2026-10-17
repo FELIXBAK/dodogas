@@ -90,3 +90,4 @@ tbody th.grp { background: var(--lock-soft); }
 
 .callout { margin: 14px 0 0; padding: 10px 14px; border-radius: 8px; background: var(--accent-soft); font-size: 14px; word-break: keep-all; }
 .callout a { font-weight: 600; }
+.callout + .callout { margin-top: 8px; }
