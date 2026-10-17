@@ -160,7 +160,7 @@ function renderPanel() {
       var state = !known ? 'pending' : (b.minTier <= current ? 'open' : 'locked');
       var chip = state === 'open' ? '열람 가능' : state === 'locked' ? esc(TIERS[b.minTier].name) + '부터' : '확인 중';
       html += '<li class="board ' + state + '">' +
-        '<span class="title"><span class="hash">#</span><span class="ico">' + esc(b.icon || "") + '</span><span class="btxt"><span class="bname">' + esc(b.name) + '</span>' + (DESCS[b.name] ? '<span class="bdesc">' + esc(DESCS[b.name]) + '</span>' : '') + '</span></span>' +
+        '<span class="title"><span class="ico">' + esc(b.icon || "") + '</span><span class="btxt"><span class="bname">' + esc(b.name) + '</span>' + (DESCS[b.name] ? '<span class="bdesc">' + esc(DESCS[b.name]) + '</span>' : '') + '</span></span>' +
         '<span class="chip">' + chip + '</span></li>';
     });
     html += '</ul></div>';
@@ -177,7 +177,7 @@ function renderMatrix() {
   groupsOf().forEach(function (g) {
     body += '<tr><th class="grp" colspan="' + (TIERS.length + 1) + '">' + esc(g) + '</th></tr>';
     BOARDS.filter(function (b) { return b.group === g; }).forEach(function (b) {
-      body += '<tr><th scope="row"><span class="hash">#</span>' + esc(b.name) + '</th>' + TIERS.map(function (t, i) {
+      body += '<tr><th scope="row">' + esc(b.name) + '</th>' + TIERS.map(function (t, i) {
         var cell;
         if (!t.known) cell = '<span class="no" aria-label="미확인">?</span>';
         else if (b.minTier <= i) cell = '<span class="yes" aria-label="열람 가능">✓</span>';
