@@ -18,7 +18,7 @@
       <p class="eyebrow">membership</p>
       <h1>멤버십별 게시판 안내</h1>
       <p class="lead">가입한 멤버십 단계에 따라 디스코드에서 볼 수 있는 게시판이 다릅니다. 내 단계를 골라 열람 가능한 게시판을 확인하세요.</p>
-      <p class="callout">각 게시판의 설명과 자세한 활용 방법은 <a href="boards.html">게시판 안내 탭</a>에서 확인하실 수 있습니다.</p>
+      <p class="callout">각 게시판의 설명과 자세한 활용 방법은 <a href="boards.html">게시판 안내</a>에서 확인하실 수 있습니다.</p>
     </div>
     <div class="wrap-m">
       <div class="tabs" role="tablist" aria-label="멤버십 단계" id="tabs"></div>
@@ -159,7 +159,7 @@ function renderPanel() {
     html += '<div class="group"><h3>' + esc(g) + '<span class="n">' + items.length + '</span></h3><ul class="boards">';
     items.forEach(function (b) {
       var state = !known ? 'pending' : (b.minTier <= current ? 'open' : 'locked');
-      var chip = b.minTier === 0 ? '열람 가능' : esc(TIERS[b.minTier].name) + '부터'; // 글자는 게시판마다 고정, 색만 선택한 단계에 따라 바뀝니다.
+      var chip = b.minTier === 0 ? '열람 가능' : esc(TIERS[b.minTier].name) + ' 이상'; // 글자는 게시판마다 고정, 색만 선택한 단계에 따라 바뀝니다.
       html += '<li class="board ' + state + '">' +
         '<span class="title"><span class="ico">' + esc(b.icon || "") + '</span><span class="btxt"><span class="bname">' + esc(b.name) + '</span>' + (DESCS[b.name] ? '<span class="bdesc">' + esc(DESCS[b.name]) + '</span>' : '') + '</span></span>' +
         '<span class="chip">' + chip + '</span></li>';
