@@ -196,6 +196,11 @@ function select(i, focus) {
   current = i;
   renderTabs(); renderPanel(); renderMatrix();
   if (focus) document.getElementById("tab-" + i).focus();
+  // 위에 고정된 상태에서 단계를 바꾸면 게시판 목록 맨 위로 이동합니다.
+  var tabs = document.getElementById("tabs"), panel = document.getElementById("panel");
+  if (tabs.classList.contains("stuck") && panel.getBoundingClientRect().top < tabs.getBoundingClientRect().bottom) {
+    window.scrollTo({ top: window.scrollY + panel.getBoundingClientRect().top - tabs.getBoundingClientRect().bottom - 12, behavior: "smooth" });
+  }
 }
 
 document.getElementById("tabs").addEventListener("click", function (e) {
@@ -210,6 +215,7 @@ document.getElementById("tabs").addEventListener("keydown", function (e) {
 });
 
 select(current, false);
+watchSticky(document.getElementById("tabs"));
 </script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 /* dodogas 공통 스타일: 밝은 톤이 기본, 오른쪽 위 버튼으로 어두운 화면 전환 */
 :root {
+  --hdr-h: 59px;
   --bg: #f6f8fb;
   --surface: #ffffff;
   --fg: #1b2433;
@@ -274,3 +275,13 @@ details p { margin: 0 0 14px; color: var(--muted); }
 .btn.ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .rc-ok { background: #123524; color: #b6f0cf; } }
 :root[data-theme="dark"] .rc-ok { background: #123524; color: #b6f0cf; }
+
+/* 스크롤해도 위에 고정되는 목차 */
+.g-nav { position: sticky; top: var(--hdr-h); z-index: 6; background: var(--bg); padding: 10px 0; margin: 0 0 6px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; transition: box-shadow .2s; }
+.g-nav::-webkit-scrollbar { display: none; }
+.g-nav a { flex: none; white-space: nowrap; }
+.g-nav a.on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.g-nav a.on b { background: rgba(255, 255, 255, .25); color: var(--on-accent); }
+.g-nav.stuck { box-shadow: 0 8px 12px -10px rgba(0, 0, 0, .35); }
+.g-nav-rc { margin-left: auto; }
+.g-sec, .rc { scroll-margin-top: calc(var(--hdr-h) + 70px); }

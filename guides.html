@@ -39,6 +39,30 @@
   var ICO = '<svg class="cp-ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>';
   var CHECK = '<svg class="cp-ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>';
 
+  // 스크롤 위치에 맞춰 고정 목차의 현재 단계를 표시합니다.
+  var navBound = false;
+  function watchNav() {
+    var nav = document.querySelector(".g-nav");
+    watchSticky(nav);
+    if (navBound) return;
+    navBound = true;
+    function mark() {
+      var n = document.querySelector(".g-nav");
+      if (!n) return;
+      var line = n.getBoundingClientRect().bottom + 24, cur = null;
+      document.querySelectorAll(".g-sec, #referral-check").forEach(function (s) { if (s.getBoundingClientRect().top <= line) cur = s.id; });
+      n.querySelectorAll("a").forEach(function (a) {
+        var on = a.getAttribute("href") === "#" + cur;
+        a.classList.toggle("on", on);
+        if (on && n.classList.contains("stuck") && n.scrollWidth > n.clientWidth) {
+          var l = a.offsetLeft - 16;
+          if (l < n.scrollLeft || a.offsetLeft + a.offsetWidth > n.scrollLeft + n.clientWidth) n.scrollTo({ left: l, behavior: "smooth" });
+        }
+      });
+    }
+    window.addEventListener("scroll", mark, { passive: true });
+    setTimeout(mark, 0);
+  }
   function exOf(id) { for (var i = 0; i < EXCHANGES.length; i++) if (EXCHANGES[i].id === id) return EXCHANGES[i]; return {}; }
 
   function draw() {
@@ -87,8 +111,8 @@
       '<div class="g-act"><span class="g-label">추천인 코드</span><button type="button" class="copy-code" data-code="' + esc(code) + '" title="클릭하면 복사됩니다"><span class="cp-text">' + esc(code) + "</span>" + ICO + "</button>" +
       (ex.link ? '<a class="btn" href="' + esc(ex.link) + '" rel="noopener" target="_blank">가입 링크 열기</a>' : "") + "</div></div>";
     var nav = '<nav class="g-nav" aria-label="가이드 목차">' + g.sections.map(function (s, i) {
-      return '<a href="#g-' + esc(s.id) + '"><b>' + (i + 1) + "</b>" + esc(s.title.replace(/^이미 가입했다면: /, "가입했다면 · ")) + "</a>";
-    }).join("") + "</nav>";
+      return '<a href="#g-' + esc(s.id) + '"><b>' + (i + 1) + "</b>" + esc(s.title.replace(/^[^:]+:\s*/, "")) + "</a>";
+    }).join("") + '<a href="#referral-check" class="g-nav-rc"><b>✓</b>내 추천인 확인</a></nav>';
     var body = g.sections.map(function (s) {
       return '<section class="g-sec" id="g-' + esc(s.id) + '"><div class="g-sec-head"><h2>' + esc(s.title) + "</h2>" + (s.time ? '<span class="g-time">' + esc(s.time) + "</span>" : "") + "</div>" +
         (s.warn ? '<p class="g-warn"><b>!</b><span>' + fill(s.warn) + "</span></p>" : "") +
@@ -106,6 +130,7 @@
     }).join("");
     var tail = '<div class="card cta-card g-next"><div><h3>가입과 KYC를 마쳤다면</h3><p>추천 가입 계정은 거래량에 따라 VIP 권한을 받을 수 있습니다.</p></div><a class="btn" href="vip.html">VIP 기준 보기 →</a></div>';
     document.getElementById("guide").innerHTML = head + nav + body + tail;
+    watchNav();
   }
   document.getElementById("guide").addEventListener("click", function (ev) {
     var a = ev.target.closest("a[data-rc]");

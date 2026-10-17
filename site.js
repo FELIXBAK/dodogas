@@ -60,7 +60,27 @@
     '<p class="risk">암호화폐 거래는 높은 위험을 수반할 수 있습니다. 본인 명의 정보만 사용하시고, 투자 판단과 책임은 본인에게 있습니다.</p>' +
     "</div>";
   document.body.appendChild(footer);
+
+  // 위에 고정되는 메뉴가 헤더 바로 아래에 붙도록 헤더 높이를 기록합니다.
+  function setHdr() {
+    var h = document.querySelector(".site-header");
+    if (h) document.documentElement.style.setProperty("--hdr-h", h.offsetHeight + "px");
+  }
+  setHdr();
+  window.addEventListener("resize", setHdr);
 })();
+
+// 고정 메뉴가 위에 붙으면 .stuck 클래스를 달아 그림자를 보여 줍니다.
+function watchSticky(el) {
+  if (!el) return;
+  function on() {
+    var top = parseFloat(getComputedStyle(el).top) || 0;
+    el.classList.toggle("stuck", el.getBoundingClientRect().top <= top + 0.5 && window.scrollY > 0);
+  }
+  window.addEventListener("scroll", on, { passive: true });
+  window.addEventListener("resize", on);
+  on();
+}
 
 // 샘플 표시: data.js의 SITE.sample이 true일 때만 보입니다.
 function sampleFlag() {
