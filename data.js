@@ -27,12 +27,8 @@ var EXCHANGES = [
 
 // 이벤트·대회. start/end는 YYYY-MM-DD, end가 오늘보다 앞서면 자동으로 "종료" 처리됩니다.
 var EVENTS = [
-  { exchange: "Binance", title: "샘플 이벤트 A", tag: "대회",     start: "2026-10-01", end: "2026-10-31", desc: "이벤트 설명을 여기에 적습니다.", link: "" },
-  { exchange: "OKX",     title: "샘플 이벤트 B", tag: "신규가입", start: "2026-10-01", end: "2026-10-31", desc: "참여 조건과 혜택을 한두 줄로 적습니다.", link: "" },
-  { exchange: "Bybit",   title: "샘플 이벤트 C", tag: "캐시백",   start: "2026-09-01", end: "2026-09-30", desc: "종료된 이벤트는 자동으로 종료 목록에 들어갑니다.", link: "" }
+  // 예시: { exchange: "Binance", title: "이벤트 이름", tag: "대회", start: "2026-11-01", end: "2026-11-30", desc: "참여 조건과 혜택", link: "https://..." },
 ];
-
-// 가입·KYC 가이드. steps의 img에 이미지 경로를 넣으면 단계 아래에 사진이 붙습니다.
 
 // 가입·KYC 가이드. 문구 안의 {CODE}는 해당 거래소 추천인 코드로, [버튼] 은 버튼 모양으로 바뀝니다.
 // step: { title, do: [할 일], tip, warn, screen: 그림(k: tap·form·otp·pw·menu·id·face·done·mail·check), copy: 복사용 문구 }

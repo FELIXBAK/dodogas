@@ -116,7 +116,7 @@
   var grid = document.getElementById("ev-grid");
   grid.innerHTML = live.length ? live.map(function (e) {
     return '<article class="card"><span class="tag">' + esc(e.tag) + '</span><h3>' + esc(e.title) + '</h3><p>' + esc(e.desc) + '</p><div class="meta">' + esc(e.exchange) + ' · ' + esc(e.start) + ' ~ ' + esc(e.end) + '</div></article>';
-  }).join("") : '<div class="empty">진행 중인 이벤트가 없습니다.</div>';
+  }).join("") : '<div class="empty">지금 진행 중인 이벤트·대회가 없습니다.</div>';
 })();
 </script>
 </body>
