@@ -8,12 +8,13 @@ var SITE = {
 };
 
 // 제공 서비스 (홈 화면). link가 있으면 '바로가기' 버튼이 보입니다.
+// icon: discord·youtube·cafe·telegram·chart 중 하나, 또는 로고 이미지 경로(예: "img/sv/discord.png")
 var SERVICES = [
-  { name: "디스코드", tag: "커뮤니티", access: "", desc: "dodogas 디스코드 커뮤니티입니다.", link: "https://discord.gg/BZ4kRyAuhT" },
-  { name: "유튜브", tag: "영상", access: "", desc: "dodogas 유튜브 채널입니다.", link: "https://www.youtube.com/@dodogas" },
-  { name: "네이버 카페", tag: "커뮤니티", access: "", desc: "dodogas 네이버 카페입니다.", link: "https://cafe.naver.com/liquidation" },
-  { name: "붐붐이 Lite", tag: "텔레그램", access: "전체 공개", desc: "텔레그램 채널로 제공되는 붐붐이 Lite입니다. 누구나 무료로 볼 수 있습니다.", link: "https://t.me/+kSnaeCAx_QUxNzQ1" },
-  { name: "KingFisher", tag: "분석 서비스", access: "결제 시 20% 할인", desc: "킹피셔(KingFisher) 서비스입니다. 아래 링크로 결제하면 20% 할인이 적용됩니다.", link: "https://app.thekingfisher.io/?ref=7O0MaNch" }
+  { name: "디스코드", icon: "discord", tag: "커뮤니티", access: "", desc: "dodogas 디스코드 커뮤니티입니다.", link: "https://discord.gg/BZ4kRyAuhT" },
+  { name: "유튜브", icon: "youtube", tag: "영상", access: "", desc: "dodogas 유튜브 채널입니다.", link: "https://www.youtube.com/@dodogas" },
+  { name: "네이버 카페", icon: "cafe", tag: "커뮤니티", access: "", desc: "dodogas 네이버 카페입니다.", link: "https://cafe.naver.com/liquidation" },
+  { name: "붐붐이 Lite", icon: "telegram", tag: "텔레그램", access: "전체 공개", desc: "텔레그램 채널로 제공되는 붐붐이 Lite입니다. 누구나 무료로 볼 수 있습니다.", link: "https://t.me/+kSnaeCAx_QUxNzQ1" },
+  { name: "KingFisher", icon: "chart", tag: "분석 서비스", access: "결제 시 20% 할인", desc: "킹피셔(KingFisher) 서비스입니다. 아래 링크로 결제하면 20% 할인이 적용됩니다.", link: "https://app.thekingfisher.io/?ref=7O0MaNch" }
 ];
 
 // 거래소 혜택 비교 (홈 화면 표). icon에 로고 이미지 경로(예: "img/ex/binance.png")를 넣으면 글자 아이콘 대신 로고가 보입니다. 혜택·추천인 코드는 실제 값으로 채워 주세요.
