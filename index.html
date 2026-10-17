@@ -26,8 +26,8 @@
   <div class="container">
     <section class="section">
       <div class="section-head"><h2>거래소 혜택 비교</h2></div>
-      <div class="scroll">
-        <table>
+      <div class="scroll ex-wrap">
+        <table class="ex-table">
           <thead><tr><th>거래소</th><th>혜택</th><th>추천인 코드</th><th>가입</th></tr></thead>
           <tbody id="ex-body"></tbody>
         </table>
@@ -76,23 +76,41 @@
     return "<tr><th scope=\"row\"><span class=\"ex-name\">" + (x.icon ? '<img class="ex-ico" src="' + esc(x.icon) + '" alt="" width="28" height="28">' : '<span class="ex-ico ex-letter" aria-hidden="true">' + esc(x.name.charAt(0)) + "</span>") + "<span>" + esc(x.name) + "</span></span></th><td>" + (esc(x.benefit) || dash) + "</td><td>" + (x.code ? '<button type="button" class="copy-code" data-code="' + esc(x.code) + '" title="클릭하면 복사됩니다"><span class="cp-text">' + esc(x.code) + '</span><svg class="cp-ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button>' : dash) + "</td><td>" + join + "</td></tr>";
   }).join("");
 
-  // 제공 서비스 아이콘 (간단한 그림 아이콘. 로고 이미지 경로를 주면 이미지로 표시)
+  // 제공 서비스 카드: 어두운 배경 + 물결 선 + 가운데 둥근 아이콘 + 아래 이름 띠
   var SV_ICONS = {
-    discord: ["#5865f2", '<path d="M5 6.5A2.5 2.5 0 0 1 7.5 4h9A2.5 2.5 0 0 1 19 6.5v6a2.5 2.5 0 0 1-2.5 2.5H11l-4 3.5V15h0A2 2 0 0 1 5 13z"/><circle cx="9.5" cy="9.7" r="1" fill="currentColor" stroke="none"/><circle cx="14.5" cy="9.7" r="1" fill="currentColor" stroke="none"/>'],
-    youtube: ["#e5322d", '<rect x="3" y="5.5" width="18" height="13" rx="4"/><path d="M10.5 9.3v5.4l4.5-2.7z" fill="currentColor"/>'],
-    cafe: ["#1ea84a", '<path d="M5 9h11v5a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z"/><path d="M16 10.5h1.5a2 2 0 0 1 0 4H16"/><path d="M8.5 4.5c0 1 1 1 1 2M12 4.5c0 1 1 1 1 2"/>'],
-    telegram: ["#229ed9", '<path d="M20.5 4.5L3.5 11l5.5 2 2 6 3-4 4.5 3.5z"/><path d="M9 13l7.5-5.5"/>'],
-    chart: ["#e08a00", '<path d="M4 19h16"/><path d="M5 15l4-4 3.5 3 6.5-7"/><path d="M15 7h4v4"/>']
+    discord: ["#5865f2", "#b45cf6", '<path d="M5 6.5A2.5 2.5 0 0 1 7.5 4h9A2.5 2.5 0 0 1 19 6.5v6a2.5 2.5 0 0 1-2.5 2.5H11l-4 3.5V15h0A2 2 0 0 1 5 13z"/><circle cx="9.5" cy="9.7" r="1.1" fill="currentColor" stroke="none"/><circle cx="14.5" cy="9.7" r="1.1" fill="currentColor" stroke="none"/>'],
+    youtube: ["#ff2d20", "#f5a524", '<rect x="3" y="5.5" width="18" height="13" rx="4"/><path d="M10.5 9.3v5.4l4.5-2.7z" fill="currentColor"/>'],
+    cafe: ["#1fbf4f", "#a3e635", '<path d="M5 9h11v5a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z"/><path d="M16 10.5h1.5a2 2 0 0 1 0 4H16"/><path d="M8.5 4.5c0 1 1 1 1 2M12 4.5c0 1 1 1 1 2"/>'],
+    telegram: ["#2aa3dd", "#8b5cf6", '<path d="M20.5 4.5L3.5 11l5.5 2 2 6 3-4 4.5 3.5z"/><path d="M9 13l7.5-5.5"/>'],
+    chart: ["#f59e0b", "#ef4444", '<path d="M4 19h16"/><path d="M5 15l4-4 3.5 3 6.5-7"/><path d="M15 7h4v4"/>']
   };
-  function svIcon(k) {
-    if (!k) return "";
-    if (/\.(png|jpe?g|svg|webp)$/i.test(k)) return '<img class="sv-ico" src="' + esc(k) + '" alt="" width="40" height="40">';
-    var x = SV_ICONS[k];
-    return x ? '<span class="sv-ico" style="--c:' + x[0] + '" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' + x[1] + "</svg></span>" : "";
+  function waves(c1, c2, seed) {
+    var id = "w" + seed, lines = "";
+    for (var k = 0; k < 22; k++) {
+      var d = "";
+      for (var x = -10; x <= 310; x += 10) {
+        var y = 92 + k * 2.1 + 22 * Math.sin(x / 46 + k * 0.11 + seed) - 14 * Math.sin(x / 95 + seed * 1.7);
+        d += (x === -10 ? "M" : "L") + x + " " + y.toFixed(1);
+      }
+      lines += '<path d="' + d + '"/>';
+    }
+    return '<svg class="sv-waves" viewBox="0 0 300 170" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>' +
+      '<linearGradient id="' + id + 'l" x1="0" x2="1"><stop offset="0" stop-color="' + c1 + '"/><stop offset="1" stop-color="' + c2 + '"/></linearGradient>' +
+      '<radialGradient id="' + id + 'g" cx=".3" cy=".85" r=".8"><stop offset="0" stop-color="' + c1 + '" stop-opacity=".55"/><stop offset="1" stop-color="' + c1 + '" stop-opacity="0"/></radialGradient></defs>' +
+      '<rect width="300" height="170" fill="url(#' + id + 'g)"/><g fill="none" stroke="url(#' + id + 'l)" stroke-width=".8" opacity=".75">' + lines + "</g></svg>";
   }
-  document.getElementById("sv-grid").innerHTML = SERVICES.map(function (v) {
-    var btn = v.link ? '<a class="btn" href="' + esc(v.link) + '" rel="noopener" target="_blank">바로가기</a>' : '';
-    return '<article class="card"><div class="sv-top"><div class="sv-name">' + svIcon(v.icon) + '<h3>' + esc(v.name) + '</h3></div><span class="tag">' + esc(v.tag) + '</span></div><p>' + esc(v.desc) + '</p>' + (v.access ? '<div class="meta">' + esc(v.access) + '</div>' : '') + '<p>' + btn + '</p></article>';
+  function svBadge(k, i) {
+    if (!k) return "";
+    if (/\.(png|jpe?g|svg|webp)$/i.test(k)) return { c1: "#3f51d6", c2: "#8b97ff", ico: '<img class="sv-ico" src="' + esc(k) + '" alt="" width="64" height="64">' };
+    var x = SV_ICONS[k] || SV_ICONS.chart;
+    return { c1: x[0], c2: x[1], ico: '<span class="sv-ico" style="background:' + x[0] + '" aria-hidden="true"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' + x[2] + "</svg></span>" };
+  }
+  document.getElementById("sv-grid").innerHTML = SERVICES.map(function (v, i) {
+    var bd = svBadge(v.icon, i) || { c1: "#3f51d6", c2: "#8b97ff", ico: "" };
+    var tagName = v.link ? "a" : "div";
+    return "<" + tagName + ' class="sv-card"' + (v.link ? ' href="' + esc(v.link) + '" rel="noopener" target="_blank"' : "") + ' title="' + esc(v.desc || "") + '" style="--c1:' + bd.c1 + ";--c2:" + bd.c2 + '">' +
+      '<div class="sv-art">' + waves(bd.c1, bd.c2, i * 1.3 + 0.4) + bd.ico + "</div>" +
+      '<div class="sv-band"><strong>' + esc(v.name) + "</strong><span>" + esc(v.short || v.tag || "") + "</span></div></" + tagName + ">";
   }).join("");
 
 
