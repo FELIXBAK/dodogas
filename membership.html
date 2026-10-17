@@ -159,7 +159,7 @@ function renderPanel() {
     html += '<div class="group"><h3>' + esc(g) + '<span class="n">' + items.length + '</span></h3><ul class="boards">';
     items.forEach(function (b) {
       var state = !known ? 'pending' : (b.minTier <= current ? 'open' : 'locked');
-      var chip = state === 'open' ? '열람 가능' : state === 'locked' ? esc(TIERS[b.minTier].name) + '부터' : '확인 중';
+      var chip = b.minTier === 0 ? '열람 가능' : esc(TIERS[b.minTier].name) + '부터'; // 글자는 게시판마다 고정, 색만 선택한 단계에 따라 바뀝니다.
       html += '<li class="board ' + state + '">' +
         '<span class="title"><span class="ico">' + esc(b.icon || "") + '</span><span class="btxt"><span class="bname">' + esc(b.name) + '</span>' + (DESCS[b.name] ? '<span class="bdesc">' + esc(DESCS[b.name]) + '</span>' : '') + '</span></span>' +
         '<span class="chip">' + chip + '</span></li>';
