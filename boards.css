@@ -1,0 +1,34 @@
+/* 게시판 안내 페이지 전용 스타일 */
+.filters { display: flex; flex-direction: column; gap: 12px; margin: 20px 0 8px; }
+.filter-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.filter-label { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; color: var(--muted); min-width: 48px; }
+.filters .chips { margin: 0; }
+.hint { margin: 0; font-size: 13px; color: var(--muted); }
+
+.bgroup { margin-top: 28px; display: flex; flex-direction: column; gap: 8px; }
+.bgroup h2 { margin: 0 0 4px; font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.06em; color: var(--muted); display: flex; gap: 8px; align-items: baseline; }
+.bgroup h2 .n { opacity: 0.7; font-variant-numeric: tabular-nums; }
+
+.bcard { padding: 0; overflow: hidden; }
+.bcard + .bcard { margin-top: 0; }
+.bcard summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; cursor: pointer; font-weight: 600; list-style: none; }
+.bcard summary::-webkit-details-marker { display: none; }
+.bcard summary::after { content: "＋"; color: var(--muted); font-weight: 400; margin-left: 4px; }
+.bcard[open] summary::after { content: "－"; }
+.b-title { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.b-title .hash { font-family: var(--font-mono); color: var(--muted); }
+.b-title .ico { width: 1.4em; text-align: center; flex: none; }
+.b-name { overflow-wrap: anywhere; }
+.b-chip { margin-left: auto; font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: var(--ok-soft); color: var(--ok); white-space: nowrap; }
+.b-chip.lock { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+.bcard.locked { background: var(--lock-soft); border-style: dashed; }
+.bcard.locked .b-name, .bcard.locked .hash { color: var(--muted); }
+
+.b-body { padding: 4px 16px 16px; border-top: 1px solid var(--line); }
+.b-summary { margin: 12px 0 0; font-size: 15px; }
+.b-body h4 { margin: 16px 0 6px; font-size: 14px; }
+.b-usage { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; color: var(--fg); }
+.b-img { margin-top: 14px; border-radius: 8px; border: 1px solid var(--line); }
+.b-tip { margin: 14px 0 0; padding: 10px 14px; border-radius: 8px; background: var(--accent-soft); font-size: 14px; }
+.b-tip strong { color: var(--accent); margin-right: 6px; }
+.b-empty { margin: 12px 0 0; color: var(--muted); }
