@@ -156,3 +156,7 @@ details p { margin: 0 0 14px; color: var(--muted); }
 @media (prefers-reduced-motion: no-preference) {
   .nav a, .btn, .chip-btn { transition: background-color 0.15s, color 0.15s, border-color 0.15s; }
 }
+
+.copy-code { appearance: none; font: inherit; font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--accent); background: var(--accent-soft); border: 1px dashed var(--accent); border-radius: 6px; padding: 4px 10px; cursor: pointer; min-width: 7em; }
+.copy-code:hover { border-style: solid; }
+.copy-code.copied { background: var(--accent); color: var(--surface); border-style: solid; }
