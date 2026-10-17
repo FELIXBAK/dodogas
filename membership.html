@@ -178,7 +178,7 @@ function renderPanel() {
       if (info.tip) det += '<p class="b-tip"><strong>참고</strong> ' + esc(info.tip) + "</p>";
       if (!det) det = '<p class="b-none">상세 안내를 준비하고 있습니다.</p>';
       html += '<li class="board ' + state + '"><details data-name="' + esc(b.name) + '"' + (OPENED[b.name] ? " open" : "") + '><summary class="brow">' +
-        '<span class="title"><span class="ico">' + esc(b.icon || "") + '</span><span class="btxt"><span class="bname">' + esc(b.name) + '</span></span></span>' +
+        '<span class="title"><span class="ico">' + esc(b.icon || "") + '</span><span class="btxt"><span class="bname">' + wbr(b.name) + '</span></span></span>' +
         '<span class="bright"><span class="chip">' + chip + '</span><span class="btg" aria-hidden="true"></span></span></summary><div class="bdetail">' + det + "</div></details></li>";
     });
     html += '</ul></div>';
@@ -186,6 +186,9 @@ function renderPanel() {
   document.getElementById("panel").innerHTML = html;
   document.getElementById("panel").setAttribute("aria-labelledby", "tab-" + current);
 }
+
+// 긴 게시판 이름은 _ 또는 - 뒤에서만 줄을 바꿉니다.
+function wbr(s) { return esc(s).replace(/([_-])/g, "$1<wbr>"); }
 
 function renderMatrix() {
   var head = '<thead><tr><th scope="col" style="text-align:left">게시판</th>' + TIERS.map(function (t, i) {
@@ -195,7 +198,7 @@ function renderMatrix() {
   groupsOf().forEach(function (g) {
     body += '<tr><th class="grp" colspan="' + (TIERS.length + 1) + '">' + esc(g) + '</th></tr>';
     BOARDS.filter(function (b) { return b.group === g; }).forEach(function (b) {
-      body += '<tr><th scope="row">' + esc(b.name) + '</th>' + TIERS.map(function (t, i) {
+      body += '<tr><th scope="row">' + wbr(b.name) + '</th>' + TIERS.map(function (t, i) {
         var cell;
         if (!t.known) cell = '<span class="no" aria-label="미확인">?</span>';
         else if (b.minTier <= i) cell = '<span class="yes" aria-label="열람 가능">✓</span>';

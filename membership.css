@@ -77,7 +77,7 @@ table { border-collapse: collapse; width: 100%; min-width: 480px; font-size: 14p
 th, td { padding: 9px 12px; text-align: center; border-bottom: 1px solid var(--line); }
 tbody tr:last-child td, tbody tr:last-child th { border-bottom: 0; }
 thead th { font-weight: 600; background: var(--lock-soft); font-size: 13px; }
-tbody th { text-align: left; font-weight: 500; overflow-wrap: anywhere; }
+tbody th { text-align: left; font-weight: 500; overflow-wrap: break-word; }
 tbody th .hash { font-family: var(--font-mono); color: var(--muted); margin-right: 4px; }
 tbody th.grp { background: var(--lock-soft); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
 th.cur, td.cur { background: var(--accent-soft); }
@@ -90,7 +90,6 @@ th.cur, td.cur { background: var(--accent-soft); }
   h1 { font-size: 24px; }
   .tab { padding: 10px 9px; }
   .panel { padding: 18px 14px; }
-  .board { padding: 9px 11px; }
 }
 @media (prefers-reduced-motion: no-preference) {
   .tab { transition: background-color 0.15s, border-color 0.15s, color 0.15s; }
@@ -114,3 +113,33 @@ tbody th.grp { background: var(--lock-soft); }
 .tabs { position: sticky; top: var(--hdr-h); z-index: 6; background: var(--bg); padding: 10px 0; margin: -10px 0; transition: box-shadow .2s; }
 .tabs.stuck { box-shadow: 0 8px 12px -10px rgba(0, 0, 0, .35); }
 .b-summary { margin: 0; font-size: 15px; font-weight: 500; word-break: keep-all; }
+
+/* 게시판 줄 안의 펼침 영역: 기본 details 테두리 제거 (이중 테두리 방지) */
+.board details { border: 0; padding: 0; background: transparent; border-radius: inherit; margin: 0; }
+.board details + details { margin-top: 0; }
+.board .brow { font-weight: inherit; }
+
+/* 휴대폰 화면: 게시판 이름이 한 줄에 들어가도록 여백·칩을 줄이고, 비교표가 화면 폭에 맞게 */
+@media (max-width: 560px) {
+  .board .brow { padding: 9px 10px; gap: 8px; }
+  .board .title { gap: 6px; }
+  .board .ico { width: 1.15em; font-size: 14px; }
+  .board .bname { font-size: 14px; }
+  .bright { gap: 6px; }
+  .chip { min-width: 0; padding: 2px 8px; font-size: 11px; }
+  .btg { width: 20px; height: 20px; }
+  .btg::before, .btg::after { left: 5px; right: 5px; top: 9px; }
+  .bdetail { padding: 12px 10px; }
+
+  .wrap-m .scroll { overflow-x: visible; }
+  .wrap-m .scroll table { min-width: 0; table-layout: fixed; font-size: 12.5px; }
+  .wrap-m .scroll thead th { font-size: 12px; }
+  .wrap-m .scroll th, .wrap-m .scroll td { padding: 8px 4px; }
+  .wrap-m .scroll thead th:not(:first-child) { width: 58px; }
+  .wrap-m .scroll thead th:first-child, .wrap-m .scroll tbody th { padding-left: 10px; }
+  .wrap-m .scroll tbody th.grp { font-size: 11px; letter-spacing: 0.03em; }
+}
+@media (max-width: 360px) {
+  .wrap-m .scroll thead th:not(:first-child) { width: 50px; }
+  .wrap-m .scroll thead th { font-size: 11px; }
+}
