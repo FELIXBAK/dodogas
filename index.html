@@ -69,8 +69,8 @@
   }).join("");
 
   document.getElementById("sv-grid").innerHTML = SERVICES.map(function (v) {
-    var btn = v.link ? '<a class="btn" href="' + esc(v.link) + '" rel="noopener" target="_blank">채널 입장</a>' : '<span class="dash">링크 준비 중</span>';
-    return '<article class="card"><span class="tag">' + esc(v.tag) + '</span><h3>' + esc(v.name) + '</h3><p>' + esc(v.desc) + '</p><div class="meta">' + esc(v.access) + '</div><p>' + btn + '</p></article>';
+    var btn = v.link ? '<a class="btn" href="' + esc(v.link) + '" rel="noopener" target="_blank">바로가기</a>' : '';
+    return '<article class="card"><span class="tag">' + esc(v.tag) + '</span><h3>' + esc(v.name) + '</h3><p>' + esc(v.desc) + '</p>' + (v.access ? '<div class="meta">' + esc(v.access) + '</div>' : '') + '<p>' + btn + '</p></article>';
   }).join("");
 
   var today = new Date().toISOString().slice(0, 10);

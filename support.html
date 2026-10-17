@@ -37,7 +37,7 @@
   document.getElementById("faq").innerHTML = FAQ.map(function (f) {
     return "<details><summary>" + esc(f.q) + "</summary><p>" + esc(f.a) + "</p></details>";
   }).join("");
-  var labels = { kakao: "카카오톡", telegram: "텔레그램", discord: "디스코드", youtube: "유튜브" };
+  var labels = { discord: "디스코드", cafe: "네이버 카페", youtube: "유튜브", telegram: "붐붐이 Lite (텔레그램)" };
   document.getElementById("contacts").innerHTML = Object.keys(labels).map(function (k) {
     var url = SITE.contacts[k];
     return url

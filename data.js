@@ -4,21 +4,27 @@ var SITE = {
   // true면 샘플 표시가 보입니다. 실제 내용을 다 채운 뒤 false로 바꾸세요.
   sample: true,
   // 연락처 링크. 비워 두면 버튼이 비활성으로 보입니다.
-  contacts: { kakao: "", telegram: "", discord: "", youtube: "" }
+  contacts: {
+    discord: "https://discord.gg/BZ4kRyAuhT",
+    cafe: "https://cafe.naver.com/liquidation",
+    youtube: "https://www.youtube.com/@dodogas",
+    telegram: "https://t.me/+kSnaeCAx_QUxNzQ1"
+  }
 };
 
-// 제공 서비스 (홈 화면). link에 텔레그램 채널 주소를 넣으면 '채널 입장' 버튼이 활성화됩니다.
+// 제공 서비스 (홈 화면). link가 있으면 '바로가기' 버튼이 보입니다.
 var SERVICES = [
-  { name: "붐붐이 Lite", tag: "텔레그램", access: "전체 공개", desc: "텔레그램 채널로 제공되는 붐붐이 Lite입니다. 누구나 무료로 볼 수 있습니다.", link: "" }
+  { name: "붐붐이 Lite", tag: "텔레그램", access: "전체 공개", desc: "텔레그램 채널로 제공되는 붐붐이 Lite입니다. 누구나 무료로 볼 수 있습니다.", link: "https://t.me/+kSnaeCAx_QUxNzQ1" },
+  { name: "킹피셔", tag: "링크", access: "", desc: "킹피셔 바로가기입니다.", link: "https://app.thekingfisher.io/?ref=7O0MaNch" }
 ];
 
 // 거래소 혜택 비교 (홈 화면 표). 페이백·수수료·추천인 코드는 실제 값으로 채워 주세요.
 var EXCHANGES = [
-  { id: "binance", name: "Binance", payback: "", fee: "", code: "", link: "" },
-  { id: "okx",     name: "OKX",     payback: "", fee: "", code: "", link: "" },
-  { id: "bybit",   name: "Bybit",   payback: "", fee: "", code: "", link: "" },
-  { id: "bitget",  name: "Bitget",  payback: "", fee: "", code: "", link: "" },
-  { id: "toobit",  name: "Toobit",  payback: "", fee: "", code: "", link: "" }
+  { id: "binance", name: "Binance", payback: "", fee: "", code: "", link: "https://accounts.binance.com/register?ref=361097924" },
+  { id: "okx",     name: "OKX",     payback: "", fee: "", code: "", link: "https://okx.com/join/67654160" },
+  { id: "bybit",   name: "Bybit",   payback: "", fee: "", code: "", link: "https://partner.bybit.com/b/37560" },
+  { id: "bitget",  name: "Bitget",  payback: "", fee: "", code: "", link: "https://www.bitget.com/en-GB/expressly?channelCode=ff1k&vipCode=wfx8&languageType=3" },
+  { id: "tethermax", name: "TetherMax", payback: "", fee: "", code: "", link: "https://tethermax.io/ko/signup?inviteCode=3032" }
 ];
 
 // 이벤트·대회. start/end는 YYYY-MM-DD, end가 오늘보다 앞서면 자동으로 "종료" 처리됩니다.
