@@ -21,14 +21,9 @@
 
     <div class="filters">
       <div class="filter-row">
-        <span class="filter-label">내 단계</span>
-        <div class="chips" id="tier-chips" role="group" aria-label="내 멤버십 단계"></div>
-      </div>
-      <div class="filter-row">
         <span class="filter-label">분류</span>
         <div class="chips" id="group-chips" role="group" aria-label="게시판 분류"></div>
       </div>
-      <p class="hint" id="hint"></p>
     </div>
 
     <div id="list" aria-live="polite"></div>
@@ -39,7 +34,6 @@
 <script>
 (function () {
   var TIERS = ["Basic", "Trillion", "VIP"];
-  var tier = -1;        // -1이면 단계를 고르지 않은 상태(모든 게시판을 같은 모양으로 표시)
   var group = "전체";
 
   var groups = ["전체"];
@@ -55,20 +49,13 @@
   }
 
   function drawFilters() {
-    document.getElementById("tier-chips").innerHTML =
-      chip("전체 보기", tier === -1, 'data-tier="-1"') +
-      TIERS.map(function (t, i) { return chip(t, tier === i, 'data-tier="' + i + '"'); }).join("");
     document.getElementById("group-chips").innerHTML =
       groups.map(function (g) { return chip(g, group === g, 'data-group="' + esc(g) + '"'); }).join("");
-    document.getElementById("hint").textContent = tier === -1
-      ? "단계를 고르면 내가 볼 수 있는 게시판만 밝게 표시됩니다."
-      : TIERS[tier] + " 단계 기준입니다. 흐리게 보이는 게시판은 상위 단계에서 열립니다.";
   }
 
   function card(b) {
-    var locked = tier !== -1 && b.minTier > tier;
     var has = b.summary || (b.usage && b.usage.length) || b.tip || b.img;
-    var chipText = locked ? TIERS[b.minTier] + "부터" : (tier === -1 ? TIERS[b.minTier] + " 이상" : "열람 가능");
+    var chipText = TIERS[b.minTier] + " 이상";
     var body = "";
     if (has) {
       if (b.summary) body += '<p class="b-summary">' + esc(b.summary) + '</p>';
@@ -80,9 +67,9 @@
     } else {
       body = '<p class="b-empty">상세 안내 준비 중입니다.</p>';
     }
-    return '<details class="bcard' + (locked ? " locked" : "") + '" id="' + esc(b.name) + '"' + (b.name === openName ? " open" : "") + '>' +
+    return '<details class="bcard" id="' + esc(b.name) + '"' + (b.name === openName ? " open" : "") + '>' +
       '<summary><span class="b-title"><span class="ico">' + esc(b.icon || "") + '</span><span class="b-name">' + esc(b.name) + '</span></span>' +
-      '<span class="b-chip' + (locked ? " lock" : "") + '">' + chipText + '</span></summary>' +
+      '<span class="b-chip">' + chipText + '</span></summary>' +
       '<div class="b-body">' + body + '</div></details>';
   }
 
@@ -98,10 +85,6 @@
 
   function draw() { drawFilters(); drawList(); }
 
-  document.getElementById("tier-chips").addEventListener("click", function (e) {
-    var b = e.target.closest(".chip-btn");
-    if (b) { tier = Number(b.getAttribute("data-tier")); draw(); }
-  });
   document.getElementById("group-chips").addEventListener("click", function (e) {
     var b = e.target.closest(".chip-btn");
     if (b) { group = b.getAttribute("data-group"); draw(); }
