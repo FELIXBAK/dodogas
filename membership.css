@@ -113,3 +113,4 @@ tbody th.grp { background: var(--lock-soft); }
 /* 스크롤해도 위에 고정되는 단계 선택 */
 .tabs { position: sticky; top: var(--hdr-h); z-index: 6; background: var(--bg); padding: 10px 0; margin: -10px 0; transition: box-shadow .2s; }
 .tabs.stuck { box-shadow: 0 8px 12px -10px rgba(0, 0, 0, .35); }
+.b-summary { margin: 0; font-size: 15px; font-weight: 500; word-break: keep-all; }

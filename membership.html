@@ -172,13 +172,13 @@ function renderPanel() {
       var state = !known ? 'pending' : (b.minTier <= current ? 'open' : 'locked');
       var chip = esc(TIERS[b.minTier].name); // 글자는 게시판마다 고정, 색만 선택한 단계에 따라 바뀝니다.
       var info = INFO[b.name] || {}, sum = DESCS[b.name] || info.summary || "";
-      var det = "";
+      var det = sum ? '<p class="b-summary">' + esc(sum) + "</p>" : "";
       if (info.img) det += '<img class="b-img" src="' + esc(info.img) + '" alt="' + esc(b.name) + ' 게시물 예시" loading="lazy">';
       if (info.usage && info.usage.length) det += '<div class="b-sec"><strong>이렇게 활용하세요</strong><ol class="b-usage">' + info.usage.map(function (u) { return "<li>" + esc(u) + "</li>"; }).join("") + "</ol></div>";
       if (info.tip) det += '<p class="b-tip"><strong>참고</strong> ' + esc(info.tip) + "</p>";
       if (!det) det = '<p class="b-none">상세 안내를 준비하고 있습니다.</p>';
       html += '<li class="board ' + state + '"><details data-name="' + esc(b.name) + '"' + (OPENED[b.name] ? " open" : "") + '><summary class="brow">' +
-        '<span class="title"><span class="ico">' + esc(b.icon || "") + '</span><span class="btxt"><span class="bname">' + esc(b.name) + '</span>' + (sum ? '<span class="bdesc">' + esc(sum) + '</span>' : '') + '</span></span>' +
+        '<span class="title"><span class="ico">' + esc(b.icon || "") + '</span><span class="btxt"><span class="bname">' + esc(b.name) + '</span></span></span>' +
         '<span class="bright"><span class="chip">' + chip + '</span><span class="btg" aria-hidden="true"></span></span></summary><div class="bdetail">' + det + "</div></details></li>";
     });
     html += '</ul></div>';
