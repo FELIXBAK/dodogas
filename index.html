@@ -92,7 +92,7 @@
   }
   document.getElementById("sv-grid").innerHTML = SERVICES.map(function (v) {
     var btn = v.link ? '<a class="btn" href="' + esc(v.link) + '" rel="noopener" target="_blank">바로가기</a>' : '';
-    return '<article class="card"><div class="sv-top">' + svIcon(v.icon) + '<span class="tag">' + esc(v.tag) + '</span></div><h3>' + esc(v.name) + '</h3><p>' + esc(v.desc) + '</p>' + (v.access ? '<div class="meta">' + esc(v.access) + '</div>' : '') + '<p>' + btn + '</p></article>';
+    return '<article class="card"><div class="sv-top"><div class="sv-name">' + svIcon(v.icon) + '<h3>' + esc(v.name) + '</h3></div><span class="tag">' + esc(v.tag) + '</span></div><p>' + esc(v.desc) + '</p>' + (v.access ? '<div class="meta">' + esc(v.access) + '</div>' : '') + '<p>' + btn + '</p></article>';
   }).join("");
 
 
