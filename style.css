@@ -340,3 +340,5 @@ details p { margin: 0 0 14px; color: var(--muted); }
 .faq-list { margin: -6px 0 14px; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
 .faq-note { font-size: 13px; }
 .support-note { margin: 0 0 12px; color: var(--muted); }
+.g-link { align-self: flex-start; }
+.g-nav { gap: 6px; } .g-nav a { padding: 6px 11px; font-size: 13.5px; }

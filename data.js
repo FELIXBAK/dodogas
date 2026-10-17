@@ -69,7 +69,13 @@ var GUIDES = [
       {"title":"셀카 인증","do":["마스크·안경·모자를 벗고 정면을 봅니다.","안내에 맞춰 얼굴을 인증합니다."],"screen":{"k":"face","title":"Take a selfie"}},
       {"title":"검토 완료","do":["검토는 보통 2분 정도 걸리고, 끝나면 알림이 옵니다.","'Identity verified'가 보이면 완료입니다."],"screen":{"k":"done","title":"Identity verified"}}
     ]},
-    { "id":"change","title":"이미 가입했다면: 계정 삭제 후 재가입","warn":"계정 삭제는 영구적이며 되돌릴 수 없습니다. 잔고를 모두 옮긴 뒤 진행하세요.", "steps": [
+    { "id":"refchange","title":"이미 가입했다면: 추천인 코드 변경 신청","warn":"계정을 삭제하지 않고 추천인 코드만 바꿀 수 있는 방법입니다. 아래 조건 중 하나만 충족해도 변경이 허용되니, 계정 삭제보다 먼저 확인하세요.", "steps": [
+      {"title":"변경 가능 조건 확인","do":["가입 후 7일 이내","가입 후 7~30일, 총 거래량 ≤ 400,000","가입 후 30~90일, 총 거래량 ≤ 500,000","가입 후 90일 초과, 최근 90일 거래량 ≤ 5,000,000"],"tip":"4가지 중 하나만 충족하면 됩니다. 해당하지 않으면 아래 '계정 삭제 후 재가입'으로 진행하세요."},
+      {"title":"변경 신청 페이지 열기","do":["OKX에 로그인한 상태에서 아래 버튼으로 초대코드 변경 페이지를 엽니다."],"link":{"label":"OKX 초대코드 변경 페이지 열기","href":"https://www.okx.com/ul/J6l2R5"}},
+      {"title":"초대코드·사유 입력","do":["Invite Code 칸에 {CODE}를 입력합니다.","Reason for joining 칸에 변경 사유를 영어로 입력합니다."],"copy":"Change referral code","screen":{"k":"form","title":"Change invite code","rows":[{"l":"Invite Code","v":"{CODE}","hl":true},{"l":"Reason for joining","v":"Change referral code"}],"btn":"Submit"}},
+      {"title":"적용 확인","do":["처리가 끝나면 위의 '추천인 적용 확인' 순서대로 Invite perks에서 {CODE}가 보이는지 확인합니다."],"tip":"자산 이동과 계정 탈퇴·KYC 변경 전에는 거래소의 최신 정책을 다시 확인해 주세요."}
+    ]},
+    { "id":"change","title":"변경이 안 되면: 계정 삭제 후 재가입","warn":"계정 삭제는 영구적이며 되돌릴 수 없습니다. 잔고를 모두 옮긴 뒤 진행하세요. 추천인 코드 변경 신청이 가능한지 먼저 확인하세요.", "steps": [
       {"title":"잔고 확인","do":["총 자산이 0인지, 남은 코인이 없는지 확인합니다."],"screen":{"k":"form","title":"총 자산","rows":[{"l":"Total assets","v":"0 USDT","hl":true}]}},
       {"title":"삭제 메뉴","do":["사람 아이콘 → [Security] → [Close Account]"],"screen":{"k":"menu","title":"Assets","items":["Overview","Security","Verification","Close Account"],"hl":3}},
       {"title":"OTP 설정","do":["'Complete the following before closing account'가 나오면 먼저 Authenticator 앱(OTP)을 설정합니다."],"screen":{"k":"tap","title":"Complete the following before closing account","btn":"Turn on authenticator app"}},
@@ -151,6 +157,7 @@ var FAQ = [
     note: "※ 거래소의 처리 상황 및 회원별 조건에 따라 실제 지급 시간은 달라질 수 있습니다." },
   { q: "이미 가입한 계정도 혜택을 받을 수 있나요?", a: "네, 가능합니다. 이미 가입한 계정이라도 거래소별 방법에 따라 dodogas 추천 코드가 적용된 계정으로 바꿀 수 있습니다. 거래소마다 방법이 다르니 아래에서 이용 중인 거래소를 골라 순서대로 진행해 주세요.",
     links: [
+      { label: "OKX · 추천인 코드 변경 신청", href: "guides.html#okx-refchange" },
       { label: "OKX · 계정 삭제 후 재가입", href: "guides.html#okx-change" },
       { label: "Bitget · KYC 해제 후 새 계정", href: "guides.html#bitget-change" },
       { label: "Bybit · KYC를 새 계정으로 이전", href: "guides.html#bybit-change" }

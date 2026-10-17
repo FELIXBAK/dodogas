@@ -135,6 +135,7 @@
           return '<li class="g-step"><span class="g-badge">STEP ' + n + "</span><h3>" + esc(t.title) + "</h3>" +
             (t.screen ? screen(t.screen) : "") +
             '<ul class="g-do">' + t.do.map(function (x) { return "<li>" + fill(x) + "</li>"; }).join("") + "</ul>" +
+            (t.link ? '<a class="btn g-link" href="' + esc(t.link.href) + '" target="_blank" rel="noopener">' + esc(t.link.label) + " ↗</a>" : "") +
             (t.copy ? '<div class="g-copy"><pre>' + esc(cp) + '</pre><button type="button" class="copy-code" data-code="' + esc(cp) + '" data-label="내용 복사"><span class="cp-text">내용 복사</span>' + ICO + "</button></div>" : "") +
             (t.tip ? '<p class="g-tip"><b>TIP</b><span>' + fill(t.tip) + "</span></p>" : "") +
             (t.warn ? '<p class="g-warn"><b>!</b><span>' + fill(t.warn) + "</span></p>" : "") + "</li>";
