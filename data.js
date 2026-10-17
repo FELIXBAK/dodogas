@@ -7,6 +7,11 @@ var SITE = {
   contacts: { kakao: "", telegram: "", discord: "", youtube: "" }
 };
 
+// 제공 서비스 (홈 화면). link에 텔레그램 채널 주소를 넣으면 '채널 입장' 버튼이 활성화됩니다.
+var SERVICES = [
+  { name: "붐붐이 Lite", tag: "텔레그램", access: "전체 공개", desc: "텔레그램 채널로 제공되는 붐붐이 Lite입니다. 누구나 무료로 볼 수 있습니다.", link: "" }
+];
+
 // 거래소 혜택 비교 (홈 화면 표). 페이백·수수료·추천인 코드는 실제 값으로 채워 주세요.
 var EXCHANGES = [
   { id: "binance", name: "Binance", payback: "", fee: "", code: "", link: "" },

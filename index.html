@@ -25,6 +25,11 @@
 
   <div class="container">
     <section class="section">
+      <div class="section-head"><h2>제공 서비스</h2></div>
+      <div class="grid" id="sv-grid"></div>
+    </section>
+
+    <section class="section">
       <div class="section-head"><h2>거래소 혜택 비교<span id="ex-flag"></span></h2></div>
       <div class="scroll">
         <table>
@@ -61,6 +66,11 @@
     var dash = '<span class="dash">–</span>';
     var join = x.link ? '<a class="btn" href="' + esc(x.link) + '" rel="noopener" target="_blank">가입하기</a>' : dash;
     return "<tr><th scope=\"row\">" + esc(x.name) + "</th><td>" + (esc(x.payback) || dash) + "</td><td>" + (esc(x.fee) || dash) + "</td><td>" + (esc(x.code) || dash) + "</td><td>" + join + "</td></tr>";
+  }).join("");
+
+  document.getElementById("sv-grid").innerHTML = SERVICES.map(function (v) {
+    var btn = v.link ? '<a class="btn" href="' + esc(v.link) + '" rel="noopener" target="_blank">채널 입장</a>' : '<span class="dash">링크 준비 중</span>';
+    return '<article class="card"><span class="tag">' + esc(v.tag) + '</span><h3>' + esc(v.name) + '</h3><p>' + esc(v.desc) + '</p><div class="meta">' + esc(v.access) + '</div><p>' + btn + '</p></article>';
   }).join("");
 
   var today = new Date().toISOString().slice(0, 10);
