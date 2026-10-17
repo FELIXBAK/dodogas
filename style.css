@@ -308,19 +308,19 @@ details p { margin: 0 0 14px; color: var(--muted); }
 .sv-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .sv-name { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .sv-name h3 { margin: 0; word-break: keep-all; }
-.sv-ico { width: 48px; height: 48px; border-radius: 50%; flex: none; display: inline-grid; place-items: center; background: radial-gradient(circle at 30% 25%, var(--c1), var(--c2) 75%); box-shadow: 0 4px 12px color-mix(in srgb, var(--c2) 40%, transparent), inset 0 1px 0 rgba(255, 255, 255, .35); object-fit: cover; }
+.sv-ico { width: 48px; height: 48px; border-radius: 50%; flex: none; display: inline-grid; place-items: center; background: radial-gradient(circle at 30% 25%, var(--c1), var(--c2) 75%); box-shadow: 0 4px 12px color-mix(in srgb, var(--c2, #1a2030) 35%, transparent), inset 0 1px 0 rgba(255, 255, 255, .35); object-fit: cover; }
 
 /* 거래소 혜택 비교: 휴대폰에서는 표 대신 줄마다 카드처럼 */
 @media (max-width: 640px) {
   .ex-wrap { overflow: visible; }
   .ex-table { min-width: 0; }
   .ex-table, .ex-table thead, .ex-table tbody { display: block; }
-  /* 휴대폰용 목차: 아래 칸 배치와 같은 자리에 거래소·가입 / 혜택·추천인 코드 */
-  .ex-table thead tr { background: var(--lock-soft); padding: 9px 14px; gap: 2px 12px; border-bottom: 1px solid var(--line) !important; border-radius: 12px 12px 0 0; }
-  .ex-table thead th { font-size: 12px; font-weight: 600; color: var(--muted); background: none; }
+  /* 휴대폰용 목차: 왼쪽 '거래소 및 혜택', 오른쪽 '추천인 코드로 가입하기' */
+  .ex-table thead tr { grid-template-areas: "name join"; background: var(--lock-soft); padding: 10px 14px; border-bottom: 1px solid var(--line) !important; border-radius: 12px 12px 0 0; }
+  .ex-table thead th { font-size: 0; background: none; }
+  .ex-table thead th::after { content: attr(data-m); font-size: 12.5px; font-weight: 600; color: var(--muted); }
+  .ex-table thead th:nth-of-type(2), .ex-table thead th:nth-of-type(3) { display: none; }
   .ex-table thead th:nth-of-type(1) { grid-area: name; }
-  .ex-table thead th:nth-of-type(2) { grid-area: benefit; }
-  .ex-table thead th:nth-of-type(3) { grid-area: code; justify-self: end; }
   .ex-table thead th:nth-of-type(4) { grid-area: join; justify-self: end; }
   .ex-table tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "name join" "benefit code"; align-items: center; gap: 8px 12px; padding: 14px; border-bottom: 1px solid var(--line); }
   .ex-table tr:last-child { border-bottom: 0; }
