@@ -78,6 +78,39 @@ var BOARDS = [
 
 ];
 
+// 게시판별 한 줄 설명. 따옴표 안에 적으면 해당 게시판 이름 아래에 표시됩니다. 비워 두면 표시하지 않습니다.
+var DESCS = {
+  "붐붐이-m1-테스트": "",
+  "붐붐이-보조1-테스트": "",
+  "붐붐이-보조2-테스트": "",
+  "붐붐이-보조3-테스트": "",
+  "BOOM-BOOM-Alert": "",
+  "BTC_Liquidation_map": "",
+  "BTC_hit_map_KF": "",
+  "BTC_hit_map_CG": "",
+  "DODO_index": "",
+  "High_Leverage_Frenzy_index": "",
+  "ETH_Liquidation_map": "",
+  "ETH_hit_map": "",
+  "ETH_hit_map_CG": "",
+  "XRP_Liquidation_map": "",
+  "XRP_hit_map": "",
+  "SOL_Liquidation_map": "",
+  "SOL_hit_map": "",
+  "ALT_Liquidation_map": "",
+  "BOOST-PHASE_Line": "",
+  "MID-COURSE_Line": "",
+  "APOCALYPTIC_Line": "",
+  "Line-altcoins": "",
+  "Line-free_chat": "",
+  "altcoins-request": "",
+  "Line-NASDAQ": "",
+  "Line-METALS": "",
+  "Line-KOSPI-200": "",
+  "gex-BTC": "",
+  "gex-ETH": ""
+};
+
 var current = 2;
 try {
   var h = location.hash.replace("#", "");
@@ -127,7 +160,7 @@ function renderPanel() {
       var state = !known ? 'pending' : (b.minTier <= current ? 'open' : 'locked');
       var chip = state === 'open' ? '열람 가능' : state === 'locked' ? esc(TIERS[b.minTier].name) + '부터' : '확인 중';
       html += '<li class="board ' + state + '">' +
-        '<span class="title"><span class="hash">#</span><span class="ico">' + esc(b.icon || "") + '</span><span class="bname">' + esc(b.name) + '</span></span>' +
+        '<span class="title"><span class="hash">#</span><span class="ico">' + esc(b.icon || "") + '</span><span class="btxt"><span class="bname">' + esc(b.name) + '</span>' + (DESCS[b.name] ? '<span class="bdesc">' + esc(DESCS[b.name]) + '</span>' : '') + '</span></span>' +
         '<span class="chip">' + chip + '</span></li>';
     });
     html += '</ul></div>';

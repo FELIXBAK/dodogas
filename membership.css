@@ -82,3 +82,8 @@ th.cur, td.cur { background: var(--accent-soft); }
 .wrap-m .scroll table { min-width: 480px; }
 th.cur, td.cur { background: var(--accent-soft); }
 tbody th.grp { background: var(--lock-soft); }
+
+.board .title { align-items: flex-start; }
+.board .btxt { display: flex; flex-direction: column; min-width: 0; }
+.board .bdesc { font-size: 13px; color: var(--muted); font-weight: 400; line-height: 1.5; }
+.board .chip { align-self: center; }
