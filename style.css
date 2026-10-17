@@ -243,7 +243,8 @@ details p { margin: 0 0 14px; color: var(--muted); }
 .rc-item summary::-webkit-details-marker { display: none; }
 .rc-item summary img { border-radius: 10px; }
 .rc-name strong { display: block; }
-.rc-name small { color: var(--muted); font-size: 12px; }
+.rc-badge { display: inline-block; margin-top: 3px; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--bg); color: var(--muted); border: 1px solid var(--line); white-space: nowrap; }
+.rc-badge.self { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
 .rc-sum { color: var(--muted); font-size: 14px; word-break: keep-all; }
 .rc-tg { width: 32px; height: 32px; border-radius: 50%; background: var(--accent-soft); position: relative; }
 .rc-tg::before, .rc-tg::after { content: ""; position: absolute; left: 10px; right: 10px; top: 15px; height: 2px; background: var(--accent); transition: transform .2s; }
@@ -264,3 +265,12 @@ details p { margin: 0 0 14px; color: var(--muted); }
 .g-pre p { margin: 4px 0 0; font-size: 15px; word-break: keep-all; max-width: 640px; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .g-pre { background: #3a2a12; color: #f5d7a8; } }
 :root[data-theme="dark"] .g-pre { background: #3a2a12; color: #f5d7a8; }
+.rc-ok { margin: 0; display: flex; gap: 10px; align-items: flex-start; padding: 10px 14px; border-radius: 10px; background: #e7f8ef; color: #0f5132; font-weight: 600; align-self: stretch; word-break: keep-all; }
+.rc-ok b { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: #1f9d55; color: #fff; font-size: 13px; }
+.rc-ask { align-self: stretch; padding: 14px 16px; border: 1px dashed var(--accent); border-radius: 10px; }
+.rc-ask strong { display: block; margin-bottom: 6px; }
+.rc-ask ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; font-size: 15px; }
+.rc-note { border-left-color: var(--line) !important; background: transparent !important; color: var(--muted); padding: 0 0 0 12px !important; }
+.btn.ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .rc-ok { background: #123524; color: #b6f0cf; } }
+:root[data-theme="dark"] .rc-ok { background: #123524; color: #b6f0cf; }

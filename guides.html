@@ -22,7 +22,7 @@
     <section class="section rc" id="referral-check">
       <p class="eyebrow">referral check</p>
       <h2>내 추천인 적용 확인 방법</h2>
-      <p class="lead">가입할 때 dodogas 추천인이 제대로 적용됐는지 확인하는 방법입니다.</p>
+      <p class="lead">KYC 인증 전에 dodogas 추천 코드가 내 계정에 잘 연결됐는지 먼저 확인해 보세요.</p>
       <div class="rc-list" id="rc-list"></div>
     </section>
   </div>
@@ -144,15 +144,18 @@
   (function () {
     var dc = (SITE.contacts || {}).discord;
     document.getElementById("rc-list").innerHTML = REFCHECK.map(function (r, i) {
-      var ex = exOf(r.id), code = ex.code || "";
+      var ex = exOf(r.id), code = ex.code || "", self = !!r.steps;
       function f(t) { return esc(t).replace(/\{CODE\}/g, '<strong class="g-code">' + esc(code) + "</strong>"); }
+      var body = "";
+      if (self) body += '<ol class="rc-steps">' + r.steps.map(function (s) { return "<li>" + f(s) + "</li>"; }).join("") + "</ol>";
+      if (r.ok) body += '<p class="rc-ok"><b>✓</b><span>' + f(r.ok) + "</span></p>";
+      if (r.ask) body += '<div class="rc-ask"><strong>디스코드 1:1 문의로 아래 3가지를 보내 주세요</strong><ul>' + r.ask.map(function (s) { return "<li>" + f(s) + "</li>"; }).join("") + "</ul></div>";
+      if (r.note) body += '<p class="rc-note">' + f(r.note) + "</p>";
+      if (dc) body += '<a class="btn' + (self ? " ghost" : "") + '" href="' + esc(dc) + '" target="_blank" rel="noopener">' + (self ? "잘 모르겠어요 · 디스코드 문의" : "디스코드로 확인 요청하기") + "</a>";
       return '<details class="rc-item" id="rc-' + esc(r.id) + '"' + (i === 0 ? " open" : "") + '><summary>' +
         (ex.icon ? '<img src="' + esc(ex.icon) + '" alt="" width="40" height="40">' : "") +
-        '<span class="rc-name"><strong>' + esc(ex.name || r.id) + '</strong><small>' + (r.steps ? "직접 확인 가능" : "고객센터 확인") + "</small></span>" +
-        '<span class="rc-sum">' + esc(r.summary) + '</span><span class="rc-tg" aria-hidden="true"></span></summary><div class="rc-body">' +
-        (r.steps ? '<ol class="rc-steps">' + r.steps.map(function (s) { return "<li>" + f(s) + "</li>"; }).join("") + "</ol>" : "") +
-        (r.note ? '<p class="rc-note">' + f(r.note) + "</p>" : "") +
-        (dc ? '<a class="btn" href="' + esc(dc) + '" target="_blank" rel="noopener">디스코드 1:1 문의</a>' : "") + "</div></details>";
+        '<span class="rc-name"><strong>' + esc(ex.name || r.id) + '</strong><small class="rc-badge' + (self ? " self" : "") + '">' + (self ? "직접 확인" : "dodogas가 대신 확인") + "</small></span>" +
+        '<span class="rc-sum">' + esc(r.summary) + '</span><span class="rc-tg" aria-hidden="true"></span></summary><div class="rc-body">' + body + "</div></details>";
     }).join("");
   })();
   draw();
