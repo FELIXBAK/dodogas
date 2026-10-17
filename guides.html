@@ -14,36 +14,72 @@
   <div class="container">
     <div class="page-head">
       <p class="eyebrow">step by step</p>
-      <h1>가입·KYC 가이드<span id="flag"></span></h1>
-      <p class="lead">거래소를 고르면 가입부터 본인 인증까지 순서대로 안내합니다. 반드시 본인 명의 정보로 진행하세요.</p>
+      <h1>가입·KYC 가이드</h1>
+      <p class="lead">거래소를 고르면 회원가입부터 KYC 본인인증까지 순서대로 안내합니다. 추천인 코드를 꼭 넣어 가입하고, 반드시 본인 명의 정보로 진행하세요.</p>
     </div>
     <div class="chips" id="chips" role="group" aria-label="거래소 선택"></div>
-    <ol class="steps" id="steps" aria-live="polite"></ol>
+    <div id="guide" aria-live="polite"></div>
   </div>
 </main>
 <script src="data.js"></script>
 <script src="site.js"></script>
 <script>
 (function () {
-  document.getElementById("flag").innerHTML = sampleFlag();
   var cur = 0;
   try {
     var m = /^#(.+)$/.exec(location.hash);
     if (m) GUIDES.forEach(function (g, i) { if (g.id === m[1]) cur = i; });
   } catch (e) {}
+  var ICO = '<svg class="cp-ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>';
+  var CHECK = '<svg class="cp-ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>';
+
+  function exOf(id) { for (var i = 0; i < EXCHANGES.length; i++) if (EXCHANGES[i].id === id) return EXCHANGES[i]; return {}; }
 
   function draw() {
     document.getElementById("chips").innerHTML = GUIDES.map(function (g, i) {
       return '<button type="button" class="chip-btn" aria-pressed="' + (i === cur) + '" data-i="' + i + '">' + esc(g.name) + "</button>";
     }).join("");
-    var g = GUIDES[cur];
-    document.getElementById("steps").innerHTML = g.steps.map(function (s) {
-      return "<li><h3>" + esc(s.title) + "</h3><p>" + esc(s.text) + "</p>" + (s.img ? '<img src="' + esc(s.img) + '" alt="' + esc(s.title) + ' 화면">' : "") + "</li>";
+    var g = GUIDES[cur], ex = exOf(g.id), code = ex.code || "";
+    function fill(t) { return esc(t).replace(/\{CODE\}/g, "<strong>" + esc(code) + "</strong>"); }
+    var head = '<div class="g-head"><div><span class="g-label">' + esc(g.name) + ' 추천인 코드</span> ' +
+      '<button type="button" class="copy-code" data-code="' + esc(code) + '" title="클릭하면 복사됩니다"><span class="cp-text">' + esc(code) + "</span>" + ICO + "</button></div>" +
+      (ex.link ? '<a class="btn" href="' + esc(ex.link) + '" rel="noopener" target="_blank">가입 링크 열기</a>' : "") + "</div>";
+    var body = g.sections.map(function (s) {
+      return '<section class="g-sec"><h2>' + esc(s.title) + "</h2>" +
+        (s.intro ? '<p class="g-intro">' + fill(s.intro) + "</p>" : "") +
+        (s.warn ? '<p class="g-warn">⚠ ' + fill(s.warn) + "</p>" : "") +
+        '<ol class="steps">' + s.steps.map(function (t) {
+          return "<li><h3>" + esc(t.title) + "</h3><p>" + fill(t.text) + "</p>" + (t.warn ? '<p class="g-warn">⚠ ' + fill(t.warn) + "</p>" : "") + "</li>";
+        }).join("") + "</ol></section>";
     }).join("");
+    document.getElementById("guide").innerHTML = head + body;
   }
   document.getElementById("chips").addEventListener("click", function (ev) {
     var b = ev.target.closest(".chip-btn");
     if (b) { cur = Number(b.getAttribute("data-i")); draw(); }
+  });
+
+  function copyText(t) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(t);
+    return new Promise(function (ok, fail) {
+      try {
+        var a = document.createElement("textarea");
+        a.value = t; a.style.position = "fixed"; a.style.opacity = "0";
+        document.body.appendChild(a); a.select();
+        var done = document.execCommand("copy");
+        document.body.removeChild(a);
+        done ? ok() : fail();
+      } catch (e) { fail(e); }
+    });
+  }
+  document.getElementById("guide").addEventListener("click", function (e) {
+    var b = e.target.closest(".copy-code");
+    if (!b) return;
+    var code = b.getAttribute("data-code"), txt = b.querySelector(".cp-text");
+    function reset() { txt.textContent = code; b.classList.remove("copied"); b.querySelector(".cp-ico").outerHTML = ICO; }
+    copyText(code).then(function () {
+      txt.textContent = "복사됨"; b.classList.add("copied"); b.querySelector(".cp-ico").outerHTML = CHECK;
+    }, function () { txt.textContent = "길게 눌러 복사"; }).then(function () { setTimeout(reset, 1500); });
   });
   draw();
 })();

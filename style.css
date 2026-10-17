@@ -165,3 +165,12 @@ details p { margin: 0 0 14px; color: var(--muted); }
 .ex-name { display: inline-flex; align-items: center; gap: 10px; }
 .ex-ico { width: 28px; height: 28px; border-radius: 8px; flex: none; object-fit: contain; }
 .ex-letter { display: inline-flex; align-items: center; justify-content: center; background: var(--accent-soft); color: var(--accent); font-weight: 700; font-size: 14px; }
+
+.g-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin: 18px 0 8px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.g-label { font-size: 14px; color: var(--muted); margin-right: 8px; }
+.g-sec { margin-top: 28px; }
+.g-sec h2 { font-size: 20px; margin: 0 0 12px; }
+.g-intro { margin: 0 0 12px; color: var(--muted); }
+.g-warn { margin: 8px 0 12px; padding: 8px 12px; border-radius: 8px; background: var(--accent-soft); font-size: 14px; word-break: keep-all; }
+.steps .g-warn { margin: 8px 0 0; color: var(--fg); }
+.steps li strong { color: var(--accent); font-family: "IBM Plex Mono", monospace; }
