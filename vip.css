@@ -14,3 +14,5 @@
 .vip-steps p { margin: 0; font-size: 13.5px; color: var(--muted); word-break: keep-all; }
 .vip-ico { font-size: 24px; }
 @media (max-width: 640px) { .vip-steps { grid-template-columns: 1fr; } }
+.vip-icon { flex: none; width: 34px; height: 34px; border-radius: 10px; background: var(--accent-soft); display: inline-flex; align-items: center; justify-content: center; font-size: 18px; line-height: 1; }
+.vip-list span.vip-icon { display: inline-flex; margin-top: 0; font-size: 18px; color: inherit; }
