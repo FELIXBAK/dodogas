@@ -161,3 +161,7 @@ details p { margin: 0 0 14px; color: var(--muted); }
 .copy-code .cp-ico { flex: none; opacity: 0.85; }
 .copy-code:hover { border-style: solid; }
 .copy-code.copied { background: var(--accent); color: var(--surface); border-style: solid; }
+
+.ex-name { display: inline-flex; align-items: center; gap: 10px; }
+.ex-ico { width: 28px; height: 28px; border-radius: 8px; flex: none; object-fit: contain; }
+.ex-letter { display: inline-flex; align-items: center; justify-content: center; background: var(--accent-soft); color: var(--accent); font-weight: 700; font-size: 14px; }

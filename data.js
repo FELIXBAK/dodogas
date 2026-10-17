@@ -15,7 +15,7 @@ var SERVICES = [
   { name: "붐붐이 Lite", tag: "텔레그램", access: "전체 공개", desc: "텔레그램 채널로 제공되는 붐붐이 Lite입니다. 누구나 무료로 볼 수 있습니다.", link: "https://t.me/+kSnaeCAx_QUxNzQ1" }
 ];
 
-// 거래소 혜택 비교 (홈 화면 표). 혜택·추천인 코드는 실제 값으로 채워 주세요.
+// 거래소 혜택 비교 (홈 화면 표). icon에 로고 이미지 경로(예: "img/ex/binance.png")를 넣으면 글자 아이콘 대신 로고가 보입니다. 혜택·추천인 코드는 실제 값으로 채워 주세요.
 var EXCHANGES = [
   { id: "binance", name: "Binance", benefit: "수수료 20% 할인", code: "361097924", link: "https://accounts.binance.com/register?ref=361097924" },
   { id: "okx",     name: "OKX",     benefit: "수수료 20% 페이백", code: "67654160", link: "https://okx.com/join/67654160" },
