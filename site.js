@@ -14,11 +14,11 @@
 
   var PAGES = [
     { id: "home", href: "index.html", label: "홈" },
-    { id: "events", href: "events.html", label: "이벤트·대회" },
     { id: "guides", href: "guides.html", label: "가입·KYC 가이드" },
     { id: "membership", href: "membership.html", label: "멤버십" },
     { id: "boards", href: "boards.html", label: "게시판 안내" },
-    { id: "support", href: "support.html", label: "고객센터" }
+    { id: "support", href: "support.html", label: "고객센터" },
+    { id: "events", href: "events.html", label: "이벤트·대회" }
   ];
   var current = document.body.getAttribute("data-page");
 

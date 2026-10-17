@@ -25,7 +25,7 @@
 
   <div class="container">
     <section class="section">
-      <div class="section-head"><h2>거래소 혜택 비교<span id="ex-flag"></span></h2></div>
+      <div class="section-head"><h2>거래소 혜택 비교</h2></div>
       <div class="scroll">
         <table>
           <thead><tr><th>거래소</th><th>혜택</th><th>추천인 코드</th><th>가입</th></tr></thead>
@@ -50,7 +50,7 @@
     </section>
 
     <section class="section">
-      <div class="section-head"><h2>진행 중인 이벤트<span id="ev-flag"></span></h2><a href="events.html">전체 보기</a></div>
+      <div class="section-head"><h2>진행 중인 이벤트</h2><a href="events.html">전체 보기</a></div>
       <div class="grid" id="ev-grid"></div>
     </section>
 
@@ -69,8 +69,6 @@
 <script src="site.js"></script>
 <script>
 (function () {
-  document.getElementById("ex-flag").innerHTML = sampleFlag();
-  document.getElementById("ev-flag").innerHTML = sampleFlag();
 
   document.getElementById("ex-body").innerHTML = EXCHANGES.map(function (x) {
     var dash = '<span class="dash">–</span>';
