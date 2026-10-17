@@ -54,18 +54,18 @@ var GUIDES = [
       {"title":"휴대폰 인증","do":["휴대폰 번호(+82)를 입력하고 [Verify now]를 누릅니다.","문자로 온 6자리 코드를 입력합니다."],"screen":{"k":"form","title":"What's your phone number?","rows":[{"l":"Phone number","v":"+82  010-0000-0000","hl":true}],"btn":"Verify now"}},
       {"title":"비밀번호 설정","do":["8~32자, 소문자·대문자·숫자·특수문자를 각각 1개 이상 넣습니다.","[Confirm]을 누르면 가입 완료입니다."],"screen":{"k":"pw","title":"Create password","btn":"Confirm"}}
     ]},
+    { "id":"check","title":"KYC 전에: 추천인 적용 확인", "steps": [
+      {"title":"메뉴 열기","do":["앱 메인 화면 왼쪽 위 9개 점 메뉴를 누릅니다."],"screen":{"k":"tap","title":"홈 화면","btn":"⋮⋮⋮  메뉴 (왼쪽 위)"}},
+      {"title":"계정 설정","do":["[Account settings]로 들어갑니다."],"screen":{"k":"tap","title":"내 프로필","btn":"Account settings"}},
+      {"title":"Invite perks","do":["Account information에서 [Invite perks]를 누릅니다."],"screen":{"k":"menu","title":"User Center","items":["UID","Identity verification","Trading fee tier","Invite perks"],"hl":3}},
+      {"title":"코드 확인","do":["Invite code에 {CODE}가 보이면 정상 적용입니다."],"tip":"앱 버전에 따라 메뉴 이름이나 위치가 조금 다를 수 있습니다.","screen":{"title":"Your invite perks","rows":[{"l":"Invite code","v":"{CODE}","hl":true}]}}
+    ]},
     { "id":"kyc","title":"KYC 본인인증","time":"약 5분", "steps": [
       {"title":"인증 시작","do":["가입한 이메일로 앱에 로그인합니다.","프로필에서 [Get verified]를 누릅니다."],"screen":{"k":"tap","title":"Verify your identity","btn":"Get verified"}},
       {"title":"지역·신분증 선택","do":["거주 지역: South Korea","운전면허증·신분증·여권 중 하나를 선택하고 [Next]"],"screen":{"title":"Select ID type","rows":[{"l":"Country/region of residence","v":"South Korea"},{"l":"ID type","v":"Driver's license","hl":true}],"btn":"Next"}},
       {"title":"신분증 촬영","do":["앞면 → 뒷면 순서로 촬영합니다."],"tip":"빛 반사와 그림자가 없게, 모든 글자가 선명하게 보이도록 찍으세요.","screen":{"k":"id","title":"Check the photo"}},
       {"title":"셀카 인증","do":["마스크·안경·모자를 벗고 정면을 봅니다.","안내에 맞춰 얼굴을 인증합니다."],"screen":{"k":"face","title":"Take a selfie"}},
       {"title":"검토 완료","do":["검토는 보통 2분 정도 걸리고, 끝나면 알림이 옵니다.","'Identity verified'가 보이면 완료입니다."],"screen":{"k":"done","title":"Identity verified"}}
-    ]},
-    { "id":"check","title":"추천인 적용 확인", "steps": [
-      {"title":"메뉴 열기","do":["앱 메인 화면 왼쪽 위 9개 점 메뉴를 누릅니다."],"screen":{"k":"tap","title":"홈 화면","btn":"⋮⋮⋮  메뉴 (왼쪽 위)"}},
-      {"title":"계정 설정","do":["[Account settings]로 들어갑니다."],"screen":{"k":"tap","title":"내 프로필","btn":"Account settings"}},
-      {"title":"Invite perks","do":["Account information에서 [Invite perks]를 누릅니다."],"screen":{"k":"menu","title":"User Center","items":["UID","Identity verification","Trading fee tier","Invite perks"],"hl":3}},
-      {"title":"코드 확인","do":["Invite code에 {CODE}가 보이면 정상 적용입니다."],"tip":"앱 버전에 따라 메뉴 이름이나 위치가 조금 다를 수 있습니다.","screen":{"title":"Your invite perks","rows":[{"l":"Invite code","v":"{CODE}","hl":true}]}}
     ]},
     { "id":"change","title":"이미 가입했다면: 계정 삭제 후 재가입","warn":"계정 삭제는 영구적이며 되돌릴 수 없습니다. 잔고를 모두 옮긴 뒤 진행하세요.", "steps": [
       {"title":"잔고 확인","do":["총 자산이 0인지, 남은 코인이 없는지 확인합니다."],"screen":{"k":"form","title":"총 자산","rows":[{"l":"Total assets","v":"0 USDT","hl":true}]}},

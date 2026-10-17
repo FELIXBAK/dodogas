@@ -75,6 +75,13 @@
       else if (k === "check") body = '<ul class="ph-menu check">' + s.items.map(function (x) { return "<li><i>✓</i>" + sub(x) + "</li>"; }).join("") + "</ul>";
       return '<div class="phone" role="img" aria-label="' + esc((s.title || "") + " 화면 예시") + '"><div class="ph-title">' + (k === "mail" ? "새 메일" : k === "done" ? "완료" : sub(s.title || "")) + "</div>" + body + "</div>";
     }
+    function preKyc(g) {
+      var hasCheck = g.sections.some(function (x) { return x.id === "check" && /KYC 전에/.test(x.title); });
+      var href = hasCheck ? "#g-check" : "#rc-" + g.id;
+      return '<div class="g-pre"><div><strong>KYC 인증 전에 추천인 코드부터 확인하세요!</strong>' +
+        '<p>가입할 때 추천인 코드 <span class="g-code">' + esc(code) + '</span>가 잘 등록됐는지 먼저 확인한 뒤 KYC를 진행하세요. KYC까지 마친 뒤에는 추천인을 바꾸려면 계정 삭제나 KYC 이전 같은 번거로운 절차가 필요합니다.</p></div>' +
+        '<a class="btn" href="' + href + '" data-rc="' + esc(g.id) + '">추천인 확인 방법 보기</a></div>';
+    }
     var head = '<div class="g-head"><div class="g-ex">' + (ex.icon ? '<img src="' + esc(ex.icon) + '" alt="" width="40" height="40">' : "") +
       '<div><strong>' + esc(g.name) + '</strong><span>' + esc(ex.benefit || "") + '</span></div></div>' +
       '<div class="g-act"><span class="g-label">추천인 코드</span><button type="button" class="copy-code" data-code="' + esc(code) + '" title="클릭하면 복사됩니다"><span class="cp-text">' + esc(code) + "</span>" + ICO + "</button>" +
@@ -85,6 +92,7 @@
     var body = g.sections.map(function (s) {
       return '<section class="g-sec" id="g-' + esc(s.id) + '"><div class="g-sec-head"><h2>' + esc(s.title) + "</h2>" + (s.time ? '<span class="g-time">' + esc(s.time) + "</span>" : "") + "</div>" +
         (s.warn ? '<p class="g-warn"><b>!</b><span>' + fill(s.warn) + "</span></p>" : "") +
+        (s.id === "kyc" ? preKyc(g) : "") +
         '<ol class="g-steps">' + s.steps.map(function (t, i) {
           var n = i + 1 < 10 ? "0" + (i + 1) : String(i + 1);
           var cp = t.copy ? t.copy.replace(/\{CODE\}/g, code) : "";
@@ -99,6 +107,12 @@
     var tail = '<div class="card cta-card g-next"><div><h3>가입과 KYC를 마쳤다면</h3><p>추천 가입 계정은 거래량에 따라 VIP 권한을 받을 수 있습니다.</p></div><a class="btn" href="vip.html">VIP 기준 보기 →</a></div>';
     document.getElementById("guide").innerHTML = head + nav + body + tail;
   }
+  document.getElementById("guide").addEventListener("click", function (ev) {
+    var a = ev.target.closest("a[data-rc]");
+    if (!a || a.getAttribute("href").indexOf("#rc-") !== 0) return;
+    var it = document.getElementById(a.getAttribute("href").slice(1));
+    if (it) it.open = true;
+  });
   document.getElementById("chips").addEventListener("click", function (ev) {
     var b = ev.target.closest(".chip-btn");
     if (b) { cur = Number(b.getAttribute("data-i")); draw(); try { history.replaceState(null, "", "#" + GUIDES[cur].id); } catch (e) {} }
@@ -132,7 +146,7 @@
     document.getElementById("rc-list").innerHTML = REFCHECK.map(function (r, i) {
       var ex = exOf(r.id), code = ex.code || "";
       function f(t) { return esc(t).replace(/\{CODE\}/g, '<strong class="g-code">' + esc(code) + "</strong>"); }
-      return '<details class="rc-item"' + (i === 0 ? " open" : "") + '><summary>' +
+      return '<details class="rc-item" id="rc-' + esc(r.id) + '"' + (i === 0 ? " open" : "") + '><summary>' +
         (ex.icon ? '<img src="' + esc(ex.icon) + '" alt="" width="40" height="40">' : "") +
         '<span class="rc-name"><strong>' + esc(ex.name || r.id) + '</strong><small>' + (r.steps ? "직접 확인 가능" : "고객센터 확인") + "</small></span>" +
         '<span class="rc-sum">' + esc(r.summary) + '</span><span class="rc-tg" aria-hidden="true"></span></summary><div class="rc-body">' +

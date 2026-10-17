@@ -258,3 +258,9 @@ details p { margin: 0 0 14px; color: var(--muted); }
   .rc-sum { grid-column: 1 / -1; order: 3; }
   .rc-body { padding-left: 18px; }
 }
+
+.g-pre { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 14px; padding: 16px 18px; border: 2px solid #e8890c; border-radius: 14px; background: #fff4e5; color: #5c3100; }
+.g-pre strong { font-size: 17px; }
+.g-pre p { margin: 4px 0 0; font-size: 15px; word-break: keep-all; max-width: 640px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .g-pre { background: #3a2a12; color: #f5d7a8; } }
+:root[data-theme="dark"] .g-pre { background: #3a2a12; color: #f5d7a8; }
