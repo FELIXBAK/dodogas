@@ -68,14 +68,29 @@
         ];
       },
       intro: "라인은 운영자가 TradingView 차트에 직접 표시해 올리는 \u201C주목할 가격대\u201D입니다.\n차트가 이 가격대에 가까워지면 잠시 멈추거나, 반등하거나, 조정을 받는 모습이 자주 나타납니다. 그래서 \u201C여기서 한 번 반응이 나올 수 있겠다\u201D 하고 미리 살펴볼 수 있는 기준선으로 활용하실 수 있어요.\n활용 방법은 간단해요.\n① 올라온 라인 이미지에서 현재 가격과 라인 사이의 거리를 확인합니다.\n② 라인에 가까워지면 반응이 나오는지 차트를 지켜봅니다.\n③ 반응 없이 라인을 지나가는 경우도 있으니, 다음 라인도 함께 확인합니다.\n라인은 참고용 기준선이며, 항상 같은 반응이 나온다는 뜻은 아닙니다. 판단과 매매는 본인의 기준으로 해 주세요." },
-    { id: "index", title: "지수", pick: function (b) { return /_index$/.test(b.name); },
-      intro: "“L dodo 0”, “Pitched battle 0~3”처럼 짧은 문구로 지수 신호가 올라옵니다. 올라오는 간격은 일정하지 않습니다." }
+    { id: "index", title: "지수",
+      items: function () {
+        var d = info("DODO_index"), h = info("High_Leverage_Frenzy_index");
+        return [
+          { name: "DODO_index", minTier: d.minTier, imgs: [d.img],
+            summary: "DODO 지수 신호가 \u201CL dodo 0\u201D, \u201CS dodo 1\u201D 같은 짧은 문구로 올라옵니다. 올라오는 간격은 일정하지 않습니다." },
+          { name: "High_Leverage_Frenzy_index", minTier: h.minTier, badge: "신규 오픈", imgs: [h.img],
+            summary: "고배율 레버러지가 얼마나 광적으로 많이 걸렸는지를 보여 주는 지수입니다. 아래 세 가지 신호가 올라오며, 올라오는 간격은 일정하지 않습니다.",
+            subs: [
+              { t: "High leverage madness", d: "고배율 레버러지가 얼마나 광적으로 많이 걸렸는지 보여 줍니다. L1~10, S1~10으로 표현되며, L은 롱이 많음, S는 숏이 많음을 뜻합니다. 1에서 10으로 올라갈수록 그 정도가 커집니다." },
+              { t: "Pitched battle", d: "롱과 숏 세력이 맞붙어 있는 상태입니다. 먼저 자리 잡은 쪽이 흔들리는 방향으로 움직일 가능성이 있는 상태로 볼 수 있어요. 롱/숏 구분 없이 1~10 숫자로만 표현되고, 5 이상은 대회전 등급입니다. 숫자가 클수록 그 정도가 커집니다." },
+              { t: "Reverse Design Caution (역설계 주의)", d: "쌓여 있는 물량이 개인 투자자가 아니라 세력의 것이어서, 그 물량을 달고 움직일 가능성이 있을 때 나옵니다. L1~10, S1~10으로 표현되며, S는 숏 물량을 달고 내려갈 가능성, L은 롱 물량을 달고 올라갈 가능성을 뜻합니다." }
+            ] }
+        ];
+      },
+      intro: "지수 게시판에는 시장 상황을 짧은 문구와 숫자로 알려 주는 신호가 올라옵니다.\n신호는 참고용이며, 판단과 매매는 본인의 기준으로 해 주세요." },
   ];
   var html = SECTIONS.map(function (S) {
     var items = S.items ? S.items() : BOARD_INFO.filter(S.pick);
     var cards = items.map(function (b) {
       return '<article class="sg-card"><div class="sg-top"><h3>' + esc(b.name) + '</h3><span class="sg-tier">' + (b.tierLabel || (TIERS[b.minTier] + ' 이상')) + '</span></div>' + (b.badge ? '<span class="sg-badge">' + esc(b.badge) + '</span>' : '') + '' +
         '<p>' + esc(b.summary) + '</p>' +
+        (b.subs ? '<ul class="sg-sub">' + b.subs.map(function (x) { return '<li><strong>' + esc(x.t) + '</strong><span>' + esc(x.d) + '</span></li>'; }).join("") + '</ul>' : '') +
         (b.imgs || [b.img]).filter(Boolean).map(function (u) { return '<img class="sg-img" src="' + esc(u) + '" alt="' + esc(b.name) + ' 예시 화면" loading="lazy">'; }).join("") +
         '</article>';
     }).join("");
