@@ -153,3 +153,8 @@ tbody th.grp { background: var(--lock-soft); }
 
 .yt-join { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .yt-join .btn { padding: 8px 14px; }
+
+.join-cta { margin-top: 28px; }
+.join-cta h2 { margin: 0 0 6px; font-size: 18px; }
+.join-cta p { margin: 0 0 14px; color: var(--muted); }
+.join-cta .actions { margin-top: 0; }
