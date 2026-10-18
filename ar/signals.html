@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>شرح المؤشرات | dodogas</title>
+<meta name="description" content="شرح مفصّل في مكان واحد لتنبيهات Boomboom ومخططات الخطوط ولوحات إشارات المؤشر.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%233f51d6%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2718%27 font-family=%27sans-serif%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27white%27%3Ed%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../rtl.css">
+</head>
+<body data-page="signals">
+<main>
+  <div class="container">
+    <div class="page-head">
+      <p class="eyebrow">signals</p>
+      <h1>شرح المؤشرات</h1>
+      <p class="lead">نشرح التنبيهات والمخططات التي تُنشر على Discord حسب النوع. استخدم الفهرس أدناه للانتقال مباشرة إلى القسم الذي تريده.</p>
+    </div>
+    <nav class="g-nav sg-nav" aria-label="الفهرس">
+      <a href="#boomboom">Boomboom</a><a href="#line">الخطوط</a><a href="#index">المؤشر</a>
+    </nav>
+    <div id="sg"></div>
+    <section class="section">
+      <p class="callout">سنواصل إضافة المزيد من التفاصيل مثل طريقة القراءة ومعايير التفسير. إن كانت لديك أسئلة فلا تتردد في التواصل عبر <a href="support.html">الدعم</a>.</p>
+    </section>
+  </div>
+</main>
+<script src="data.js"></script>
+<script src="boards-data.js"></script>
+<script src="../site.js"></script>
+<script>
+(function () {
+  var TIERS = ["Basic", "Trillion", "VIP"];
+  function info(n) { return BOARD_INFO.filter(function (b) { return b.name === n; })[0] || { minTier: 2, img: "" }; }
+  var SECTIONS = [
+    { id: "boomboom", title: "Boomboom",
+      items: function () {
+        var c = info("BOOM-BOOM-Alert"), m = info("boomboom-m1-test"), s1 = info("boomboom-sub1-test"), s2 = info("boomboom-sub2-test");
+        return [
+          { name: "Boomboom Lite", tierLabel: "متاح للجميع", badge: "تيليجرام",
+            summary: "هذا Boomboom يمكن لأي شخص مشاهدته مجانًا عبر تيليجرام. لا يعرض المراحل، بل عبارة «BBBB» ووقت التنبيه بدقة الثانية.", imgs: ["../img/boomboom-lite.png"] },
+          { name: "BOOM-BOOM-Alert", minTier: c.minTier, badge: "النسخة التشغيلية السابقة",
+            summary: "تنبيه Boomboom الذي نشغّله منذ البداية. يُنشر بعبارات قصيرة مثل BBBBLL1 وBBBBSS2. يظهر الحرف L (LL) في العبارة عادةً عندما ينخفض السعر، ويظهر S (SS) عادةً عندما يرتفع.", imgs: [c.img] },
+          { name: "Boomboom M1", minTier: m.minTier, badge: "اختبار بيتا",
+            summary: "نسخة من Boomboom أُضيف إليها معايرة إضافية. هي متاحة مؤقتًا الآن كاختبار بيتا، وسيُطلق رسميًا بعد التحقق منه بما يكفي للاعتماد عليه. يُنشر مع المرحلة مثل «LLLL 1» و«SSSS 2»، ويظهر وقت التنبيه بدقة الثانية.", imgs: [m.img] },
+          { name: "Boomboom المساعد 1 · 2 · 3", minTier: Math.max(s1.minTier, s2.minTier), badge: "اختبار بيتا",
+            summary: "ثلاثة تنبيهات مساعدة تكمّل تنبيه Boomboom ويمكن الاستئناس بها معه. تُنشر بنفس شكل البطاقة، ويظهر وقت التنبيه بدقة الثانية. وهي متاحة مؤقتًا الآن كاختبار بيتا.", imgs: [s1.img, s2.img] }
+        ];
+      },
+      intro: "يتابع Boomboom حركة السوق لحظة بلحظة، ويجمع عدة معايير وقيم مرجعية داخلية، ثم يخبرك عبر Discord فور تحقق الشروط.\nتعرض تنبيهات Boomboom Lite وM1 والتنبيهات المساعدة وقت التنبيه بدقة الثانية أيضًا.\nتعرض بطاقة التنبيه عبارة ورقم مرحلة مثل «LLLL 1» و«SSSS 2»، وتتدرج المراحل من 1 إلى 7. (لا يعرض Boomboom Lite المراحل.)\nيظهر الحرف L (LLLL) في العبارة عادةً عندما ينخفض السعر، ويظهر S (SSSS) عادةً عندما يرتفع.\nيمكنك متابعة الحركة دون الحاجة إلى مراقبة الرسم البياني باستمرار.",
+      extra: '<a class="btn" href="' + esc((SERVICES.filter(function (s) { return s.name.indexOf("Boomboom Lite") === 0; })[0] || {}).link || "#") + '" target="_blank" rel="noopener">افتح Boomboom Lite على تيليجرام</a>' },
+    { id: "line", title: "الخطوط",
+      items: function () {
+        var b1 = info("BOOST-PHASE_Line"), b2 = info("MID-COURSE_Line"), b3 = info("APOCALYPTIC_Line");
+        function more(n, t) { var x = info(n); x.name = n; x.badge = "خطوط حسب الأصل"; x.summary = t; return x; }
+        return [
+          { name: "BOOST-PHASE_Line", minTier: b1.minTier, badge: "خط قصير المدى", imgs: [b1.img],
+            summary: "اسمه مأخوذ من «مرحلة الدفع» (Boost) وهي أول مرحلة يشتعل فيها الصاروخ بعد الإطلاق مباشرة. يحدد النطاقات السعرية القريبة من السعر الحالي التي يتركّز فيها كثير من المشاركين، وتظهر خطوطه الجديدة بسرعة نسبية، فهو خط قصير المدى. مناسب عندما تريد معرفة الأهداف القريبة بسرعة." },
+          { name: "MID-COURSE_Line", minTier: b2.minTier, badge: "خط متوسط إلى طويل المدى", imgs: [b2.img],
+            summary: "اسمه مأخوذ من «مرحلة منتصف المسار» (Midcourse) التي يعبر فيها الصاروخ منتصف رحلته. دورة ظهور خطوطه أطول من خطوط Boost، وهو خط متوسط إلى طويل المدى ينظر أبعد قليلًا. مفيد لتقدير الأهداف المتوسطة ضمن الاتجاه العام." },
+          { name: "APOCALYPTIC_Line", minTier: b3.minTier, badge: "خط طويل المدى", imgs: [b3.img],
+            summary: "اسمه مأخوذ من المرحلة الأخيرة في إطلاق الصاروخ، مرحلة النهاية. يحدد نطاقات سعرية قريبة من السعر المستهدف النهائي، وهو خط طويل المدى ودورة ظهوره الأطول. استعن به عندما تريد معرفة الأهداف الكبيرة البعيدة." },
+          more("Line-altcoins", "يحدد المشغّل الخطوط على مخططات العملات البديلة وينشرها. يمكنك بسهولة معرفة النطاقات السعرية اللافتة في مخطط كل عملة. إذا طلب أحد الأعضاء عملة، يراجع المشغّل المخطط وينشر في هذه اللوحة عند وجود خط ذي معنى."),
+          more("Line-NASDAQ", "يحدد المشغّل الخطوط على مخطط ناسداك وينشرها. تعرّف بسهولة على النطاقات السعرية اللافتة ضمن الاتجاه العام."),
+          more("Line-METALS", "يحدد المشغّل الخطوط على مخططات المعادن وينشرها. شاهد بنظرة واحدة النطاقات التي قد يتفاعل عندها السعر."),
+          more("Line-KOSPI", "يحدد المشغّل الخطوط على مخطط KOSPI وينشرها. استعن بها لمعرفة النطاقات السعرية التي قد يتفاعل عندها المؤشر.")
+        ];
+      },
+      intro: "الخط هو «نطاق سعري لافت» يحدده المشغّل بنفسه على مخطط TradingView وينشره.\nعندما يقترب المخطط من هذا النطاق، يتوقف أحيانًا لوهلة أو يرتد أو يشهد تصحيحًا. لذلك يمكنك استخدامه كخط مرجعي للمراقبة المسبقة بقولك: «قد يحدث هنا رد فعل».\nطريقة الاستخدام بسيطة.\n① في صورة الخط المنشورة، تحقق من المسافة بين السعر الحالي والخط.\n② عند اقتراب السعر من الخط، راقب المخطط لترى هل سيظهر رد فعل.\n③ قد يتجاوز السعر الخط دون رد فعل، لذا تحقق من الخط التالي أيضًا.\nالخطوط مستويات مرجعية فقط، ولا تعني أن رد الفعل نفسه سيحدث دائمًا. اتخذ قراراتك وتداولاتك وفق معاييرك الخاصة." },
+    { id: "index", title: "المؤشر",
+      items: function () {
+        var d = info("DODO_index"), h = info("High_Leverage_Frenzy_index");
+        return [
+          { name: "DODO_index", minTier: d.minTier, imgs: [d.img],
+            summary: "إشارة تنبّه إلى ميل كبير في السوق نحو اتجاه واحد. تُنشر عندما يميل السوق بقوة إلى جانب واحد ويصبح إجمالي الرافعة المالية المتراكمة كبيرًا جدًا.\nمثلًا، حين ينخفض السعر وتتراكم مراكز البيع باستمرار ويبلغ الميل إلى جانب واحد ذروته، كثيرًا ما يظهر ارتداد في الاتجاه المعاكس عند ذلك الموضع وتُصفّى الرافعة المالية المتراكمة. لذلك يمكن اعتبارها إشارة قريبة من نقطة تحوّل، ويمكن الاستئناس بها عند فحص اتجاه الحركة الكبرى.\nيعني الحرف L في العبارة أن مراكز الشراء أكثر، ويعني S أن مراكز البيع أكثر، وكلما زاد الرقم زادت درجة الميل. تُنشر الإشارات كلما تحققت الشروط لا في أوقات محددة، ولا تكون النتيجة دائمًا واحدة، لذا استخدمها كمرجع." },
+          { name: "High_Leverage_Frenzy_index", minTier: h.minTier, badge: "جديد", imgs: [h.img],
+            summary: "مؤشر يوضح مدى الإفراط المحموم في تراكم الرافعة المالية العالية. توجد ثلاث إشارات أدناه، وتُنشر كل منها فور تحقق شروطها.",
+            subs: [
+              { t: "High leverage madness", d: "يوضح مدى الإفراط المحموم في تراكم الرافعة المالية العالية. يُعبَّر عنه بـ L1~10 وS1~10، حيث يعني L أن مراكز الشراء أكثر ويعني S أن مراكز البيع أكثر. كلما ارتفع الرقم من 1 إلى 10 زادت الدرجة." },
+              { t: "Pitched battle", d: "حالة تتواجه فيها قوى الشراء والبيع. يمكن اعتبارها حالة قد يتحرك فيها السوق باتجاه يهز الطرف الذي ثبّت موقعه أولًا. تُعرض بأرقام 1~10 فقط دون تمييز بين الشراء والبيع، والرقم 5 فأكثر يمثل درجة المعركة الكبرى. كلما زاد الرقم زادت الدرجة." },
+              { t: "Reverse Design Caution (تحذير التصميم العكسي)", d: "يظهر عندما تكون المراكز المتراكمة تخص قوى كبرى لا المستثمرين الأفراد، وقد يتحرك السوق وهي في حوزتها. يُعبَّر عنه بـ L1~10 وS1~10، حيث يعني S احتمال الهبوط مع حمل مراكز البيع، ويعني L احتمال الصعود مع حمل مراكز الشراء." }
+            ] }
+        ];
+      },
+      intro: "تنشر لوحة المؤشر إشارات تخبرك بعبارات قصيرة وأرقام بمقدار الرافعة المالية المتراكمة في السوق وفي أي اتجاه.\nكلما مالت المراكز بقوة إلى جانب واحد، كثيرًا ما يتحرك السوق في لحظة ما في الاتجاه المعاكس فتُصفّى المراكز المتراكمة. لذلك يمكن استخدام المؤشر كمقياس حرارة لمعرفة «إلى أي مدى يميل السوق إلى جانب واحد الآن».\nيعمل حاليًا مؤشران.\n· DODO_index: ينبّه إلى مناطق التحول الكبرى التي يبلغ فيها الميل ذروته وقد يتغير الاتجاه.\n· High_Leverage_Frenzy_index: يوضح مقدار تراكم الرافعة المالية العالية عبر ثلاث إشارات (High leverage madness وPitched battle وReverse Design Caution).\nتُنشر الإشارات بعبارة ورقم. يعني الحرف L في العبارة أن مراكز الشراء أكثر ويعني S أن مراكز البيع أكثر (يعرض Pitched battle رقمًا فقط دون تمييز بين الشراء والبيع)، وفي المؤشرين معًا كلما زاد الرقم زادت الدرجة. تُنشر الإشارات كلما تشكّل الوضع لا في أوقات محددة، ويسهل فهمها أكثر عند النظر إليها مع النطاقات السعرية في لوحات الخطوط.\nالمؤشرات إشارات مرجعية ولا تؤدي دائمًا إلى النتيجة نفسها. اتخذ قراراتك وتداولاتك وفق معاييرك الخاصة." },
+  ];
+  var html = SECTIONS.map(function (S) {
+    var items = S.items ? S.items() : BOARD_INFO.filter(S.pick);
+    var cards = items.map(function (b) {
+      return '<article class="sg-card"><div class="sg-top"><h3>' + esc(b.name) + '</h3><span class="sg-tier">' + (b.tierLabel || (TIERS[b.minTier] + ' فأكثر')) + '</span></div>' + (b.badge ? '<span class="sg-badge">' + esc(b.badge) + '</span>' : '') + '' +
+        b.summary.split("\n").map(function (t) { return '<p>' + esc(t) + '</p>'; }).join("") +
+        (b.subs ? '<ul class="sg-sub">' + b.subs.map(function (x) { return '<li><strong>' + esc(x.t) + '</strong><span>' + esc(x.d) + '</span></li>'; }).join("") + '</ul>' : '') +
+        (b.imgs || [b.img]).filter(Boolean).map(function (u) { return '<img class="sg-img" src="' + esc(u) + '" alt="' + esc(b.name) + ' مثال للشاشة" loading="lazy">'; }).join("") +
+        '</article>';
+    }).join("");
+    return '<section class="section" id="' + S.id + '"><div class="section-head"><h2>' + S.title + '</h2></div>' +
+      S.intro.split("\n").map(function (t) { return '<p class="sg-intro">' + t + '</p>'; }).join("") + (S.extra ? '<div class="actions" style="margin:0 0 14px">' + S.extra + '</div>' : '') +
+      '<div class="sg-grid">' + cards + '</div></section>';
+  }).join("");
+  document.getElementById("sg").innerHTML = html;
+  if (window.watchSticky) { try { watchSticky(document.querySelector(".sg-nav")); } catch (e) {} }
+})();
+</script>
+</body>
+</html>

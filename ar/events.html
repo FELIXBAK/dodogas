@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الفعاليات والمسابقات | dodogas</title>
+<meta name="description" content="اطّلع على مزايا المنصات والفعاليات وأدلة التسجيل ومعلومات العضوية في مكان واحد.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%233f51d6%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2718%27 font-family=%27sans-serif%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27white%27%3Ed%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../rtl.css">
+</head>
+<body data-page="events">
+<main>
+  <div class="container">
+    <div class="page-head">
+      <p class="eyebrow">events &amp; competitions</p>
+      <h1>الفعاليات والمسابقات</h1>
+      <p class="lead">جمعنا فعاليات التسجيل ومسابقات التداول لكل منصة. يمكن عرض الفعاليات المنتهية بشكل منفصل.</p>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="تصفية المنصات"></div>
+    <div class="grid" id="grid" aria-live="polite"></div>
+  </div>
+</main>
+<script src="data.js"></script>
+<script src="../site.js"></script>
+<script>
+(function () {
+  var today = new Date().toISOString().slice(0, 10);
+  var names = ["الكل"];
+  EVENTS.forEach(function (e) { if (names.indexOf(e.exchange) < 0) names.push(e.exchange); });
+  names.push("الفعاليات المنتهية");
+  var cur = "الكل";
+
+  function draw() {
+    document.getElementById("chips").hidden = !EVENTS.length;
+    document.getElementById("chips").innerHTML = names.map(function (n) {
+      return '<button type="button" class="chip-btn" aria-pressed="' + (n === cur) + '" data-n="' + esc(n) + '">' + esc(n) + "</button>";
+    }).join("");
+    var list = EVENTS.filter(function (e) {
+      var ended = e.end && e.end < today;
+      if (cur === "الفعاليات المنتهية") return ended;
+      if (ended) return false;
+      return cur === "الكل" || e.exchange === cur;
+    });
+    document.getElementById("grid").innerHTML = list.length ? list.map(function (e) {
+      var ended = e.end && e.end < today;
+      var btn = e.link
+        ? '<a class="btn" href="' + esc(e.link) + '" target="_blank" rel="noopener">عرض التفاصيل</a>'
+        : '<span class="btn" aria-disabled="true">الرابط قيد الإعداد</span>';
+      return '<article class="card"><span class="tag ' + (ended ? "end" : "ok") + '">' + (ended ? "منتهية" : esc(e.tag)) + '</span><h3>' + esc(e.title) + '</h3><p>' + esc(e.desc) + '</p><div class="meta">' + esc(e.exchange) + ' · ' + esc(e.start) + ' ~ ' + esc(e.end) + '</div><div class="foot">' + btn + '</div></article>';
+    }).join("") : '<div class="empty">' + (EVENTS.length ? "لا توجد فعاليات للعرض." : "لا توجد فعاليات أو مسابقات جارية حاليًا. سنعلن هنا عند فتح فعاليات جديدة.") + "</div>";
+  }
+  document.getElementById("chips").addEventListener("click", function (ev) {
+    var b = ev.target.closest(".chip-btn");
+    if (b) { cur = b.getAttribute("data-n"); draw(); }
+  });
+  draw();
+})();
+</script>
+</body>
+</html>
