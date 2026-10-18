@@ -150,3 +150,6 @@ tbody th.grp { background: var(--lock-soft); }
 #matrix thead th { position: sticky; top: var(--hdr-h); z-index: 5; background: var(--surface); box-shadow: inset 0 -1px 0 var(--line); }
 #matrix thead th.cur { background: var(--accent-soft); }
 #matrix thead.stuck th { box-shadow: inset 0 -1px 0 var(--line), 0 8px 10px -8px rgba(0, 0, 0, .3); }
+
+.yt-join { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.yt-join .btn { padding: 8px 14px; }
