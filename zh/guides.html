@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="zh-CN" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>注册·KYC 指南 | dodogas</title>
+<meta name="description" content="在一处查看交易所福利、活动、注册指南和会员介绍。">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%233f51d6%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2718%27 font-family=%27sans-serif%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27white%27%3Ed%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-page="guides">
+<main>
+  <div class="container">
+    <div class="page-head">
+      <p class="eyebrow">step by step</p>
+      <h1>注册·KYC 指南</h1>
+      <p class="lead">请选择交易所,并按 STEP 顺序操作。注册时请务必确认已填入 dodogas 推荐码,并使用本人名义的信息。如果已经注册,请先查看 <a href="#referral-check">如何确认推荐码已生效</a>。</p>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="选择交易所"></div>
+    <div id="guide" aria-live="polite"></div>
+    <section class="section rc" id="referral-check">
+      <p class="eyebrow">referral check</p>
+      <h2>如何确认推荐码已生效</h2>
+      <p class="lead">进行 KYC 认证之前,请先确认 dodogas 推荐码已正确绑定到您的账户。</p>
+      <div class="rc-list" id="rc-list"></div>
+    </section>
+  </div>
+</main>
+<script src="data.js"></script>
+<script src="../site.js"></script>
+<script>
+(function () {
+
+  var cur = 0, jumpTo = "";
+  function readHash() {
+    var m = /^#([a-z0-9]+)(?:-([a-z]+))?$/.exec(location.hash), found = -1;
+    if (m) GUIDES.forEach(function (g, i) { if (g.id === m[1]) found = i; });
+    if (found < 0) return false;
+    cur = found; jumpTo = m[2] ? "g-" + m[2] : "";
+    return true;
+  }
+  try { readHash(); } catch (e) {}
+  function jump() {
+    if (!jumpTo) return;
+    var t = document.getElementById(jumpTo);
+    jumpTo = "";
+    if (t) setTimeout(function () { t.scrollIntoView({ behavior: "smooth", block: "start" }); }, 60);
+  }
+  window.addEventListener("hashchange", function () { if (readHash()) { draw(); jump(); } });
+  var ICO = '<svg class="cp-ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>';
+  var CHECK = '<svg class="cp-ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>';
+
+
+  var navBound = false;
+  function watchNav() {
+    var nav = document.querySelector(".g-nav");
+    watchSticky(nav);
+    if (navBound) return;
+    navBound = true;
+    function mark() {
+      var n = document.querySelector(".g-nav");
+      if (!n) return;
+      var line = n.getBoundingClientRect().bottom + 24, cur = null;
+      document.querySelectorAll(".g-sec, #referral-check").forEach(function (s) { if (s.getBoundingClientRect().top <= line) cur = s.id; });
+      n.querySelectorAll("a").forEach(function (a) {
+        var on = a.getAttribute("href") === "#" + cur;
+        a.classList.toggle("on", on);
+        if (on && n.classList.contains("stuck") && n.scrollWidth > n.clientWidth) {
+          var l = a.offsetLeft - 16;
+          if (l < n.scrollLeft || a.offsetLeft + a.offsetWidth > n.scrollLeft + n.clientWidth) n.scrollTo({ left: l, behavior: "smooth" });
+        }
+      });
+    }
+    window.addEventListener("scroll", mark, { passive: true });
+    setTimeout(mark, 0);
+  }
+  function exOf(id) { for (var i = 0; i < EXCHANGES.length; i++) if (EXCHANGES[i].id === id) return EXCHANGES[i]; return {}; }
+
+  function draw() {
+    document.getElementById("chips").innerHTML = GUIDES.map(function (g, i) {
+      var ex = exOf(g.id);
+      return '<button type="button" class="chip-btn g-chip" aria-pressed="' + (i === cur) + '" data-i="' + i + '">' + (ex.icon ? '<img src="' + esc(ex.icon) + '" alt="" width="18" height="18">' : "") + esc(g.name) + "</button>";
+    }).join("");
+    var g = GUIDES[cur], ex = exOf(g.id), code = ex.code || "";
+    function fill(t) {
+      return esc(t).replace(/\{CODE\}/g, '<strong class="g-code">' + esc(code) + "</strong>")
+        .replace(/\[([^\]\n]+)\]/g, '<span class="ui-btn">$1</span>');
+    }
+    var HAND = '<span class="ph-hand">👆</span>';
+    var FACE = '<svg viewBox="0 0 120 120" width="110" height="110"><circle cx="60" cy="60" r="54" fill="none" stroke="#8b97ff" stroke-width="4" stroke-dasharray="10 6"/><circle cx="60" cy="52" r="22" fill="#f1c9a5"/><path d="M38 50c0-16 10-24 22-24s22 8 22 24c-4-8-12-12-22-12s-18 4-22 12z" fill="#2b2b2b"/><circle cx="52" cy="54" r="2.5" fill="#222"/><circle cx="68" cy="54" r="2.5" fill="#222"/><path d="M52 63q8 6 16 0" stroke="#222" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M26 104c6-18 20-26 34-26s28 8 34 26" fill="#3a4a5a"/></svg>';
+    var IDC = '<svg viewBox="0 0 160 100" width="170" height="106"><rect x="6" y="6" width="148" height="88" rx="8" fill="#eef2f6"/><rect x="16" y="20" width="38" height="48" rx="4" fill="#c9d3dd"/><circle cx="35" cy="38" r="9" fill="#8a99a8"/><path d="M21 66c3-10 9-14 14-14s11 4 14 14" fill="#8a99a8"/><rect x="64" y="22" width="76" height="8" rx="3" fill="#9aa8b6"/><rect x="64" y="38" width="60" height="6" rx="3" fill="#c0cad4"/><rect x="64" y="52" width="68" height="6" rx="3" fill="#c0cad4"/><rect x="16" y="76" width="124" height="6" rx="3" fill="#c0cad4"/><path d="M2 20V2h18M140 2h18v18M158 80v18h-18M20 98H2V80" stroke="#8b97ff" stroke-width="4" fill="none"/></svg>';
+    function sub(v) { return esc(String(v).replace(/\{CODE\}/g, code)); }
+    function btn(t, hl) { return '<div class="ph-btn' + (hl ? " hl" : "") + '">' + sub(t) + (hl ? HAND : "") + "</div>"; }
+    function screen(s) {
+      var k = s.k || "form", body = "";
+      if (k === "tap") body = '<div class="ph-line"></div><div class="ph-line short"></div>' + btn(s.btn, true) + (s.alt ? '<div class="ph-btn ghost">' + sub(s.alt) + "</div>" : "");
+      else if (k === "form") {
+        var anyHl = (s.rows || []).some(function (r) { return r.hl; });
+        body = (s.rows || []).map(function (r) {
+          return '<div class="ph-row"><span>' + sub(r.l) + '</span><div class="ph-val' + (r.hl ? " hl" : "") + '">' + sub(r.v) + (r.hl ? HAND : "") + "</div></div>";
+        }).join("") + (s.btn ? btn(s.btn, !anyHl) : "");
+      }
+      else if (k === "otp") body = '<p class="ph-note">邮件·短信收到的 6 位数字</p><div class="ph-otp hl">' + [1, 2, 3, 4, 5, 6].map(function (n) { return "<b>" + n + "</b>"; }).join("") + HAND + "</div>" + (s.btn ? btn(s.btn) : "");
+      else if (k === "pw") body = '<div class="ph-row"><span>Password</span><div class="ph-val hl">●●●●●●●●' + HAND + '</div></div><ul class="ph-rules"><li>8 位以上</li><li>英文大写字母</li><li>数字</li><li>特殊字符</li></ul>' + btn(s.btn);
+      else if (k === "menu") body = '<ul class="ph-menu">' + s.items.map(function (x, i) { return '<li' + (i === s.hl ? ' class="hl"' : "") + ">" + sub(x) + "<i>›</i>" + (i === s.hl ? HAND : "") + "</li>"; }).join("") + "</ul>";
+      else if (k === "id") body = '<div class="ph-pic">' + IDC + (s.paper ? '<span class="ph-paper">' + sub(s.paper) + "</span>" : "") + '</div><p class="ph-note">按正面 → 背面顺序拍摄</p>';
+      else if (k === "face") body = '<div class="ph-pic">' + FACE + '</div><p class="ph-note">摘下帽子、眼镜、口罩,面向正前方</p>';
+      else if (k === "done") body = '<div class="ph-pic"><span class="ph-ok">✓</span></div><p class="ph-note big">' + sub(s.title) + "</p>";
+      else if (k === "mail") body = '<div class="ph-row"><span>收件人</span><div class="ph-val hl">' + sub(s.to) + HAND + '</div></div><div class="ph-row"><span>主题</span><div class="ph-val">' + sub(s.subj) + "</div></div>" + (s.attach ? '<div class="ph-row"><span>附件</span><div class="ph-val">📎 照片·截图文件</div></div>' : "");
+      else if (k === "check") body = '<ul class="ph-menu check">' + s.items.map(function (x) { return "<li><i>✓</i>" + sub(x) + "</li>"; }).join("") + "</ul>";
+      return '<div class="phone" role="img" aria-label="' + esc((s.title || "") + " 界面示例") + '"><div class="ph-title">' + (k === "mail" ? "新邮件" : k === "done" ? "完成" : sub(s.title || "")) + "</div>" + body + "</div>";
+    }
+    function preKyc(g) {
+      var hasCheck = g.sections.some(function (x) { return x.id === "check"; });
+      var href = hasCheck ? "#g-check" : "#rc-" + g.id;
+      return '<div class="g-pre"><div><strong>KYC 认证前请先确认推荐码!</strong>' +
+        '<p>注册时请先确认推荐码 <span class="g-code">' + esc(code) + '</span>已正确登记,再进行 KYC。完成 KYC 之后若要更改推荐人,需要办理删除账户或迁移 KYC 等繁琐手续。</p></div>' +
+        '<a class="btn" href="' + href + '" data-rc="' + esc(g.id) + '">查看推荐码确认方法</a></div>';
+    }
+    var head = '<div class="g-head"><div class="g-ex">' + (ex.icon ? '<img src="' + esc(ex.icon) + '" alt="" width="40" height="40">' : "") +
+      '<div><strong>' + esc(g.name) + '</strong><span>' + esc(ex.benefit || "") + '</span></div></div>' +
+      '<div class="g-act"><span class="g-label">推荐码</span><button type="button" class="copy-code" data-code="' + esc(code) + '" title="点击即可复制"><span class="cp-text">' + esc(code) + "</span>" + ICO + "</button>" +
+      (ex.link ? '<a class="btn" href="' + esc(ex.link) + '" rel="noopener" target="_blank">打开注册链接</a>' : "") + "</div></div>";
+    var nav = '<nav class="g-nav" aria-label="指南目录">' + g.sections.map(function (s, i) {
+      return '<a href="#g-' + esc(s.id) + '"><b>' + (i + 1) + "</b>" + esc(s.title.replace(/^[^:]+:\s*/, "")) + "</a>";
+    }).join("") + '<a href="#referral-check" class="g-nav-rc"><b>✓</b>确认我的推荐码</a></nav>';
+    var body = g.sections.map(function (s) {
+      return '<section class="g-sec" id="g-' + esc(s.id) + '"><div class="g-sec-head"><h2>' + esc(s.title) + "</h2>" + (s.time ? '<span class="g-time">' + esc(s.time) + "</span>" : "") + "</div>" +
+        (s.warn ? '<p class="g-warn"><b>!</b><span>' + fill(s.warn) + "</span></p>" : "") +
+        (s.id === "kyc" ? preKyc(g) : "") +
+        '<ol class="g-steps">' + s.steps.map(function (t, i) {
+          var n = i + 1 < 10 ? "0" + (i + 1) : String(i + 1);
+          var cp = t.copy ? t.copy.replace(/\{CODE\}/g, code) : "";
+          return '<li class="g-step"><span class="g-badge">STEP ' + n + "</span><h3>" + esc(t.title) + "</h3>" +
+            (t.screen ? screen(t.screen) : "") +
+            '<ul class="g-do">' + t.do.map(function (x) { return "<li>" + fill(x) + "</li>"; }).join("") + "</ul>" +
+            (t.link ? '<a class="btn g-link" href="' + esc(t.link.href) + '" target="_blank" rel="noopener">' + esc(t.link.label) + " ↗</a>" : "") +
+            (t.copy ? '<div class="g-copy"><pre>' + esc(cp) + '</pre><button type="button" class="copy-code" data-code="' + esc(cp) + '" data-label="复制内容"><span class="cp-text">复制内容</span>' + ICO + "</button></div>" : "") +
+            (t.tip ? '<p class="g-tip"><b>TIP</b><span>' + fill(t.tip) + "</span></p>" : "") +
+            (t.warn ? '<p class="g-warn"><b>!</b><span>' + fill(t.warn) + "</span></p>" : "") + "</li>";
+        }).join("") + "</ol></section>";
+    }).join("");
+    var tail = '<div class="card cta-card g-next"><div><h3>已完成注册和 KYC?</h3><p>通过推荐注册的账户可根据交易量获得 VIP 权限。</p></div><a class="btn" href="vip.html">查看 VIP 标准 →</a></div>';
+    document.getElementById("guide").innerHTML = head + nav + body + tail;
+    watchNav();
+
+    document.querySelectorAll(".rc-item").forEach(function (d) { d.open = d.id === "rc-" + g.id; });
+  }
+  document.getElementById("guide").addEventListener("click", function (ev) {
+    var a = ev.target.closest("a[data-rc]");
+    if (!a || a.getAttribute("href").indexOf("#rc-") !== 0) return;
+    var it = document.getElementById(a.getAttribute("href").slice(1));
+    if (it) it.open = true;
+  });
+  document.getElementById("chips").addEventListener("click", function (ev) {
+    var b = ev.target.closest(".chip-btn");
+    if (b) { cur = Number(b.getAttribute("data-i")); draw(); try { history.replaceState(null, "", "#" + GUIDES[cur].id); } catch (e) {} }
+  });
+
+  function copyText(t) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(t);
+    return new Promise(function (ok, fail) {
+      try {
+        var a = document.createElement("textarea");
+        a.value = t; a.style.position = "fixed"; a.style.opacity = "0";
+        document.body.appendChild(a); a.select();
+        var done = document.execCommand("copy");
+        document.body.removeChild(a);
+        done ? ok() : fail();
+      } catch (e) { fail(e); }
+    });
+  }
+  document.getElementById("guide").addEventListener("click", function (e) {
+    var b = e.target.closest(".copy-code");
+    if (!b) return;
+    var code = b.getAttribute("data-code"), txt = b.querySelector(".cp-text");
+    function reset() { txt.textContent = b.getAttribute("data-label") || code; b.classList.remove("copied"); b.querySelector(".cp-ico").outerHTML = ICO; }
+    copyText(code).then(function () {
+      txt.textContent = "已复制"; b.classList.add("copied"); b.querySelector(".cp-ico").outerHTML = CHECK;
+    }, function () { txt.textContent = "长按复制"; }).then(function () { setTimeout(reset, 1500); });
+  });
+
+  (function () {
+    var dc = (SITE.contacts || {}).discord;
+    document.getElementById("rc-list").innerHTML = REFCHECK.map(function (r, i) {
+      var ex = exOf(r.id), code = ex.code || "", self = !!r.steps;
+      function f(t) { return esc(t).replace(/\{CODE\}/g, '<strong class="g-code">' + esc(code) + "</strong>"); }
+      var body = "";
+      if (self) body += '<ol class="rc-steps">' + r.steps.map(function (s) { return "<li>" + f(s) + "</li>"; }).join("") + "</ol>";
+      if (r.ok) body += '<p class="rc-ok"><b>✓</b><span>' + f(r.ok) + "</span></p>";
+      if (r.ask) body += '<div class="rc-ask"><strong>请通过 Discord 1:1 咨询发送以下 3 项</strong><ul>' + r.ask.map(function (s) { return "<li>" + f(s) + "</li>"; }).join("") + "</ul></div>";
+      if (r.note) body += '<p class="rc-note">' + f(r.note) + "</p>";
+      if (dc) body += '<a class="btn' + (self ? " ghost" : "") + '" href="' + esc(dc) + '" target="_blank" rel="noopener">' + (self ? "不确定·Discord 咨询" : "通过 Discord 申请确认") + "</a>";
+      return '<details class="rc-item" id="rc-' + esc(r.id) + '"><summary>' +
+        (ex.icon ? '<img src="' + esc(ex.icon) + '" alt="" width="40" height="40">' : "") +
+        '<span class="rc-name"><strong>' + esc(ex.name || r.id) + '</strong><small class="rc-badge' + (self ? " self" : "") + '">' + (self ? "自行确认" : "dodogas 代为确认") + "</small></span>" +
+        '<span class="rc-sum">' + esc(r.summary) + '</span><span class="rc-tg" aria-hidden="true"></span></summary><div class="rc-body">' + body + "</div></details>";
+    }).join("");
+  })();
+  draw();
+  jump();
+})();
+</script>
+</body>
+</html>

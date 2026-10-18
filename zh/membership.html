@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="zh-CN" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>会员板块指南 | dodogas</title>
+<meta name="description" content="在一处查看交易所福利、活动、注册指南和会员介绍。">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%233f51d6%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2718%27 font-family=%27sans-serif%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27white%27%3Ed%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../style.css">
+
+<link rel="stylesheet" href="../membership.css">
+</head>
+<body data-page="membership">
+<main>
+  <div class="container">
+    <div class="page-head">
+      <p class="eyebrow">membership</p>
+      <h1>各会员等级板块指南</h1>
+      <p class="lead">根据您注册的会员等级,在 Discord 上可查看的板块不同。请选择您的等级,查看可浏览的板块。</p>
+      <p class="callout">点击板块名称,即可查看会发布哪些内容、示例界面和使用方法。</p>
+      <p class="callout">Telegram <strong>Boomboom Lite</strong>不受会员等级限制,对所有人公开。</p>
+    </div>
+    <div class="wrap-m">
+      <div class="tier-block">
+        <div class="tabs" role="tablist" aria-label="会员等级" id="tabs"></div>
+        <section class="panel" id="panel" role="tabpanel" aria-live="polite"></section>
+      </div>
+      <section class="matrix-wrap">
+        <h2>完整对比表</h2>
+        <div class="scroll"><table id="matrix"></table></div>
+      </section>
+      <p class="note">板块名称和浏览范围以 2026 年 10 月 17 日的 Discord 界面为准。</p>
+    </div>
+  </div>
+</main>
+<script src="boards-data.js"></script>
+<script src="data.js"></script>
+<script src="../site.js"></script>
+<script>
+
+var TIERS = [
+  { name: "Basic", sub: "基础(Million, Billion)", known: true },
+  { name: "Trillion", sub: "Trillion", known: true },
+  { name: "VIP", sub: "VIP 会员", known: true }
+];
+
+var BOARDS = [
+
+  { group: "Archive - BTC", icon: "💬", name: "boomboom-m1-test", minTier: 1 },
+  { group: "Archive - BTC", icon: "💬", name: "boomboom-sub1-test", minTier: 2 },
+  { group: "Archive - BTC", icon: "💬", name: "boomboom-sub2-test", minTier: 2 },
+  { group: "Archive - BTC", icon: "💬", name: "boomboom-sub3-test", minTier: 2 },
+  { group: "Archive - BTC", icon: "⏰", name: "BOOM-BOOM-Alert", minTier: 1 },
+  { group: "Archive - BTC", icon: "📊", name: "BTC_Liquidation_map", minTier: 0 },
+  { group: "Archive - BTC", icon: "🔥", name: "BTC_hit_map_KF", minTier: 0 },
+  { group: "Archive - BTC", icon: "📚", name: "BTC_hit_map_CG", minTier: 0 },
+  { group: "Archive - BTC", icon: "", name: "DODO_index", minTier: 2 },
+  { group: "Archive - BTC", icon: "🧨", name: "High_Leverage_Frenzy_index", minTier: 2 },
+
+  { group: "Archive - Altcoins", icon: "📊", name: "ETH_Liquidation_map", minTier: 0 },
+  { group: "Archive - Altcoins", icon: "🔥", name: "ETH_hit_map", minTier: 0 },
+  { group: "Archive - Altcoins", icon: "📚", name: "ETH_hit_map_CG", minTier: 0 },
+  { group: "Archive - Altcoins", icon: "📊", name: "XRP_Liquidation_map", minTier: 0 },
+  { group: "Archive - Altcoins", icon: "🔥", name: "XRP_hit_map", minTier: 0 },
+  { group: "Archive - Altcoins", icon: "📊", name: "SOL_Liquidation_map", minTier: 0 },
+  { group: "Archive - Altcoins", icon: "🔥", name: "SOL_hit_map", minTier: 0 },
+  { group: "Archive - Altcoins", icon: "📊", name: "ALT_Liquidation_map", minTier: 0 },
+
+  { group: "LINE - BTC, Crypto.", icon: "⛔", name: "BOOST-PHASE_Line", minTier: 2 },
+  { group: "LINE - BTC, Crypto.", icon: "🀄", name: "MID-COURSE_Line", minTier: 1 },
+  { group: "LINE - BTC, Crypto.", icon: "🚀", name: "APOCALYPTIC_Line", minTier: 1 },
+  { group: "LINE - BTC, Crypto.", icon: "💠", name: "Line-altcoins", minTier: 1 },
+  { group: "LINE - BTC, Crypto.", icon: "💬", name: "Line-free_chat", minTier: 0 },
+  { group: "LINE - BTC, Crypto.", icon: "💬", name: "altcoins-request", minTier: 1 },
+
+  { group: "LINE - NASDAQ, etc.", icon: "💠", name: "Line-NASDAQ", minTier: 1 },
+  { group: "LINE - NASDAQ, etc.", icon: "🥇", name: "Line-METALS", minTier: 1 },
+  { group: "LINE - NASDAQ, etc.", icon: "💠", name: "Line-KOSPI", minTier: 1 },
+
+  { group: "Laboratory (non public)", icon: "📊", name: "gex-BTC", minTier: 0 },
+  { group: "Laboratory (non public)", icon: "📊", name: "gex-ETH", minTier: 0 },
+
+
+];
+
+
+var DESCS = {
+  "boomboom-m1-test": "",
+  "boomboom-sub1-test": "",
+  "boomboom-sub2-test": "",
+  "boomboom-sub3-test": "",
+  "BOOM-BOOM-Alert": "",
+  "BTC_Liquidation_map": "",
+  "BTC_hit_map_KF": "",
+  "BTC_hit_map_CG": "",
+  "DODO_index": "",
+  "High_Leverage_Frenzy_index": "",
+  "ETH_Liquidation_map": "",
+  "ETH_hit_map": "",
+  "ETH_hit_map_CG": "",
+  "XRP_Liquidation_map": "",
+  "XRP_hit_map": "",
+  "SOL_Liquidation_map": "",
+  "SOL_hit_map": "",
+  "ALT_Liquidation_map": "",
+  "BOOST-PHASE_Line": "",
+  "MID-COURSE_Line": "",
+  "APOCALYPTIC_Line": "",
+  "Line-altcoins": "",
+  "Line-free_chat": "",
+  "altcoins-request": "",
+  "Line-NASDAQ": "",
+  "Line-METALS": "",
+  "Line-KOSPI": "",
+  "gex-BTC": "",
+  "gex-ETH": ""
+};
+
+
+var INFO = {};
+(typeof BOARD_INFO !== "undefined" ? BOARD_INFO : []).forEach(function (x) { INFO[x.name] = x; });
+var OPENED = {};
+document.addEventListener("toggle", function (e) {
+  var d = e.target;
+  if (d.matches && d.matches(".board details")) OPENED[d.getAttribute("data-name")] = d.open;
+}, true);
+
+var current = 2;
+try {
+  var h = location.hash.replace("#", "");
+  var m = /^t([0-2])$/.exec(h);
+  if (m) current = Number(m[1]);
+} catch (e) {}
+
+function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+function dotsHtml(level) {
+  var s = '<span class="dots" aria-hidden="true">';
+  for (var i = 0; i < TIERS.length; i++) s += '<i' + (i <= level ? ' class="on"' : '') + '></i>';
+  return s + '</span>';
+}
+
+function groupsOf() {
+  var groups = [];
+  BOARDS.forEach(function (b) { if (groups.indexOf(b.group) < 0) groups.push(b.group); });
+  return groups;
+}
+
+function renderTabs() {
+  var el = document.getElementById("tabs");
+  el.innerHTML = TIERS.map(function (t, i) {
+    return '<button class="tab" role="tab" id="tab-' + i + '" aria-selected="' + (i === current) + '" aria-controls="panel" tabindex="' + (i === current ? 0 : -1) + '" data-i="' + i + '">' +
+      dotsHtml(i) + '<span class="name">' + esc(t.name) + '</span><span class="sub">' + esc(t.sub) + '</span></button>';
+  }).join("");
+}
+
+function renderPanel() {
+  var known = TIERS[current].known;
+  var openCount = BOARDS.filter(function (b) { return b.minTier <= current; }).length;
+  var html = '<div class="panel-head"><h2>' + esc(TIERS[current].name) + ' 等级</h2>';
+
+  if (known) {
+    html += '<p class="count">共 ' + BOARDS.length + ' 个板块中,可查看 <strong>' + openCount + ' 个</strong>。</p>' +
+      '<div class="meter" aria-hidden="true">' + BOARDS.map(function (b) { return '<i' + (b.minTier <= current ? ' class="on"' : '') + '></i>'; }).join("") + '</div>';
+  } else {
+    html += '<p class="notice">该等级开放的板块尚未确定。以下为 VIP 等级的完整列表。</p>';
+  }
+  html += '</div>';
+
+  groupsOf().forEach(function (g) {
+    var items = BOARDS.filter(function (b) { return b.group === g; });
+    html += '<div class="group"><h3>' + esc(g) + '<span class="n">' + items.length + '</span></h3><ul class="boards">';
+    items.forEach(function (b) {
+      var state = !known ? 'pending' : (b.minTier <= current ? 'open' : 'locked');
+      var chip = esc(TIERS[b.minTier].name);
+      var info = INFO[b.name] || {}, sum = DESCS[b.name] || info.summary || "";
+      var det = sum ? '<p class="b-summary">' + esc(sum) + "</p>" : "";
+      if (info.img) det += '<img class="b-img" src="' + esc(info.img) + '" alt="' + esc(b.name) + ' 发布示例" loading="lazy">';
+      if (info.usage && info.usage.length) det += '<div class="b-sec"><strong>使用方法</strong><ol class="b-usage">' + info.usage.map(function (u) { return "<li>" + esc(u) + "</li>"; }).join("") + "</ol></div>";
+      if (info.tip) det += '<p class="b-tip"><strong>参考</strong> ' + esc(info.tip) + "</p>";
+      if (!det) det = '<p class="b-none">详细说明正在准备中。</p>';
+      html += '<li class="board ' + state + '"><details data-name="' + esc(b.name) + '"' + (OPENED[b.name] ? " open" : "") + '><summary class="brow">' +
+        '<span class="title"><span class="ico">' + esc(b.icon || "") + '</span><span class="btxt"><span class="bname">' + wbr(b.name) + '</span></span></span>' +
+        '<span class="bright"><span class="chip">' + chip + '</span><span class="btg" aria-hidden="true"></span></span></summary><div class="bdetail">' + det + "</div></details></li>";
+    });
+    html += '</ul></div>';
+  });
+  document.getElementById("panel").innerHTML = html;
+  document.getElementById("panel").setAttribute("aria-labelledby", "tab-" + current);
+}
+
+
+function wbr(s) { return esc(s).replace(/([_-])/g, "$1<wbr>"); }
+
+function renderMatrix() {
+  var head = '<thead><tr><th scope="col" style="text-align:left">板块</th>' + TIERS.map(function (t, i) {
+    return '<th scope="col" class="' + (i === current ? 'cur' : '') + '">' + esc(t.name) + '</th>';
+  }).join("") + '</tr></thead>';
+  var body = '<tbody>';
+  groupsOf().forEach(function (g) {
+    body += '<tr><th class="grp" colspan="' + (TIERS.length + 1) + '">' + esc(g) + '</th></tr>';
+    BOARDS.filter(function (b) { return b.group === g; }).forEach(function (b) {
+      body += '<tr><th scope="row">' + wbr(b.name) + '</th>' + TIERS.map(function (t, i) {
+        var cell;
+        if (!t.known) cell = '<span class="no" aria-label="未确认">?</span>';
+        else if (b.minTier <= i) cell = '<span class="yes" aria-label="可查看">✓</span>';
+        else cell = '<span class="no" aria-label="不可查看">–</span>';
+        return '<td class="' + (i === current ? 'cur' : '') + '">' + cell + '</td>';
+      }).join("") + '</tr>';
+    });
+  });
+  body += '</tbody>';
+  document.getElementById("matrix").innerHTML = head + body;
+}
+
+function select(i, focus) {
+  current = i;
+  renderTabs(); renderPanel(); renderMatrix();
+  if (focus) document.getElementById("tab-" + i).focus();
+
+  var tabs = document.getElementById("tabs"), panel = document.getElementById("panel");
+  if (tabs.classList.contains("stuck") && panel.getBoundingClientRect().top < tabs.getBoundingClientRect().bottom) {
+    window.scrollTo({ top: window.scrollY + panel.getBoundingClientRect().top - tabs.getBoundingClientRect().bottom - 12, behavior: "smooth" });
+  }
+}
+
+document.getElementById("tabs").addEventListener("click", function (e) {
+  var b = e.target.closest(".tab");
+  if (b) select(Number(b.getAttribute("data-i")), false);
+});
+document.getElementById("tabs").addEventListener("keydown", function (e) {
+  var d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+  if (!d) return;
+  e.preventDefault();
+  select((current + d + TIERS.length) % TIERS.length, true);
+});
+
+select(current, false);
+watchSticky(document.getElementById("tabs"));
+
+(function () {
+  function on() {
+    var head = document.querySelector("#matrix thead"), th = head && head.querySelector("th");
+    if (!th) return;
+    var top = parseFloat(getComputedStyle(th).top) || 0, tb = document.querySelector("#matrix tbody");
+    head.classList.toggle("stuck", th.getBoundingClientRect().top <= top + 0.5 && tb.getBoundingClientRect().top < th.getBoundingClientRect().bottom + 2);
+  }
+  window.addEventListener("scroll", on, { passive: true });
+  window.addEventListener("resize", on);
+})();
+</script>
+</body>
+</html>

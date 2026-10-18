@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>活动·比赛 | dodogas</title>
+<meta name="description" content="在一处查看交易所福利、活动、注册指南和会员介绍。">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%233f51d6%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2718%27 font-family=%27sans-serif%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27white%27%3Ed%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-page="events">
+<main>
+  <div class="container">
+    <div class="page-head">
+      <p class="eyebrow">events &amp; competitions</p>
+      <h1>活动·比赛</h1>
+      <p class="lead">汇总了各交易所的注册活动和交易比赛。已结束的活动可单独查看。</p>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="交易所筛选"></div>
+    <div class="grid" id="grid" aria-live="polite"></div>
+  </div>
+</main>
+<script src="data.js"></script>
+<script src="../site.js"></script>
+<script>
+(function () {
+  var today = new Date().toISOString().slice(0, 10);
+  var names = ["全部"];
+  EVENTS.forEach(function (e) { if (names.indexOf(e.exchange) < 0) names.push(e.exchange); });
+  names.push("已结束活动");
+  var cur = "全部";
+
+  function draw() {
+    document.getElementById("chips").hidden = !EVENTS.length;
+    document.getElementById("chips").innerHTML = names.map(function (n) {
+      return '<button type="button" class="chip-btn" aria-pressed="' + (n === cur) + '" data-n="' + esc(n) + '">' + esc(n) + "</button>";
+    }).join("");
+    var list = EVENTS.filter(function (e) {
+      var ended = e.end && e.end < today;
+      if (cur === "已结束活动") return ended;
+      if (ended) return false;
+      return cur === "全部" || e.exchange === cur;
+    });
+    document.getElementById("grid").innerHTML = list.length ? list.map(function (e) {
+      var ended = e.end && e.end < today;
+      var btn = e.link
+        ? '<a class="btn" href="' + esc(e.link) + '" target="_blank" rel="noopener">查看详情</a>'
+        : '<span class="btn" aria-disabled="true">链接准备中</span>';
+      return '<article class="card"><span class="tag ' + (ended ? "end" : "ok") + '">' + (ended ? "已结束" : esc(e.tag)) + '</span><h3>' + esc(e.title) + '</h3><p>' + esc(e.desc) + '</p><div class="meta">' + esc(e.exchange) + ' · ' + esc(e.start) + ' ~ ' + esc(e.end) + '</div><div class="foot">' + btn + '</div></article>';
+    }).join("") : '<div class="empty">' + (EVENTS.length ? "没有可显示的活动。" : "目前没有进行中的活动或比赛。有新活动开启时会在这里通知。") + "</div>";
+  }
+  document.getElementById("chips").addEventListener("click", function (ev) {
+    var b = ev.target.closest(".chip-btn");
+    if (b) { cur = b.getAttribute("data-n"); draw(); }
+  });
+  draw();
+})();
+</script>
+</body>
+</html>
