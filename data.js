@@ -11,9 +11,9 @@ var SITE = {
 // short: 카드 아래쪽에 이름과 함께 보이는 짧은 설명
 // icon: discord·youtube·cafe·telegram·chart 중 하나, 또는 로고 이미지 경로(예: "img/sv/discord.png")
 var SERVICES = [
-  { name: "디스코드", short: "커뮤니티 · 실시간 소통", icon: "img/sv/discord.png", tag: "커뮤니티", access: "", desc: "멤버십 가입을 완료하고, 게시판과 자료를 마음껏 둘러보세요.", link: "https://discord.gg/BZ4kRyAuhT" },
-  { name: "유튜브", short: "dodogas 영상 채널", icon: "youtube", tag: "영상", access: "", desc: "dodogas 유튜브 채널입니다.", link: "https://www.youtube.com/@dodogas" },
-  { name: "네이버 카페", short: "커뮤니티 · 자료 모음", icon: "cafe", tag: "커뮤니티", access: "", desc: "카페에 가입만 하면 베이직 등급의 모든 자료를 볼 수 있어요. 멤버십과 거래소 가입까지 마치고 더 많은 자료를 마음껏 열람해 보세요.", link: "https://cafe.naver.com/liquidation" },
+  { name: "디스코드", short: "커뮤니티 · 실시간 소통", icon: "img/sv/discord.png", tag: "커뮤니티", access: "", desc: "가입만 하면 베이직 등급의 모든 자료를 볼 수 있어요. 멤버십 가입을 완료하고, 게시판과 자료를 마음껏 둘러보세요.", link: "https://discord.gg/BZ4kRyAuhT" },
+  { name: "유튜브", short: "dodogas 영상 채널", icon: "youtube", tag: "영상", access: "", desc: "멤버십 가입을 완료하고, 게시판과 자료를 마음껏 둘러보세요.", link: "https://www.youtube.com/@dodogas" },
+  { name: "네이버 카페", short: "커뮤니티 · 자료 모음", icon: "cafe", tag: "커뮤니티", access: "", desc: "가입만 하면 베이직 등급의 모든 자료를 볼 수 있어요. 멤버십 가입을 완료하고, 게시판과 자료를 마음껏 둘러보세요.", link: "https://cafe.naver.com/liquidation" },
   { name: "붐붐이 Lite", short: "텔레그램 · 전체 공개", icon: "telegram", tag: "텔레그램", access: "전체 공개", desc: "텔레그램 채널로 제공되는 붐붐이 Lite입니다. 누구나 무료로 볼 수 있습니다.", link: "https://t.me/+kSnaeCAx_QUxNzQ1" },
   { name: "KingFisher", short: "결제 시 20% 할인", icon: "img/sv/kingfisher.png", tag: "분석 서비스", access: "결제 시 20% 할인", desc: "킹피셔(KingFisher) 서비스입니다. 아래 링크로 결제하면 20% 할인이 적용됩니다.", link: "https://app.thekingfisher.io/?ref=7O0MaNch" }
 ];
