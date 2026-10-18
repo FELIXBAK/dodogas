@@ -1,3 +1,5 @@
+// 게시판 목록 기준일(YYYY-MM-DD). 게시판 이름·열람 범위·설명을 고칠 때마다 이 날짜도 함께 바꿔 주세요. 멤버십 페이지 상단에 작은 글씨로 표시됩니다.
+var BOARD_VERSION = "2026-10-17";
 // 게시판 안내 페이지 내용. 이 파일만 고치면 됩니다.
 // group/icon/minTier는 멤버십 페이지와 같은 값입니다(0=Basic, 1=Trillion, 2=VIP). 게시판이 바뀌면 membership.html과 함께 고치세요.
 // summary : 한 줄 요약

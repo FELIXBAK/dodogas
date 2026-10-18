@@ -158,3 +158,5 @@ tbody th.grp { background: var(--lock-soft); }
 .join-cta h2 { margin: 0 0 6px; font-size: 18px; }
 .join-cta p { margin: 0 0 14px; color: var(--muted); }
 .join-cta .actions { margin-top: 0; }
+
+.ver { margin: 6px 0 0; font-size: 12px; color: var(--muted); }

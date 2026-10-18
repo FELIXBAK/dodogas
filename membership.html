@@ -18,6 +18,7 @@
       <p class="eyebrow">membership</p>
       <h1>멤버십별 게시판 안내</h1>
       <p class="lead">가입한 멤버십 단계에 따라 디스코드에서 볼 수 있는 게시판이 다릅니다. 내 단계를 골라 열람 가능한 게시판을 확인하세요.</p>
+      <p class="ver" id="board-ver"></p>
       <p class="callout">게시판 이름을 누르면 어떤 게시물이 올라오는지, 예시 화면과 활용 방법을 볼 수 있습니다.</p>
       <p class="callout">텔레그램 <strong>붐붐이 Lite</strong>는 멤버십 단계와 관계없이 전체공개로 제공하고 있습니다.</p>
       <div class="callout yt-join"><span>유튜브 멤버십 가입은 아래 버튼에서 하실 수 있습니다.</span> <a class="btn" href="https://www.youtube.com/channel/UCNaPLbtAaO290Jtlv-fSM3Q/join" target="_blank" rel="noopener">유튜브 멤버십 가입하기</a></div>
@@ -31,7 +32,6 @@
         <h2>전체 비교표</h2>
         <div class="scroll"><table id="matrix"></table></div>
       </section>
-      <p class="note">게시판 이름과 열람 범위는 2026년 10월 17일 기준 디스코드 화면을 따랐습니다.</p>
       <section class="card join-cta">
         <h2>가입하고 자료를 자유롭게 열람하세요</h2>
         <p>유튜브 멤버십과 거래소 가입을 마치면 게시판과 자료를 마음껏 둘러보실 수 있습니다. VIP 권한을 얻으면 VIP 전용 게시판과 자료까지 모두 열람하실 수 있습니다.</p>
@@ -46,6 +46,13 @@
 <script src="boards-data.js"></script>
 <script src="data.js"></script>
 <script src="site.js"></script>
+<script>
+// 게시판 목록 기준일 표시 (날짜는 boards-data.js의 BOARD_VERSION에서 가져옵니다)
+(function () {
+  var el = document.getElementById("board-ver");
+  if (el && typeof BOARD_VERSION !== "undefined") el.textContent = "게시판 목록 {D} 버전".replace("{D}", BOARD_VERSION.replace(/-/g, "."));
+})();
+</script>
 <script>
 // 단계 정보. known이 true인 단계만 열람 범위가 확정된 상태입니다.
 var TIERS = [
