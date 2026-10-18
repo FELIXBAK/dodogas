@@ -11,9 +11,9 @@ var SITE = {
 
 
 var SERVICES = [
-  { name: "Discord", short: "コミュニティ・リアルタイム交流", icon: "../img/sv/discord.png", tag: "コミュニティ", access: "", desc: "メンバーシップへの登録を完了して、掲示板や資料を思う存分ご覧ください。", link: "https://discord.gg/BZ4kRyAuhT" },
-  { name: "YouTube", short: "dodogas動画チャンネル", icon: "youtube", tag: "動画", access: "", desc: "dodogasのYouTubeチャンネルです。", link: "https://www.youtube.com/@dodogas" },
-  { name: "Naverカフェ", short: "コミュニティ・資料集", icon: "cafe", tag: "コミュニティ", access: "", desc: "カフェに登録するだけで、ベーシック等級のすべての資料をご覧いただけます。メンバーシップと取引所への登録まで済ませて、さらに多くの資料を自由にご覧ください。", link: "https://cafe.naver.com/liquidation" },
+  { name: "Discord", short: "コミュニティ・リアルタイム交流", icon: "../img/sv/discord.png", tag: "コミュニティ", access: "", desc: "登録するだけで、ベーシック等級のすべての資料をご覧いただけます。メンバーシップへの登録を完了して、掲示板や資料を思う存分ご覧ください。", link: "https://discord.gg/BZ4kRyAuhT" },
+  { name: "YouTube", short: "dodogas動画チャンネル", icon: "youtube", tag: "動画", access: "", desc: "メンバーシップへの登録を完了して、掲示板や資料を思う存分ご覧ください。", link: "https://www.youtube.com/@dodogas" },
+  { name: "Naverカフェ", short: "コミュニティ・資料集", icon: "cafe", tag: "コミュニティ", access: "", desc: "登録するだけで、ベーシック等級のすべての資料をご覧いただけます。メンバーシップへの登録を完了して、掲示板や資料を思う存分ご覧ください。", link: "https://cafe.naver.com/liquidation" },
   { name: "Boomboom Lite", short: "テレグラム・全体公開", icon: "telegram", tag: "テレグラム", access: "全体公開", desc: "テレグラムチャンネルで提供しているBoomboom Liteです。誰でも無料で見られます。", link: "https://t.me/+kSnaeCAx_QUxNzQ1" },
   { name: "KingFisher", short: "決済時20%割引", icon: "../img/sv/kingfisher.png", tag: "分析サービス", access: "決済時20%割引", desc: "KingFisher(キングフィッシャー)サービスです。下のリンクから決済すると20%割引が適用されます。", link: "https://app.thekingfisher.io/?ref=7O0MaNch" }
 ];
