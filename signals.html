@@ -32,8 +32,20 @@
 <script>
 (function () {
   var TIERS = ["Basic", "Trillion", "VIP"];
+  function info(n) { return BOARD_INFO.filter(function (b) { return b.name === n; })[0] || { minTier: 2, img: "" }; }
   var SECTIONS = [
-    { id: "boomboom", title: "붐붐이", pick: function (b) { return /붐붐|BOOM-BOOM/i.test(b.name); },
+    { id: "boomboom", title: "붐붐이",
+      items: function () {
+        var c = info("BOOM-BOOM-Alert"), m = info("붐붐이-m1-테스트"), s1 = info("붐붐이-보조1-테스트"), s2 = info("붐붐이-보조2-테스트");
+        return [
+          { name: "BOOM-BOOM-Alert · 클래식", minTier: c.minTier, badge: "기존 운영 버전",
+            summary: "기존부터 운영해 온 붐붐이 알림입니다. BBBBLL1, BBBBSS2 같은 짧은 문구로 올라옵니다.", imgs: [c.img] },
+          { name: "붐붐이 M1 · 리뉴얼", minTier: m.minTier, badge: "테스트 중",
+            summary: "클래식에 추가 보정을 더한 리뉴얼 버전입니다. 현재는 테스트용으로 임시 공개 중이며, 충분히 검증되어 믿고 보실 수 있게 되면 정식으로 출시할 예정입니다. 카드 형태로 \u201CLLLL 1\u201D, \u201CSSSS 2\u201D처럼 올라옵니다.", imgs: [m.img] },
+          { name: "붐붐이 보조 1 · 2 · 3", minTier: Math.max(s1.minTier, s2.minTier), badge: "테스트 중",
+            summary: "붐붐이 알림을 보완해 함께 참고하실 수 있는 보조 알림 3종입니다. 같은 카드 형태로 올라오며, 한곳에서 묶어 확인하시면 편합니다. 현재는 테스트용으로 임시 공개 중입니다.", imgs: [s1.img, s2.img] }
+        ];
+      },
       intro: "붐붐이는 시장의 실시간 흐름을 계속 지켜보다가, 여러 가지 기준과 내부 기준값을 종합해 의미 있는 순간이 오면 디스코드로 바로 알려 드리는 알림입니다. 알림 카드에는 \u201CLLLL 1\u201D, \u201CSSSS 2\u201D처럼 문구와 단계 숫자가 함께 표시되고, 단계는 1단계부터 7단계까지 나뉘어 있습니다. 차트를 계속 보고 있지 않아도 흐름을 놓치지 않고 따라가실 수 있어요. 텔레그램 \u201C붐붐이 Lite\u201D는 멤버십과 관계없이 전체 공개입니다.",
       extra: '<a class="btn" href="' + esc((SERVICES.filter(function (s) { return s.name.indexOf("붐붐이 Lite") === 0; })[0] || {}).link || "#") + '" target="_blank" rel="noopener">텔레그램 붐붐이 Lite 열기</a>' },
     { id: "line", title: "라인", pick: function (b) { return /^LINE/.test(b.group) && /_Line$|^Line-/.test(b.name) && !/free_chat/.test(b.name); },
@@ -42,11 +54,11 @@
       intro: "“L dodo 0”, “Pitched battle 0~3”처럼 짧은 문구로 지수 신호가 올라옵니다. 올라오는 간격은 일정하지 않습니다." }
   ];
   var html = SECTIONS.map(function (S) {
-    var items = BOARD_INFO.filter(S.pick);
+    var items = S.items ? S.items() : BOARD_INFO.filter(S.pick);
     var cards = items.map(function (b) {
-      return '<article class="sg-card"><div class="sg-top"><h3>' + esc(b.name) + '</h3><span class="sg-tier">' + TIERS[b.minTier] + ' 이상</span></div>' +
+      return '<article class="sg-card"><div class="sg-top"><h3>' + esc(b.name) + '</h3><span class="sg-tier">' + TIERS[b.minTier] + ' 이상</span></div>' + (b.badge ? '<span class="sg-badge">' + esc(b.badge) + '</span>' : '') + '' +
         '<p>' + esc(b.summary) + '</p>' +
-        (b.img ? '<img class="sg-img" src="' + esc(b.img) + '" alt="' + esc(b.name) + ' 예시 화면" loading="lazy">' : '') +
+        (b.imgs || [b.img]).filter(Boolean).map(function (u) { return '<img class="sg-img" src="' + esc(u) + '" alt="' + esc(b.name) + ' 예시 화면" loading="lazy">'; }).join("") +
         '</article>';
     }).join("");
     return '<section class="section" id="' + S.id + '"><div class="section-head"><h2>' + S.title + '</h2></div>' +

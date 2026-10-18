@@ -354,3 +354,5 @@ details p { margin: 0 0 14px; color: var(--muted); }
 .sg-tier { font-size: 12px; font-weight: 600; color: var(--accent); background: var(--accent-soft); padding: 3px 9px; border-radius: 999px; }
 .sg-img { width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); margin-top: 12px; display: block; }
 @media (max-width: 640px) { .sg-grid { grid-template-columns: 1fr; } }
+.sg-badge { display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 600; color: var(--muted); border: 1px solid var(--line); padding: 2px 8px; border-radius: 999px; }
+#boomboom, #line, #index { scroll-margin-top: calc(var(--hdr-h, 58px) + 64px); }
