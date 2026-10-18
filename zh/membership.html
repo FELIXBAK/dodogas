@@ -19,6 +19,7 @@
       <p class="eyebrow">membership</p>
       <h1>各会员等级板块指南</h1>
       <p class="lead">根据您注册的会员等级,在 Discord 上可查看的板块不同。请选择您的等级,查看可浏览的板块。</p>
+      <p class="ver" id="board-ver"></p>
       <p class="callout">点击板块名称,即可查看会发布哪些内容、示例界面和使用方法。</p>
       <p class="callout">Telegram <strong>Boomboom Lite</strong>不受会员等级限制,对所有人公开。</p>
       <div class="callout yt-join"><span>可通过下方按钮加入 YouTube 会员。</span> <a class="btn" href="https://www.youtube.com/channel/UCNaPLbtAaO290Jtlv-fSM3Q/join" target="_blank" rel="noopener">加入 YouTube 会员</a></div>
@@ -32,10 +33,9 @@
         <h2>完整对比表</h2>
         <div class="scroll"><table id="matrix"></table></div>
       </section>
-      <p class="note">板块名称和浏览范围以 2026 年 10 月 17 日的 Discord 界面为准。</p>
       <section class="card join-cta">
         <h2>注册后自由查看资料</h2>
-        <p>完成 YouTube 会员和交易所注册后,即可尽情浏览板块和资料。</p>
+        <p>完成 YouTube 会员和交易所注册后,即可尽情浏览板块和资料。 获得 VIP 权限后,还可查看 VIP 专属板块和全部资料。</p>
         <div class="actions">
           <a class="btn" href="https://www.youtube.com/channel/UCNaPLbtAaO290Jtlv-fSM3Q/join" target="_blank" rel="noopener">加入 YouTube 会员</a>
           <a class="btn ghost" href="index.html">前往交易所注册</a>
@@ -47,6 +47,13 @@
 <script src="boards-data.js"></script>
 <script src="data.js"></script>
 <script src="../site.js"></script>
+<script>
+
+(function () {
+  var el = document.getElementById("board-ver");
+  if (el && typeof BOARD_VERSION !== "undefined") el.textContent = "板块列表 {D} 版本".replace("{D}", BOARD_VERSION.replace(/-/g, "."));
+})();
+</script>
 <script>
 
 var TIERS = [
