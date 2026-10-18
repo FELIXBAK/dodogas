@@ -11,9 +11,9 @@ var SITE = {
 
 
 var SERVICES = [
-  { name: "Discord", short: "مجتمع · تواصل مباشر", icon: "../img/sv/discord.png", tag: "المجتمع", access: "", desc: "أكمل التسجيل في العضوية وتصفّح اللوحات والمواد كما تشاء.", link: "https://discord.gg/BZ4kRyAuhT" },
-  { name: "YouTube", short: "قناة فيديو dodogas", icon: "youtube", tag: "فيديو", access: "", desc: "قناة dodogas على YouTube.", link: "https://www.youtube.com/@dodogas" },
-  { name: "مقهى Naver", short: "مجتمع · مجموعة مواد", icon: "cafe", tag: "المجتمع", access: "", desc: "بمجرد الانضمام إلى المقهى يمكنك مشاهدة جميع مواد المستوى الأساسي. أكمل العضوية والتسجيل في المنصة أيضًا، وتصفّح المزيد من المواد بحرية.", link: "https://cafe.naver.com/liquidation" },
+  { name: "Discord", short: "مجتمع · تواصل مباشر", icon: "../img/sv/discord.png", tag: "المجتمع", access: "", desc: "بمجرد التسجيل يمكنك مشاهدة جميع مواد المستوى الأساسي. أكمل التسجيل في العضوية وتصفّح اللوحات والمواد كما تشاء.", link: "https://discord.gg/BZ4kRyAuhT" },
+  { name: "YouTube", short: "قناة فيديو dodogas", icon: "youtube", tag: "فيديو", access: "", desc: "أكمل التسجيل في العضوية وتصفّح اللوحات والمواد كما تشاء.", link: "https://www.youtube.com/@dodogas" },
+  { name: "مقهى Naver", short: "مجتمع · مجموعة مواد", icon: "cafe", tag: "المجتمع", access: "", desc: "بمجرد التسجيل يمكنك مشاهدة جميع مواد المستوى الأساسي. أكمل التسجيل في العضوية وتصفّح اللوحات والمواد كما تشاء.", link: "https://cafe.naver.com/liquidation" },
   { name: "Boomboom Lite", short: "تيليجرام · متاح للجميع", icon: "telegram", tag: "تيليجرام", access: "متاح للجميع", desc: "Boomboom Lite المقدَّم عبر قناة تيليجرام. يمكن لأي شخص مشاهدته مجانًا.", link: "https://t.me/+kSnaeCAx_QUxNzQ1" },
   { name: "KingFisher", short: "خصم 20% عند الدفع", icon: "../img/sv/kingfisher.png", tag: "خدمة التحليل", access: "خصم 20% عند الدفع", desc: "خدمة KingFisher. الدفع عبر الرابط أدناه يمنحك خصم 20%.", link: "https://app.thekingfisher.io/?ref=7O0MaNch" }
 ];
