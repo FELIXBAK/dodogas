@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support | dodogas</title>
+<meta name="description" content="Check exchange perks, events, sign-up guides and membership info all in one place.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%233f51d6%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2718%27 font-family=%27sans-serif%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27white%27%3Ed%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-page="support">
+<main>
+  <div class="container">
+    <div class="page-head">
+      <p class="eyebrow">support</p>
+      <h1>Support</h1>
+      <p class="lead">Check the FAQ first. If you want to know more, feel free to contact us 1:1 anytime.</p>
+    </div>
+
+    <section class="section">
+      <div class="section-head"><h2>FAQ</h2></div>
+      <div id="faq"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>1:1 inquiry</h2></div>
+      <p class="support-note">Ask anytime if something comes up. Our team will be glad to help.</p>
+      <div class="actions" id="contacts" style="margin-top:0"></div>
+    </section>
+  </div>
+</main>
+<script src="data.js"></script>
+<script src="../site.js"></script>
+<script>
+(function () {
+  document.getElementById("faq").innerHTML = FAQ.map(function (f) {
+    var links = (f.links || []).map(function (l) {
+      return '<a class="faq-link" href="' + esc(l.href) + '">' + esc(l.label) + ' <span aria-hidden="true">→</span></a>';
+    }).join("");
+    return "<details><summary>" + esc(f.q) + "</summary><p>" + esc(f.a) + "</p>" +
+      (f.list ? '<ul class="faq-list">' + f.list.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" : "") +
+      (f.note ? '<p class="faq-note">' + esc(f.note) + "</p>" : "") + (links ? '<div class="faq-links">' + links + "</div>" : "") + "</details>";
+  }).join("");
+  var labels = { discord: "Contact us on Discord" };
+  document.getElementById("contacts").innerHTML = Object.keys(labels).map(function (k) {
+    var url = SITE.contacts[k];
+    return url
+      ? '<a class="btn" href="' + esc(url) + '" target="_blank" rel="noopener">' + labels[k] + "</a>"
+      : '<span class="btn ghost" aria-disabled="true">' + labels[k] + " Coming soon</span>";
+  }).join("");
+})();
+</script>
+</body>
+</html>

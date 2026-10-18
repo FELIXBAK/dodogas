@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Indicators | dodogas</title>
+<meta name="description" content="Boomboom alerts, line charts and index signal boards explained in detail in one place.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%233f51d6%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2718%27 font-family=%27sans-serif%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27white%27%3Ed%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-page="signals">
+<main>
+  <div class="container">
+    <div class="page-head">
+      <p class="eyebrow">signals</p>
+      <h1>Indicators</h1>
+      <p class="lead">Alerts and charts posted on Discord, explained by type. Use the table of contents below to jump to any section.</p>
+    </div>
+    <nav class="g-nav sg-nav" aria-label="Contents">
+      <a href="#boomboom">Boomboom</a><a href="#line">Line</a><a href="#index">Index</a>
+    </nav>
+    <div id="sg"></div>
+    <section class="section">
+      <p class="callout">Detailed guidance on how to read and interpret these will keep being added. If you have questions, feel free to ask at <a href="support.html">Support</a>.</p>
+    </section>
+  </div>
+</main>
+<script src="data.js"></script>
+<script src="boards-data.js"></script>
+<script src="../site.js"></script>
+<script>
+(function () {
+  var TIERS = ["Basic", "Trillion", "VIP"];
+  function info(n) { return BOARD_INFO.filter(function (b) { return b.name === n; })[0] || { minTier: 2, img: "" }; }
+  var SECTIONS = [
+    { id: "boomboom", title: "Boomboom",
+      items: function () {
+        var c = info("BOOM-BOOM-Alert"), m = info("boomboom-m1-test"), s1 = info("boomboom-sub1-test"), s2 = info("boomboom-sub2-test");
+        return [
+          { name: "Boomboom Lite", tierLabel: "Open to all", badge: "Telegram",
+            summary: "A free Boomboom that anyone can view on Telegram. It has no stage display; it shows a “BBBB” phrase and the alert time down to the second.", imgs: ["../img/boomboom-lite.png"] },
+          { name: "BOOM-BOOM-Alert", minTier: c.minTier, badge: "Original version",
+            summary: "The Boomboom alert we have run from the start. It is posted as short phrases such as BBBBLL1 and BBBBSS2. In the phrase, L (LL) usually appears when price is falling and S (SS) usually when price is rising.", imgs: [c.img] },
+          { name: "Boomboom M1", minTier: m.minTier, badge: "Beta test",
+            summary: "A Boomboom with additional calibration. It is temporarily open as a beta test and will officially launch once it has been verified well enough to rely on. It is posted with a stage such as “LLLL 1” or “SSSS 2”, and the alert time is shown down to the second.", imgs: [m.img] },
+          { name: "Boomboom Sub 1 · 2 · 3", minTier: Math.max(s1.minTier, s2.minTier), badge: "Beta test",
+            summary: "Three supporting alerts you can use alongside Boomboom alerts. They are posted in the same card format, with the alert time shown to the second. They are currently open temporarily as a beta test.", imgs: [s1.img, s2.img] }
+        ];
+      },
+      intro: "Boomboom continuously watches the real-time flow of the market, combines several criteria and internal reference values, and notifies you on Discord the moment the conditions are met.\nBoomboom Lite, M1 and the sub alerts also show the alert time down to the second.\nAlert cards show a phrase and a stage number such as “LLLL 1” or “SSSS 2”, and stages run from 1 to 7. (Boomboom Lite has no stage display.)\nIn the phrase, L (LLLL) usually appears when price is falling and S (SSSS) usually when price is rising.\nYou can follow the flow without watching the chart all the time.",
+      extra: '<a class="btn" href="' + esc((SERVICES.filter(function (s) { return s.name.indexOf("Boomboom Lite") === 0; })[0] || {}).link || "#") + '" target="_blank" rel="noopener">Open Telegram Boomboom Lite</a>' },
+    { id: "line", title: "Line",
+      items: function () {
+        var b1 = info("BOOST-PHASE_Line"), b2 = info("MID-COURSE_Line"), b3 = info("APOCALYPTIC_Line");
+        function more(n, t) { var x = info(n); x.name = n; x.badge = "Lines by asset"; x.summary = t; return x; }
+        return [
+          { name: "BOOST-PHASE_Line", minTier: b1.minTier, badge: "Short-term line", imgs: [b1.img],
+            summary: "Named after the “boost phase”, the first stage a rocket ignites right after launch. It marks price zones near the current price where many participants are concentrated, and new lines appear relatively fast. Good for checking nearby targets quickly." },
+          { name: "MID-COURSE_Line", minTier: b2.minTier, badge: "Mid-to-long-term line", imgs: [b2.img],
+            summary: "Named after the “midcourse phase”, when a rocket passes the middle of its flight. New lines appear less often than boost lines, looking a bit further ahead. Useful for gauging mid-way targets within the bigger trend." },
+          { name: "APOCALYPTIC_Line", minTier: b3.minTier, badge: "Long-term line", imgs: [b3.img],
+            summary: "Named after the final, end-of-flight phase of a rocket launch. It marks price zones close to a final target, and new lines appear least often. Use it to check large, distant targets." },
+          more("Line-altcoins", "The operator marks lines on altcoin charts and posts them. You can quickly see notable price zones on each coin chart. If a member requests a coin, the operator checks the chart and posts to this board when there is a meaningful line."),
+          more("Line-NASDAQ", "The operator marks lines on the Nasdaq chart and posts them. Easily check notable price zones within the bigger trend."),
+          more("Line-METALS", "The operator marks lines on metals charts and posts them. See price zones where price may react at a glance."),
+          more("Line-KOSPI", "The operator marks lines on the KOSPI chart and posts them. Use it to check price zones where the index may react.")
+        ];
+      },
+      intro: "A line is a “notable price zone” the operator marks directly on a TradingView chart and posts.\nWhen the chart approaches such a zone, it often pauses, bounces or pulls back. That makes it a reference line to watch in advance, thinking “a reaction may come here.”\nUsing it is simple.\n① In the posted line image, check the distance between the current price and the line.\n② As price nears the line, watch whether a reaction appears.\n③ Price sometimes passes through without any reaction, so check the next line as well.\nLines are reference levels and do not mean the same reaction always occurs. Please make your own judgments and trades." },
+    { id: "index", title: "Index",
+      items: function () {
+        var d = info("DODO_index"), h = info("High_Leverage_Frenzy_index");
+        return [
+          { name: "DODO_index", minTier: d.minTier, imgs: [d.img],
+            summary: "A signal that points out major one-sided positioning in the market. It is posted when the market has tilted heavily to one side and the overall accumulated leverage has become very large.\nFor example, when price keeps falling, shorts keep piling up and the one-sidedness peaks, a rebound in the opposite direction often appears at that spot and the accumulated leverage gets cleared. That makes it close to a turning-point signal, useful for checking the direction of the bigger trend.\nIn the phrase, L means more longs and S means more shorts; the larger the number, the stronger the one-sidedness. Signals are posted whenever conditions are met, not at set times, and the result is not always the same, so please use them as a reference." },
+          { name: "High_Leverage_Frenzy_index", minTier: h.minTier, badge: "New", imgs: [h.img],
+            summary: "An index showing how frantically high-leverage positions have piled up. There are three signals below, and each is posted the moment its conditions are met.",
+            subs: [
+              { t: "High leverage madness", d: "Shows how frantically high leverage has piled up. It is expressed as L1~10 and S1~10, where L means more longs and S means more shorts. The higher the number from 1 to 10, the greater the degree." },
+              { t: "Pitched battle", d: "A state where long and short forces are locked in battle. It can be seen as a state where the side that settled in first may be shaken out. It is shown only as a number 1~10 with no long/short distinction, and 5 or above is a major-battle grade. The larger the number, the greater the degree." },
+              { t: "Reverse Design Caution", d: "Shown when the accumulated positions belong to large players rather than retail investors, and those players may move the market while carrying them. It is expressed as L1~10 and S1~10, where S means a possible drop while carrying short positions and L means a possible rise while carrying long positions." }
+            ] }
+        ];
+      },
+      intro: "The index board posts signals that tell you, in short phrases and numbers, how much leverage is stacked on which side of the market.\nThe more positions lean to one side, the more often the market moves the opposite way at some point and clears the accumulated positions. So an index works like a thermometer for “how lopsided the market is right now.”\nTwo indices are currently running.\n· DODO_index: marks major turning zones where one-sidedness peaks and the trend may reverse.\n· High_Leverage_Frenzy_index: shows how much high leverage has piled up through three signals (High leverage madness, Pitched battle, Reverse Design Caution).\nSignals are posted as a phrase and a number. In the phrase, L means more longs and S means more shorts (Pitched battle shows only a number, with no long/short distinction), and for both indices a larger number means a greater degree. Signals are posted whenever a situation forms, not at set times, and are easier to understand when viewed alongside the price zones on the Line boards.\nIndices are reference signals and do not always lead to the same result. Please make your own judgments and trades." },
+  ];
+  var html = SECTIONS.map(function (S) {
+    var items = S.items ? S.items() : BOARD_INFO.filter(S.pick);
+    var cards = items.map(function (b) {
+      return '<article class="sg-card"><div class="sg-top"><h3>' + esc(b.name) + '</h3><span class="sg-tier">' + (b.tierLabel || (TIERS[b.minTier] + ' or higher')) + '</span></div>' + (b.badge ? '<span class="sg-badge">' + esc(b.badge) + '</span>' : '') + '' +
+        b.summary.split("\n").map(function (t) { return '<p>' + esc(t) + '</p>'; }).join("") +
+        (b.subs ? '<ul class="sg-sub">' + b.subs.map(function (x) { return '<li><strong>' + esc(x.t) + '</strong><span>' + esc(x.d) + '</span></li>'; }).join("") + '</ul>' : '') +
+        (b.imgs || [b.img]).filter(Boolean).map(function (u) { return '<img class="sg-img" src="' + esc(u) + '" alt="' + esc(b.name) + ' sample screen" loading="lazy">'; }).join("") +
+        '</article>';
+    }).join("");
+    return '<section class="section" id="' + S.id + '"><div class="section-head"><h2>' + S.title + '</h2></div>' +
+      S.intro.split("\n").map(function (t) { return '<p class="sg-intro">' + t + '</p>'; }).join("") + (S.extra ? '<div class="actions" style="margin:0 0 14px">' + S.extra + '</div>' : '') +
+      '<div class="sg-grid">' + cards + '</div></section>';
+  }).join("");
+  document.getElementById("sg").innerHTML = html;
+  if (window.watchSticky) { try { watchSticky(document.querySelector(".sg-nav")); } catch (e) {} }
+})();
+</script>
+</body>
+</html>
