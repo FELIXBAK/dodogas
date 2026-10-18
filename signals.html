@@ -73,7 +73,7 @@
         var d = info("DODO_index"), h = info("High_Leverage_Frenzy_index");
         return [
           { name: "DODO_index", minTier: d.minTier, imgs: [d.img],
-            summary: "DODO 지수 신호가 \u201CL dodo 0\u201D, \u201CS dodo 1\u201D 같은 짧은 문구로 올라옵니다. 올라오는 간격은 일정하지 않습니다." },
+            summary: "고배지수보다 한층 묵직한 느낌의 신호입니다. 시장이 한쪽으로 크게 치우치고, 전체적으로 쌓인 레버리지가 아주 많아졌을 때 올라옵니다.\n예를 들어 가격이 내려오면서 숏이 계속 쌓이고 한쪽의 쏠림이 극에 달하면, 그 자리에서 반대 방향으로 반등이 나오며 쌓여 있던 레버리지가 정리되는 모습이 자주 나타납니다. 그래서 흐름이 바뀌는 변곡점에 가까운 신호로 볼 수 있고, 큰 전환 지점을 살피는 APOCALYPTIC_Line과 비슷한 무게로 참고하시면 좋아요.\n올라오는 간격은 일정하지 않으며, 항상 같은 결과가 나오는 것은 아니니 참고용으로 활용해 주세요." },
           { name: "High_Leverage_Frenzy_index", minTier: h.minTier, badge: "신규 오픈", imgs: [h.img],
             summary: "고배율 레버러지가 얼마나 광적으로 많이 걸렸는지를 보여 주는 지수입니다. 아래 세 가지 신호가 올라오며, 올라오는 간격은 일정하지 않습니다.",
             subs: [
@@ -89,7 +89,7 @@
     var items = S.items ? S.items() : BOARD_INFO.filter(S.pick);
     var cards = items.map(function (b) {
       return '<article class="sg-card"><div class="sg-top"><h3>' + esc(b.name) + '</h3><span class="sg-tier">' + (b.tierLabel || (TIERS[b.minTier] + ' 이상')) + '</span></div>' + (b.badge ? '<span class="sg-badge">' + esc(b.badge) + '</span>' : '') + '' +
-        '<p>' + esc(b.summary) + '</p>' +
+        b.summary.split("\n").map(function (t) { return '<p>' + esc(t) + '</p>'; }).join("") +
         (b.subs ? '<ul class="sg-sub">' + b.subs.map(function (x) { return '<li><strong>' + esc(x.t) + '</strong><span>' + esc(x.d) + '</span></li>'; }).join("") + '</ul>' : '') +
         (b.imgs || [b.img]).filter(Boolean).map(function (u) { return '<img class="sg-img" src="' + esc(u) + '" alt="' + esc(b.name) + ' 예시 화면" loading="lazy">'; }).join("") +
         '</article>';
