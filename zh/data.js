@@ -11,9 +11,9 @@ var SITE = {
 
 
 var SERVICES = [
-  { name: "Discord", short: "社区·实时交流", icon: "../img/sv/discord.png", tag: "社区", access: "", desc: "dodogas 的 Discord 社区。", link: "https://discord.gg/BZ4kRyAuhT" },
+  { name: "Discord", short: "社区·实时交流", icon: "../img/sv/discord.png", tag: "社区", access: "", desc: "完成会员注册后,即可尽情浏览板块和资料。", link: "https://discord.gg/BZ4kRyAuhT" },
   { name: "YouTube", short: "dodogas 视频频道", icon: "youtube", tag: "视频", access: "", desc: "dodogas 的 YouTube 频道。", link: "https://www.youtube.com/@dodogas" },
-  { name: "Naver Cafe", short: "社区·资料汇总", icon: "cafe", tag: "社区", access: "", desc: "dodogas 的 Naver Cafe。", link: "https://cafe.naver.com/liquidation" },
+  { name: "Naver Cafe", short: "社区·资料汇总", icon: "cafe", tag: "社区", access: "", desc: "只要加入 Cafe,就能查看基础等级的所有资料。再完成会员和交易所注册,即可自由查看更多资料。", link: "https://cafe.naver.com/liquidation" },
   { name: "Boomboom Lite", short: "Telegram·全员公开", icon: "telegram", tag: "Telegram", access: "全员公开", desc: "通过 Telegram 频道提供的 Boomboom Lite。任何人都可以免费查看。", link: "https://t.me/+kSnaeCAx_QUxNzQ1" },
   { name: "KingFisher", short: "付款时享 20% 折扣", icon: "../img/sv/kingfisher.png", tag: "分析服务", access: "付款时享 20% 折扣", desc: "KingFisher(金钓鱼者)服务。通过下方链接付款可享 20% 折扣。", link: "https://app.thekingfisher.io/?ref=7O0MaNch" }
 ];
