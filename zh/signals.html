@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>指标说明 | dodogas</title>
-<meta name="description" content="在一处详细说明 Boomboom 提醒、线位图表和指数信号板块。">
+<meta name="description" content="在同一页面详细介绍 Boomboom 提醒、线位图表和指数板块。">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%233f51d6%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2718%27 font-family=%27sans-serif%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27white%27%3Ed%3C/text%3E%3C/svg%3E">
@@ -17,6 +17,7 @@
       <p class="eyebrow">signals</p>
       <h1>指标说明</h1>
       <p class="lead">按类型说明 Discord 上发布的提醒和图表。可通过下方目录直接跳转到想看的部分。</p>
+      <p class="callout">本页内容为仅供信息参考的资料,并非劝诱买入或卖出特定标的或资产,也不提供投资建议。投资判断及其结果的责任由您自行承担。</p>
     </div>
     <nav class="g-nav sg-nav" aria-label="目录">
       <a href="#boomboom">Boomboom</a><a href="#line">线位</a><a href="#index">指数</a>
@@ -44,12 +45,12 @@
           { name: "BOOM-BOOM-Alert", minTier: c.minTier, badge: "原有运营版本",
             summary: "一直以来运营的 Boomboom 提醒。以 BBBBLL1、BBBBSS2 等简短字样发布。字样中的 L(LL)通常在价格下跌时出现,S(SS)通常在上涨时出现。", imgs: [c.img] },
           { name: "Boomboom M1", minTier: m.minTier, badge: "Beta 测试",
-            summary: "加入了额外校正的 Boomboom。目前作为 Beta 测试临时公开,待充分验证、可以放心参考后将正式推出。会像“LLLL 1”“SSSS 2”这样连同阶段一起发布,并显示精确到秒的提醒时间。", imgs: [m.img] },
+            summary: "加入了额外校正的 Boomboom。目前作为 Beta 测试临时公开,经过进一步验证和完善后将筹备正式推出。会像“LLLL 1”“SSSS 2”这样连同阶段一起发布,并显示精确到秒的提醒时间。", imgs: [m.img] },
           { name: "Boomboom 辅助 1 · 2 · 3", minTier: Math.max(s1.minTier, s2.minTier), badge: "Beta 测试",
             summary: "补充 Boomboom 提醒、可一并参考的 3 种辅助提醒。以相同的卡片形式发布,并显示精确到秒的提醒时间。目前作为 Beta 测试临时公开。", imgs: [s1.img, s2.img] }
         ];
       },
-      intro: "Boomboom 会持续关注市场的实时走势,综合多项标准和内部基准值,在条件吻合的瞬间立即通过 Discord 通知您。\nBoomboom Lite、M1 和辅助提醒的提醒时间也会精确显示到秒。\n提醒卡片上会显示“LLLL 1”“SSSS 2”这样的字样和阶段数字,阶段分为 1 到 7 阶段。(Boomboom Lite 没有阶段显示。)\n字样中的 L(LLLL)通常在价格下跌时出现,S(SSSS)通常在上涨时出现。\n即使不一直盯着图表,也能跟上市场的走势。",
+      intro: "Boomboom 会实时查看市场数据,当检测到符合既定标准的情况时,就会在 Discord 上记录并发布提醒。\nBoomboom Lite · M1 · 辅助提醒会同时显示精确到秒的提醒时间。\n提醒卡片上会显示像“LLLL 1”“SSSS 2”这样的字样和阶段数字,阶段分为 1 到 7 阶段。(Boomboom Lite 不显示阶段。)\n字样中的 L(LLLL)通常在价格下跌时出现,S(SSSS)通常在上涨时出现。\n提醒是已记录的数据,并不告知交易时机或之后的价格方向。这是参考资料,不构成投资招揽或建议。",
       extra: '<a class="btn" href="' + esc((SERVICES.filter(function (s) { return s.name.indexOf("Boomboom Lite") === 0; })[0] || {}).link || "#") + '" target="_blank" rel="noopener">打开 Telegram 的 Boomboom Lite</a>' },
     { id: "line", title: "线位",
       items: function () {
@@ -57,34 +58,34 @@
         function more(n, t) { var x = info(n); x.name = n; x.badge = "分品种线位"; x.summary = t; return x; }
         return [
           { name: "BOOST-PHASE_Line", minTier: b1.minTier, badge: "短期线位", imgs: [b1.img],
-            summary: "取名自火箭发射后最先点火的“助推阶段”。标示当前价格附近参与者密集的价格区间,新线位发布得相对较快,属于短期线位。想快速确认近期目标时很适合查看。" },
+            summary: "取名自火箭发射后最先点火的“助推阶段”。这是标示距离当前价格较近的价格区间的短期线位,新线位发布得相对较快。" },
           { name: "MID-COURSE_Line", minTier: b2.minTier, badge: "中长期线位", imgs: [b2.img],
-            summary: "取名自火箭飞行中段的“中段飞行阶段”。发布周期比助推线位更长,是着眼更远的中长期线位。在大趋势中衡量中间目标时可作参考。" },
+            summary: "取名自火箭飞行中段的“中段飞行阶段”。这是标示距离当前价格稍远的价格区间的中长期线位,发布周期比助推线位更长。" },
           { name: "APOCALYPTIC_Line", minTier: b3.minTier, badge: "长期线位", imgs: [b3.img],
-            summary: "取名自火箭发射的最后阶段——末段。标示接近最终目标价的价格区间,发布周期也最长。想确认远处的大目标时可作参考。" },
-          more("Line-altcoins", "运营者会在山寨币图表上标出线位并发布。您可以简单查看各币种图表上值得关注的价格区间。会员提出想看的币种后,运营者会查看图表,若有有意义的线位,就会发布到这个板块。"),
-          more("Line-NASDAQ", "运营者会在纳斯达克图表上标出线位并发布。方便您在大趋势中查看值得关注的价格区间。"),
-          more("Line-METALS", "运营者会在金属品种图表上标出线位并发布。价格可能产生反应的区间一目了然。"),
-          more("Line-KOSPI", "运营者会在 KOSPI 图表上标出线位并发布。可用来参考指数可能产生反应的价格区间。")
+            summary: "取名自火箭发射的最后阶段,即末日阶段。这是标示距离当前价格很远的价格区间的长期线位,发布周期最长。" },
+          more("Line-altcoins", "运营者会在山寨币图表上标示价格区间信息并发布。会员提出想看的币种后,运营者确认后可能会发布,但并非所有请求都会被采纳,也不提供个别咨询或量身定制的意见。这是向所有会员同样共享的通用资料。"),
+          more("Line-NASDAQ", "运营者会在纳斯达克图表上标示价格区间信息并发布。"),
+          more("Line-METALS", "运营者会在金属品种图表上标示价格区间信息并发布。"),
+          more("Line-KOSPI", "运营者会在 KOSPI 图表上标示价格区间信息并发布。")
         ];
       },
-      intro: "线位是运营者直接标在 TradingView 图表上并发布的“值得关注的价格区间”。\n当图表接近这个价格区间时,经常会出现暂时停顿、反弹或回调的情况。因此可以作为“这里可能会出现一次反应”的提前观察基准线。\n使用方法很简单。\n① 在发布的线位图片中,查看当前价格与线位之间的距离。\n② 接近线位时,观察图表是否出现反应。\n③ 也有不产生反应直接穿过线位的情况,请同时查看下一条线位。\n线位只是参考基准线,并不代表每次都会出现相同的反应。判断和交易请依据您自己的标准。" },
+      intro: "线位是运营者直接标在 TradingView 图表上并发布的价格区间信息。\n在所标示的价格区间,价格走势每次都不同,不预测也不保证任何结果。线位不是买卖时机的参考标准,而是便于一眼看清图表上价格区间的参考信息。\n查看方法很简单。\n① 在发布的线位图片中,查看当前价格与线位之间的距离。\n② 即使是同一价格区间,结果也可能不同,请结合其他资料参考。\n线位是仅供信息参考的资料,不构成投资招揽或建议。投资判断和责任由您自行承担。" },
     { id: "index", title: "指数",
       items: function () {
         var d = info("DODO_index"), h = info("High_Leverage_Frenzy_index");
         return [
           { name: "DODO_index", minTier: d.minTier, imgs: [d.img],
-            summary: "这是指出市场出现大幅单边倾斜的信号。当市场明显偏向一侧、整体累积的杠杆变得非常多时发布。\n例如,价格下跌过程中空单不断累积、单边倾斜达到极致时,往往会在该位置出现反向反弹,累积的杠杆随之被清理。因此可以看作接近趋势转折点的信号,在检查大趋势方向时可作参考。\n字样中的 L 表示多单较多,S 表示空单较多,数字越大,倾斜程度越大。信号不是在固定时间发布,而是每当条件吻合时发布,结果也并非总是相同,请作为参考使用。" },
+            summary: "以字样和数字显示市场多空偏向程度的指标。当市场明显偏向一方、整体累积的杠杆很多时会被记录。\n字样中的 L 表示多单多,S 表示空单多,数字越大,偏向程度越高。记录并非在固定时间发布,而是在符合条件时发布,不预测也不保证之后的价格方向或结果。" },
           { name: "High_Leverage_Frenzy_index", minTier: h.minTier, badge: "新开放", imgs: [h.img],
-            summary: "这是显示高倍杠杆被疯狂堆积到什么程度的指数。有以下三种信号,每当条件吻合时会立即发布。",
+            summary: "显示高倍杠杆累积了多少的指数。包含以下三种指示,在符合条件时发布。",
             subs: [
-              { t: "High leverage madness", d: "显示高倍杠杆被疯狂堆积到什么程度。以 L1~10、S1~10 表示,L 表示多单较多,S 表示空单较多。从 1 到 10 数字越大,程度越高。" },
-              { t: "Pitched battle", d: "多空力量正在对峙的状态。可以看作先占据位置的一方可能被震出的状态。不区分多空,仅用 1~10 的数字表示,5 以上为大会战等级。数字越大,程度越高。" },
-              { t: "Reverse Design Caution(逆向设计警示)", d: "当累积的仓位不是散户的,而是主力的,且可能带着这些仓位运行时出现。以 L1~10、S1~10 表示,S 表示可能带着空单仓位下跌,L 表示可能带着多单仓位上涨。" }
+              { t: "High leverage madness", d: "显示高倍杠杆累积的程度。用 L1~10、S1~10 表示,L 表示多单多,S 表示空单多。数字越大,程度越高。" },
+              { t: "Pitched battle", d: "显示多空仓位势均力敌的程度。不区分多空,仅用 1~10 的数字表示,5 以上归为“大会战”等级。数字越大,程度越高。" },
+              { t: "Reverse Design Caution(逆向设计警示)", d: "显示累积的仓位被推测属于大型主体而非个人的程度。用 L1~10、S1~10 表示,L 表示多单仓位,S 表示空单仓位。数字越大,程度越高。" }
             ] }
         ];
       },
-      intro: "指数板块会用简短的字样和数字,告诉您市场上杠杆向哪一侧累积了多少。\n仓位越是大幅倾向一侧,越经常在某个时点向相反方向运行,清理累积的仓位。因此指数可以像温度计一样,用来衡量“当前市场倾斜到什么程度”。\n目前运营两种指数。\n· DODO_index:提示单边倾斜达到极致、走势可能转向的大转换区间。\n· High_Leverage_Frenzy_index:通过三种信号(High leverage madness、Pitched battle、Reverse Design Caution)显示高倍杠杆累积了多少。\n信号以字样和数字发布。字样中的 L 表示多单较多,S 表示空单较多(Pitched battle 不区分多空,仅显示数字),两种指数都是数字越大程度越高。信号不是在固定时间发布,而是每当形成相应状况时发布,与线位板块的价格区间一起查看会更容易理解走势。\n指数是参考信号,结果并非总是相同。判断和交易请依据您自己的标准。" },
+      intro: "指数板块会发布以简短字样和数字显示市场上杠杆偏向哪一边、累积了多少的指标。\n指数是以数值查看“当前市场仓位有多偏向一方”的参考指标,并不预测之后的价格方向或结果。\n目前运行着两种指数。\n· DODO_index:以字样和数字显示市场多空偏向程度。\n· High_Leverage_Frenzy_index:通过三种指示(High leverage madness、Pitched battle、Reverse Design Caution)分别显示高倍杠杆累积了多少。\n指示以字样和数字发布。字样中的 L 表示多单多,S 表示空单多(Pitched battle 不区分多空,仅显示数字),两种指数均为数字越大,程度越高。指示并非在固定时间发布,而是在符合条件时发布。\n指数是仅供信息参考的指标,不构成投资招揽或建议。投资判断和责任由您自行承担。" },
   ];
   var html = SECTIONS.map(function (S) {
     var items = S.items ? S.items() : BOARD_INFO.filter(S.pick);
