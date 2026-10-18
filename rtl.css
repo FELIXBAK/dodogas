@@ -1,0 +1,29 @@
+/* 아랍어(RTL) 보정: build 스크립트가 자동 생성 */
+html[dir="rtl"] .nav{margin-right:auto;margin-left:0}
+html[dir="rtl"] .sample-flag{margin-right:8px;margin-left:0}
+html[dir="rtl"] th,html[dir="rtl"] td{text-align:right}
+html[dir="rtl"] .steps li::before{right:16px;left:auto}
+@media (max-width: 560px){html[dir="rtl"] .nav{margin-right:0;margin-left:0}}
+html[dir="rtl"] .g-do{padding-right:18px;padding-left:0}
+html[dir="rtl"] .ph-hand{left:6px;right:auto}
+html[dir="rtl"] .ph-paper{left:4px;right:auto}
+html[dir="rtl"] .rc-body{padding-right:calc(18px + 40px + 14px);padding-left:0}
+html[dir="rtl"] .rc-steps{padding-right:22px;padding-left:0}
+html[dir="rtl"] .rc-note{border-right:3px solid var(--accent);border-left:0 none}
+@media (max-width: 640px){html[dir="rtl"] .rc-body{padding-right:18px;padding-left:0}}
+html[dir="rtl"] .rc-ask ul{padding-right:20px;padding-left:0}
+html[dir="rtl"] .rc-note{border-right-color:var(--line) !important}
+html[dir="rtl"] .g-nav-rc{margin-right:auto;margin-left:0}
+html[dir="rtl"] .help-fab{left:max(16px, env(safe-area-inset-right, 0px));right:auto}
+@media (max-width: 640px){html[dir="rtl"] .ex-table th,html[dir="rtl"] .ex-table td{text-align:right}}
+html[dir="rtl"] .faq-list{padding-right:20px;padding-left:0}
+html[dir="rtl"] .tab{text-align:right}
+html[dir="rtl"] .b-usage{padding-right:20px;padding-left:0}
+html[dir="rtl"] .b-tip strong{margin-left:6px;margin-right:0}
+html[dir="rtl"] tbody th{text-align:right}
+html[dir="rtl"] tbody th .hash{margin-left:4px;margin-right:0}
+@media (max-width: 560px){html[dir="rtl"] .wrap-m .scroll thead th:first-child,html[dir="rtl"] .wrap-m .scroll tbody th{padding-right:10px;padding-left:0}}
+html[dir="rtl"] .bcard summary::after{margin-right:4px;margin-left:0}
+html[dir="rtl"] .b-chip{margin-right:auto;margin-left:0}
+html[dir="rtl"] .b-usage{padding-right:20px;padding-left:0}
+html[dir="rtl"] .b-tip strong{margin-left:6px;margin-right:0}
