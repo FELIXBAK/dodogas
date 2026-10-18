@@ -20,6 +20,7 @@
       <p class="eyebrow">membership</p>
       <h1>اللوحات حسب مستوى العضوية</h1>
       <p class="lead">تختلف اللوحات التي يمكنك رؤيتها على Discord بحسب مستوى العضوية المسجَّل. اختر مستواك لمعرفة اللوحات المتاحة لك.</p>
+      <p class="ver" id="board-ver"></p>
       <p class="callout">اضغط على اسم اللوحة لمعرفة نوع المنشورات فيها، ومثال على الشاشة، وطريقة الاستفادة منها.</p>
       <p class="callout">تيليجرام <strong>Boomboom Lite</strong> متاح للجميع بغض النظر عن مستوى العضوية.</p>
       <div class="callout yt-join"><span>يمكنك الاشتراك في عضوية YouTube من الزر أدناه.</span> <a class="btn" href="https://www.youtube.com/channel/UCNaPLbtAaO290Jtlv-fSM3Q/join" target="_blank" rel="noopener">الاشتراك في عضوية YouTube</a></div>
@@ -33,10 +34,9 @@
         <h2>جدول المقارنة الكامل</h2>
         <div class="scroll"><table id="matrix"></table></div>
       </section>
-      <p class="note">تتبع أسماء اللوحات ونطاق العرض شاشة Discord بتاريخ 17 أكتوبر 2026.</p>
       <section class="card join-cta">
         <h2>سجّل وتصفّح المواد بحرية</h2>
-        <p>بعد إتمام عضوية YouTube والتسجيل في المنصة، يمكنك تصفّح اللوحات والمواد كما تشاء.</p>
+        <p>بعد إتمام عضوية YouTube والتسجيل في المنصة، يمكنك تصفّح اللوحات والمواد كما تشاء. وعند الحصول على صلاحيات VIP يمكنك الاطلاع على جميع اللوحات والمواد، بما فيها المخصصة لـ VIP فقط.</p>
         <div class="actions">
           <a class="btn" href="https://www.youtube.com/channel/UCNaPLbtAaO290Jtlv-fSM3Q/join" target="_blank" rel="noopener">الاشتراك في عضوية YouTube</a>
           <a class="btn ghost" href="index.html">اذهب للتسجيل في المنصة</a>
@@ -48,6 +48,13 @@
 <script src="boards-data.js"></script>
 <script src="data.js"></script>
 <script src="../site.js"></script>
+<script>
+
+(function () {
+  var el = document.getElementById("board-ver");
+  if (el && typeof BOARD_VERSION !== "undefined") el.textContent = "قائمة اللوحات · إصدار {D}".replace("{D}", BOARD_VERSION.replace(/-/g, "."));
+})();
+</script>
 <script>
 
 var TIERS = [
