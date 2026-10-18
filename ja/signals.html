@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ja" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>指標の説明 | dodogas</title>
+<meta name="description" content="Boomboomアラート、ラインチャート、指数シグナルの掲示板を一か所で詳しく説明します。">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%233f51d6%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2718%27 font-family=%27sans-serif%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27white%27%3Ed%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-page="signals">
+<main>
+  <div class="container">
+    <div class="page-head">
+      <p class="eyebrow">signals</p>
+      <h1>指標の説明</h1>
+      <p class="lead">Discordに上がるアラートとチャートを種類別に説明します。下の目次から見たい部分へ直接移動できます。</p>
+    </div>
+    <nav class="g-nav sg-nav" aria-label="目次">
+      <a href="#boomboom">Boomboom</a><a href="#line">ライン</a><a href="#index">指数</a>
+    </nav>
+    <div id="sg"></div>
+    <section class="section">
+      <p class="callout">見方や解釈の基準など、詳しい内容は今後も随時追加していきます。ご不明な点は <a href="support.html">サポート</a>までお気軽にお問い合わせください。</p>
+    </section>
+  </div>
+</main>
+<script src="data.js"></script>
+<script src="boards-data.js"></script>
+<script src="../site.js"></script>
+<script>
+(function () {
+  var TIERS = ["Basic", "Trillion", "VIP"];
+  function info(n) { return BOARD_INFO.filter(function (b) { return b.name === n; })[0] || { minTier: 2, img: "" }; }
+  var SECTIONS = [
+    { id: "boomboom", title: "Boomboom",
+      items: function () {
+        var c = info("BOOM-BOOM-Alert"), m = info("boomboom-m1-test"), s1 = info("boomboom-sub1-test"), s2 = info("boomboom-sub2-test");
+        return [
+          { name: "Boomboom Lite", tierLabel: "全体公開", badge: "テレグラム",
+            summary: "テレグラムで誰でも無料で見られるBoomboomです。段階表示はなく、「BBBB」の文言とアラート時刻が秒単位まで表示されます。", imgs: ["../img/boomboom-lite.png"] },
+          { name: "BOOM-BOOM-Alert", minTier: c.minTier, badge: "従来の運用バージョン",
+            summary: "従来から運用しているBoomboomアラートです。BBBBLL1、BBBBSS2のような短い文言で上がります。文言のL(LL)は通常、価格が下がるとき、S(SS)は通常、上がるときに現れます。", imgs: [c.img] },
+          { name: "Boomboom M1", minTier: m.minTier, badge: "ベータテスト",
+            summary: "追加補正を加えたBoomboomです。現在はベータテストとして一時公開中で、十分に検証されて信頼できるようになった段階で正式にリリースする予定です。「LLLL 1」「SSSS 2」のように段階とともに上がり、アラート時刻が秒単位まで表示されます。", imgs: [m.img] },
+          { name: "Boomboom 補助 1 · 2 · 3", minTier: Math.max(s1.minTier, s2.minTier), badge: "ベータテスト",
+            summary: "Boomboomアラートを補い、あわせて参考にできる補助アラート3種です。同じカード形式で上がり、アラート時刻が秒単位まで表示されます。現在はベータテストとして一時公開中です。", imgs: [s1.img, s2.img] }
+        ];
+      },
+      intro: "Boomboomは市場のリアルタイムの流れを見守り、複数の基準と内部の基準値を総合して、条件が合った瞬間にDiscordですぐにお知らせするアラートです。\nBoomboom Lite・M1・補助アラートは、アラート時刻も秒単位まで表示されます。\nアラートカードには「LLLL 1」「SSSS 2」のように文言と段階の数字が表示され、段階は1段階から7段階まであります。(Boomboom Liteは段階表示がありません。)\n文言のL(LLLL)は通常、価格が下がるとき、S(SSSS)は通常、上がるときに現れます。\nチャートを見続けていなくても、流れを逃さず追うことができます。",
+      extra: '<a class="btn" href="' + esc((SERVICES.filter(function (s) { return s.name.indexOf("Boomboom Lite") === 0; })[0] || {}).link || "#") + '" target="_blank" rel="noopener">テレグラムでBoomboom Liteを開く</a>' },
+    { id: "line", title: "ライン",
+      items: function () {
+        var b1 = info("BOOST-PHASE_Line"), b2 = info("MID-COURSE_Line"), b3 = info("APOCALYPTIC_Line");
+        function more(n, t) { var x = info(n); x.name = n; x.badge = "銘柄別ライン"; x.summary = t; return x; }
+        return [
+          { name: "BOOST-PHASE_Line", minTier: b1.minTier, badge: "短期ライン", imgs: [b1.img],
+            summary: "ロケットが発射直後に最初に点火する「ブースト段階」から名付けられました。現在価格に近い場所で多くの参加者が集まっている価格帯を示し、新しいラインが比較的早く上がる短期ラインです。近い目標をすばやく確認したいときに便利です。" },
+          { name: "MID-COURSE_Line", minTier: b2.minTier, badge: "中長期ライン", imgs: [b2.img],
+            summary: "ロケットが飛行の中間区間を通過する「ミッドコース段階」から名付けられました。ブーストラインより上がる周期が長く、もう少し先を見る中長期ラインです。大きな流れの中で中間の目標を見極めるときの参考になります。" },
+          { name: "APOCALYPTIC_Line", minTier: b3.minTier, badge: "長期ライン", imgs: [b3.img],
+            summary: "ロケット発射の最後、終末段階から名付けられました。ほぼ最終目標価格に近い水準の価格帯を示す長期ラインで、上がる周期も最も長くなります。遠くにある大きな目標を確認したいときにご参考ください。" },
+          more("Line-altcoins", "アルトコインのチャートに運営者がラインを表示して投稿します。コインごとのチャートで注目すべき価格帯を簡単に確認できます。メンバーシップ会員の方がご希望のコインをリクエストすると、運営者がチャートを確認し、意味のあるラインがある場合にこの掲示板に投稿します。"),
+          more("Line-NASDAQ", "ナスダックのチャートに運営者がラインを表示して投稿します。大きな流れの中で注目すべき価格帯を気軽に確認できます。"),
+          more("Line-METALS", "金属銘柄のチャートに運営者がラインを表示して投稿します。価格が反応しそうな価格帯をひと目で確認できます。"),
+          more("Line-KOSPI", "KOSPIのチャートに運営者がラインを表示して投稿します。指数が反応しそうな価格帯を確認する際の参考にしてください。")
+        ];
+      },
+      intro: "ラインは、運営者がTradingViewのチャートに直接表示して投稿する「注目の価格帯」です。\nチャートがこの価格帯に近づくと、いったん止まったり、反発したり、調整が入ったりする様子がよく見られます。そのため「ここで一度反応が出るかもしれない」と事前に確認できる基準線として活用できます。\n使い方は簡単です。\n① 投稿されたライン画像で、現在価格とラインとの距離を確認します。\n② ラインに近づいたら、反応が出るかチャートを見守ります。\n③ 反応なくラインを通過する場合もあるので、次のラインもあわせて確認します。\nラインは参考用の基準線であり、常に同じ反応が出るという意味ではありません。判断と売買はご自身の基準で行ってください。" },
+    { id: "index", title: "指数",
+      items: function () {
+        var d = info("DODO_index"), h = info("High_Leverage_Frenzy_index");
+        return [
+          { name: "DODO_index", minTier: d.minTier, imgs: [d.img],
+            summary: "市場の大きな偏りを示すシグナルです。市場が一方に大きく傾き、全体に積み上がったレバレッジが非常に多くなったときに上がります。\n例えば、価格が下がりながらショートが積み上がり続け、一方への偏りが極まると、その場で反対方向への反発が出て、積み上がっていたレバレッジが整理される様子がよく見られます。そのため流れが変わる変曲点に近いシグナルとして、大きな流れの方向を確認する際の参考になります。\n文言のLはロングが多いこと、Sはショートが多いことを意味し、数字が大きいほど偏りの度合いも大きくなります。シグナルは決まった時間ではなく、条件が合うたびに上がり、常に同じ結果になるとは限らないため、参考用としてご活用ください。" },
+          { name: "High_Leverage_Frenzy_index", minTier: h.minTier, badge: "新規オープン", imgs: [h.img],
+            summary: "高レバレッジがどれほど過熱して積み上がっているかを示す指数です。以下の3つのシグナルがあり、条件が合った瞬間にそれぞれすぐ上がります。",
+            subs: [
+              { t: "High leverage madness", d: "高レバレッジがどれほど過熱して積み上がっているかを示します。L1~10、S1~10で表され、Lはロングが多いこと、Sはショートが多いことを意味します。1から10へ上がるほど、その度合いが大きくなります。" },
+              { t: "Pitched battle", d: "ロングとショートの勢力が拮抗している状態です。先にポジションを取った側が揺さぶられる方向へ動く可能性がある状態と見ることができます。ロング/ショートの区別なく1~10の数字だけで表され、5以上は大会戦グレードです。数字が大きいほど度合いが大きくなります。" },
+              { t: "Reverse Design Caution(逆設計注意)", d: "積み上がっている建玉が個人投資家ではなく大口勢力のもので、その建玉を抱えたまま動く可能性があるときに出ます。L1~10、S1~10で表され、Sはショート建玉を抱えて下落する可能性、Lはロング建玉を抱えて上昇する可能性を意味します。" }
+            ] }
+        ];
+      },
+      intro: "指数掲示板には、市場にレバレッジがどちら側にどれほど積み上がっているかを、短い文言と数字で知らせるシグナルが上がります。\nポジションが一方に大きく偏るほど、ある時点で反対方向へ動き、積み上がっていた建玉が整理される様子がよく見られます。そのため指数は「いま市場がどれほど一方に傾いているか」を測る温度計のように活用できます。\n現在は2種類の指数を運営しています。\n· DODO_index:偏りが極まり、流れが変わる可能性のある大きな転換区間をお知らせします。\n· High_Leverage_Frenzy_index:高レバレッジがどれほど積み上がっているかを、3つのシグナル(High leverage madness、Pitched battle、Reverse Design Caution)に分けて示します。\nシグナルは文言と数字で上がります。文言のLはロングが多いこと、Sはショートが多いことを意味し(Pitched battleはロング/ショートの区別なく数字のみ表示)、どちらの指数も数字が大きいほど度合いが大きくなります。シグナルは決まった時間ではなく状況ができるたびに上がり、ライン掲示板の価格帯とあわせて見ると流れがより理解しやすくなります。\n指数は参考用のシグナルであり、常に同じ結果になるとは限りません。判断と売買はご自身の基準で行ってください。" },
+  ];
+  var html = SECTIONS.map(function (S) {
+    var items = S.items ? S.items() : BOARD_INFO.filter(S.pick);
+    var cards = items.map(function (b) {
+      return '<article class="sg-card"><div class="sg-top"><h3>' + esc(b.name) + '</h3><span class="sg-tier">' + (b.tierLabel || (TIERS[b.minTier] + ' 以上')) + '</span></div>' + (b.badge ? '<span class="sg-badge">' + esc(b.badge) + '</span>' : '') + '' +
+        b.summary.split("\n").map(function (t) { return '<p>' + esc(t) + '</p>'; }).join("") +
+        (b.subs ? '<ul class="sg-sub">' + b.subs.map(function (x) { return '<li><strong>' + esc(x.t) + '</strong><span>' + esc(x.d) + '</span></li>'; }).join("") + '</ul>' : '') +
+        (b.imgs || [b.img]).filter(Boolean).map(function (u) { return '<img class="sg-img" src="' + esc(u) + '" alt="' + esc(b.name) + ' サンプル画面" loading="lazy">'; }).join("") +
+        '</article>';
+    }).join("");
+    return '<section class="section" id="' + S.id + '"><div class="section-head"><h2>' + S.title + '</h2></div>' +
+      S.intro.split("\n").map(function (t) { return '<p class="sg-intro">' + t + '</p>'; }).join("") + (S.extra ? '<div class="actions" style="margin:0 0 14px">' + S.extra + '</div>' : '') +
+      '<div class="sg-grid">' + cards + '</div></section>';
+  }).join("");
+  document.getElementById("sg").innerHTML = html;
+  if (window.watchSticky) { try { watchSticky(document.querySelector(".sg-nav")); } catch (e) {} }
+})();
+</script>
+</body>
+</html>

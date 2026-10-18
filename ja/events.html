@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>イベント・大会 | dodogas</title>
+<meta name="description" content="取引所の特典、イベント、登録ガイド、メンバーシップ案内をまとめて確認できます。">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%233f51d6%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2718%27 font-family=%27sans-serif%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27white%27%3Ed%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body data-page="events">
+<main>
+  <div class="container">
+    <div class="page-head">
+      <p class="eyebrow">events &amp; competitions</p>
+      <h1>イベント・大会</h1>
+      <p class="lead">取引所ごとの登録イベントと取引大会をまとめました。終了したイベントは別に見られます。</p>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="取引所フィルター"></div>
+    <div class="grid" id="grid" aria-live="polite"></div>
+  </div>
+</main>
+<script src="data.js"></script>
+<script src="../site.js"></script>
+<script>
+(function () {
+  var today = new Date().toISOString().slice(0, 10);
+  var names = ["すべて"];
+  EVENTS.forEach(function (e) { if (names.indexOf(e.exchange) < 0) names.push(e.exchange); });
+  names.push("終了したイベント");
+  var cur = "すべて";
+
+  function draw() {
+    document.getElementById("chips").hidden = !EVENTS.length;
+    document.getElementById("chips").innerHTML = names.map(function (n) {
+      return '<button type="button" class="chip-btn" aria-pressed="' + (n === cur) + '" data-n="' + esc(n) + '">' + esc(n) + "</button>";
+    }).join("");
+    var list = EVENTS.filter(function (e) {
+      var ended = e.end && e.end < today;
+      if (cur === "終了したイベント") return ended;
+      if (ended) return false;
+      return cur === "すべて" || e.exchange === cur;
+    });
+    document.getElementById("grid").innerHTML = list.length ? list.map(function (e) {
+      var ended = e.end && e.end < today;
+      var btn = e.link
+        ? '<a class="btn" href="' + esc(e.link) + '" target="_blank" rel="noopener">詳細を見る</a>'
+        : '<span class="btn" aria-disabled="true">リンク準備中</span>';
+      return '<article class="card"><span class="tag ' + (ended ? "end" : "ok") + '">' + (ended ? "終了" : esc(e.tag)) + '</span><h3>' + esc(e.title) + '</h3><p>' + esc(e.desc) + '</p><div class="meta">' + esc(e.exchange) + ' · ' + esc(e.start) + ' ~ ' + esc(e.end) + '</div><div class="foot">' + btn + '</div></article>';
+    }).join("") : '<div class="empty">' + (EVENTS.length ? "表示できるイベントはありません。" : "現在開催中のイベント・大会はありません。新しいイベントが開かれたらここでお知らせします。") + "</div>";
+  }
+  document.getElementById("chips").addEventListener("click", function (ev) {
+    var b = ev.target.closest(".chip-btn");
+    if (b) { cur = b.getAttribute("data-n"); draw(); }
+  });
+  draw();
+})();
+</script>
+</body>
+</html>
