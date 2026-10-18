@@ -41,14 +41,14 @@
           { name: "붐붐이 Lite", tierLabel: "전체 공개", badge: "텔레그램",
             summary: "텔레그램으로 누구나 무료로 보실 수 있는 붐붐이입니다. 단계 표시 없이 \u201CBBBB\u201D 문구와 알림 시각이 초 단위까지 표시됩니다.", imgs: ["img/boomboom-lite.png"] },
           { name: "BOOM-BOOM-Alert", minTier: c.minTier, badge: "기존 운영 버전",
-            summary: "기존부터 운영해 온 붐붐이 알림입니다. BBBBLL1, BBBBSS2 같은 짧은 문구로 올라오며, 알림 시각이 초 단위까지 표시됩니다.", imgs: [c.img] },
+            summary: "기존부터 운영해 온 붐붐이 알림입니다. BBBBLL1, BBBBSS2 같은 짧은 문구로 올라옵니다.", imgs: [c.img] },
           { name: "붐붐이 M1", minTier: m.minTier, badge: "테스트 중",
             summary: "추가 보정이 들어간 붐붐이입니다. 현재는 테스트용으로 임시 공개 중이며, 충분히 검증되어 믿고 보실 수 있게 되면 정식으로 출시할 예정입니다. \u201CLLLL 1\u201D, \u201CSSSS 2\u201D처럼 단계와 함께 올라오고, 알림 시각이 초 단위까지 표시됩니다.", imgs: [m.img] },
           { name: "붐붐이 보조 1 · 2 · 3", minTier: Math.max(s1.minTier, s2.minTier), badge: "테스트 중",
             summary: "붐붐이 알림을 보완해 함께 참고하실 수 있는 보조 알림 3종입니다. 같은 카드 형태로 올라오며, 알림 시각이 초 단위까지 표시됩니다. 현재는 테스트용으로 임시 공개 중입니다.", imgs: [s1.img, s2.img] }
         ];
       },
-      intro: "붐붐이는 시장의 실시간 흐름을 계속 지켜보다가, 여러 가지 기준과 내부 기준값을 종합해 조건이 맞는 순간 디스코드로 바로 알려 드리는 알림입니다. 모든 붐붐이는 실시간으로 알려 드리며, 알림 시각이 초 단위까지 함께 표시됩니다. 알림 카드에는 \u201CLLLL 1\u201D, \u201CSSSS 2\u201D처럼 문구와 단계 숫자가 표시되고, 단계는 1단계부터 7단계까지 나뉘어 있습니다. (붐붐이 Lite는 단계 표시가 없습니다.) 차트를 계속 보고 있지 않아도 흐름을 놓치지 않고 따라가실 수 있어요.",
+      intro: "붐붐이는 시장의 실시간 흐름을 계속 지켜보다가, 여러 가지 기준과 내부 기준값을 종합해 조건이 맞는 순간 디스코드로 바로 알려 드리는 알림입니다.\n붐붐이 Lite · M1 · 보조 알림은 알림 시각이 초 단위까지 함께 표시됩니다.\n알림 카드에는 \u201CLLLL 1\u201D, \u201CSSSS 2\u201D처럼 문구와 단계 숫자가 표시되고, 단계는 1단계부터 7단계까지 나뉘어 있습니다. (붐붐이 Lite는 단계 표시가 없습니다.)\n차트를 계속 보고 있지 않아도 흐름을 놓치지 않고 따라가실 수 있어요.",
       extra: '<a class="btn" href="' + esc((SERVICES.filter(function (s) { return s.name.indexOf("붐붐이 Lite") === 0; })[0] || {}).link || "#") + '" target="_blank" rel="noopener">텔레그램 붐붐이 Lite 열기</a>' },
     { id: "line", title: "라인", pick: function (b) { return /^LINE/.test(b.group) && /_Line$|^Line-/.test(b.name) && !/free_chat/.test(b.name); },
       intro: "운영자가 TradingView 차트에 라인을 직접 표시해 이미지로 올립니다. 올라오는 간격은 일정하지 않으며, 종목별(비트코인·알트코인·나스닥·금속·코스피200)로 게시판이 나뉘어 있습니다." },
@@ -64,7 +64,7 @@
         '</article>';
     }).join("");
     return '<section class="section" id="' + S.id + '"><div class="section-head"><h2>' + S.title + '</h2></div>' +
-      '<p class="sg-intro">' + S.intro + '</p>' + (S.extra ? '<div class="actions" style="margin:0 0 14px">' + S.extra + '</div>' : '') +
+      S.intro.split("\n").map(function (t) { return '<p class="sg-intro">' + t + '</p>'; }).join("") + (S.extra ? '<div class="actions" style="margin:0 0 14px">' + S.extra + '</div>' : '') +
       '<div class="sg-grid">' + cards + '</div></section>';
   }).join("");
   document.getElementById("sg").innerHTML = html;
