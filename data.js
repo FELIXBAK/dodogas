@@ -4,14 +4,14 @@ var SITE = {
   // true면 샘플 표시가 보입니다. 실제 내용을 다 채운 뒤 false로 바꾸세요.
   sample: true,
   // 연락처 링크. 비워 두면 버튼이 비활성으로 보입니다.
-  contacts: { discord: "https://discord.gg/BZ4kRyAuhT" }
+  contacts: { discord: "https://discord.gg/FXWPyAvRCh" }
 };
 
 // 제공 서비스 (홈 화면). link가 있으면 '바로가기' 버튼이 보입니다.
 // short: 카드 아래쪽에 이름과 함께 보이는 짧은 설명
 // icon: discord·youtube·cafe·telegram·chart 중 하나, 또는 로고 이미지 경로(예: "img/sv/discord.png")
 var SERVICES = [
-  { name: "디스코드", short: "커뮤니티 · 실시간 소통", icon: "img/sv/discord.png", tag: "커뮤니티", access: "", desc: "가입만 하면 베이직 등급의 모든 자료를 볼 수 있어요. 멤버십 가입을 완료하고, 게시판과 자료를 마음껏 둘러보세요.", link: "https://discord.gg/BZ4kRyAuhT" },
+  { name: "디스코드", short: "커뮤니티 · 실시간 소통", icon: "img/sv/discord.png", tag: "커뮤니티", access: "", desc: "가입만 하면 베이직 등급의 모든 자료를 볼 수 있어요. 멤버십 가입을 완료하고, 게시판과 자료를 마음껏 둘러보세요.", link: "https://discord.gg/FXWPyAvRCh" },
   { name: "유튜브", short: "dodogas 영상 채널", icon: "youtube", tag: "영상", access: "", desc: "멤버십 가입을 완료하고, 게시판과 자료를 마음껏 둘러보세요.", link: "https://www.youtube.com/@dodogas" },
   { name: "네이버 카페", short: "커뮤니티 · 자료 모음", icon: "cafe", tag: "커뮤니티", access: "", desc: "가입만 하면 베이직 등급의 모든 자료를 볼 수 있어요. 멤버십 가입을 완료하고, 게시판과 자료를 마음껏 둘러보세요.", link: "https://cafe.naver.com/liquidation" },
   { name: "붐붐이 Lite", short: "텔레그램 · 전체 공개", icon: "telegram", tag: "텔레그램", access: "전체 공개", desc: "텔레그램 채널로 제공되는 붐붐이 Lite입니다. 누구나 무료로 볼 수 있습니다.", link: "https://t.me/+kSnaeCAx_QUxNzQ1" },
