@@ -4,14 +4,14 @@ var SITE = {
 
   sample: true,
 
-  contacts: { discord: "https://discord.gg/BZ4kRyAuhT" }
+  contacts: { discord: "https://discord.gg/FXWPyAvRCh" }
 };
 
 
 
 
 var SERVICES = [
-  { name: "Discord", short: "社区·实时交流", icon: "../img/sv/discord.png", tag: "社区", access: "", desc: "只要注册,就能查看基础等级的所有资料。完成会员注册后,即可尽情浏览板块和资料。", link: "https://discord.gg/BZ4kRyAuhT" },
+  { name: "Discord", short: "社区·实时交流", icon: "../img/sv/discord.png", tag: "社区", access: "", desc: "只要注册,就能查看基础等级的所有资料。完成会员注册后,即可尽情浏览板块和资料。", link: "https://discord.gg/FXWPyAvRCh" },
   { name: "YouTube", short: "dodogas 视频频道", icon: "youtube", tag: "视频", access: "", desc: "完成会员注册后,即可尽情浏览板块和资料。", link: "https://www.youtube.com/@dodogas" },
   { name: "Naver Cafe", short: "社区·资料汇总", icon: "cafe", tag: "社区", access: "", desc: "只要注册,就能查看基础等级的所有资料。完成会员注册后,即可尽情浏览板块和资料。", link: "https://cafe.naver.com/liquidation" },
   { name: "Boomboom Lite", short: "Telegram·全员公开", icon: "telegram", tag: "Telegram", access: "全员公开", desc: "通过 Telegram 频道提供的 Boomboom Lite。任何人都可以免费查看。", link: "https://t.me/+kSnaeCAx_QUxNzQ1" },
