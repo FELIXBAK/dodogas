@@ -4,14 +4,14 @@ var SITE = {
 
   sample: true,
 
-  contacts: { discord: "https://discord.gg/BZ4kRyAuhT" }
+  contacts: { discord: "https://discord.gg/FXWPyAvRCh" }
 };
 
 
 
 
 var SERVICES = [
-  { name: "Discord", short: "Community · real-time chat", icon: "../img/sv/discord.png", tag: "Community", access: "", desc: "Just sign up to view all Basic-tier materials. Complete your membership sign-up and explore the boards and materials as much as you like.", link: "https://discord.gg/BZ4kRyAuhT" },
+  { name: "Discord", short: "Community · real-time chat", icon: "../img/sv/discord.png", tag: "Community", access: "", desc: "Just sign up to view all Basic-tier materials. Complete your membership sign-up and explore the boards and materials as much as you like.", link: "https://discord.gg/FXWPyAvRCh" },
   { name: "YouTube", short: "dodogas video channel", icon: "youtube", tag: "Video", access: "", desc: "Complete your membership sign-up and explore the boards and materials as much as you like.", link: "https://www.youtube.com/@dodogas" },
   { name: "Naver Cafe", short: "Community · resource archive", icon: "cafe", tag: "Community", access: "", desc: "Just sign up to view all Basic-tier materials. Complete your membership sign-up and explore the boards and materials as much as you like.", link: "https://cafe.naver.com/liquidation" },
   { name: "Boomboom Lite", short: "Telegram · Open to all", icon: "telegram", tag: "Telegram", access: "Open to all", desc: "Boomboom Lite, provided on a Telegram channel. Anyone can view it for free.", link: "https://t.me/+kSnaeCAx_QUxNzQ1" },
