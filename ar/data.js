@@ -4,14 +4,14 @@ var SITE = {
 
   sample: true,
 
-  contacts: { discord: "https://discord.gg/BZ4kRyAuhT" }
+  contacts: { discord: "https://discord.gg/FXWPyAvRCh" }
 };
 
 
 
 
 var SERVICES = [
-  { name: "Discord", short: "مجتمع · تواصل مباشر", icon: "../img/sv/discord.png", tag: "المجتمع", access: "", desc: "بمجرد التسجيل يمكنك مشاهدة جميع مواد المستوى الأساسي. أكمل التسجيل في العضوية وتصفّح اللوحات والمواد كما تشاء.", link: "https://discord.gg/BZ4kRyAuhT" },
+  { name: "Discord", short: "مجتمع · تواصل مباشر", icon: "../img/sv/discord.png", tag: "المجتمع", access: "", desc: "بمجرد التسجيل يمكنك مشاهدة جميع مواد المستوى الأساسي. أكمل التسجيل في العضوية وتصفّح اللوحات والمواد كما تشاء.", link: "https://discord.gg/FXWPyAvRCh" },
   { name: "YouTube", short: "قناة فيديو dodogas", icon: "youtube", tag: "فيديو", access: "", desc: "أكمل التسجيل في العضوية وتصفّح اللوحات والمواد كما تشاء.", link: "https://www.youtube.com/@dodogas" },
   { name: "مقهى Naver", short: "مجتمع · مجموعة مواد", icon: "cafe", tag: "المجتمع", access: "", desc: "بمجرد التسجيل يمكنك مشاهدة جميع مواد المستوى الأساسي. أكمل التسجيل في العضوية وتصفّح اللوحات والمواد كما تشاء.", link: "https://cafe.naver.com/liquidation" },
   { name: "Boomboom Lite", short: "تيليجرام · متاح للجميع", icon: "telegram", tag: "تيليجرام", access: "متاح للجميع", desc: "Boomboom Lite المقدَّم عبر قناة تيليجرام. يمكن لأي شخص مشاهدته مجانًا.", link: "https://t.me/+kSnaeCAx_QUxNzQ1" },
