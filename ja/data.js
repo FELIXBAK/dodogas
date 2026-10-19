@@ -4,14 +4,14 @@ var SITE = {
 
   sample: true,
 
-  contacts: { discord: "https://discord.gg/BZ4kRyAuhT" }
+  contacts: { discord: "https://discord.gg/FXWPyAvRCh" }
 };
 
 
 
 
 var SERVICES = [
-  { name: "Discord", short: "コミュニティ・リアルタイム交流", icon: "../img/sv/discord.png", tag: "コミュニティ", access: "", desc: "登録するだけで、ベーシック等級のすべての資料をご覧いただけます。メンバーシップへの登録を完了して、掲示板や資料を思う存分ご覧ください。", link: "https://discord.gg/BZ4kRyAuhT" },
+  { name: "Discord", short: "コミュニティ・リアルタイム交流", icon: "../img/sv/discord.png", tag: "コミュニティ", access: "", desc: "登録するだけで、ベーシック等級のすべての資料をご覧いただけます。メンバーシップへの登録を完了して、掲示板や資料を思う存分ご覧ください。", link: "https://discord.gg/FXWPyAvRCh" },
   { name: "YouTube", short: "dodogas動画チャンネル", icon: "youtube", tag: "動画", access: "", desc: "メンバーシップへの登録を完了して、掲示板や資料を思う存分ご覧ください。", link: "https://www.youtube.com/@dodogas" },
   { name: "Naverカフェ", short: "コミュニティ・資料集", icon: "cafe", tag: "コミュニティ", access: "", desc: "登録するだけで、ベーシック等級のすべての資料をご覧いただけます。メンバーシップへの登録を完了して、掲示板や資料を思う存分ご覧ください。", link: "https://cafe.naver.com/liquidation" },
   { name: "Boomboom Lite", short: "テレグラム・全体公開", icon: "telegram", tag: "テレグラム", access: "全体公開", desc: "テレグラムチャンネルで提供しているBoomboom Liteです。誰でも無料で見られます。", link: "https://t.me/+kSnaeCAx_QUxNzQ1" },
