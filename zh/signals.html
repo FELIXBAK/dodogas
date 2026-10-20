@@ -38,12 +38,12 @@
   var SECTIONS = [
     { id: "boomboom", title: "Boomboom",
       items: function () {
-        var c = info("BOOM-BOOM-Alert"), m = info("boomboom-m1-test"), s1 = info("boomboom-sub1-test"), s2 = info("boomboom-sub2-test");
+        var c = info("BOOM-BOOM-Classic"), m = info("boomboom-m1-test"), s1 = info("boomboom-sub1-test"), s2 = info("boomboom-sub2-test");
         return [
           { name: "Boomboom Lite", tierLabel: "全员公开", badge: "Telegram",
             summary: "任何人都可以在 Telegram 免费查看的 Boomboom。没有阶段显示,会显示“BBBB”字样和精确到秒的提醒时间。", imgs: ["../img/boomboom-lite.png"] },
-          { name: "BOOM-BOOM-Alert", minTier: c.minTier, badge: "原有运营版本",
-            summary: "一直以来运营的 Boomboom 提醒。以 BBBBLL1、BBBBSS2 等简短字样发布。字样中的 L(LL)通常在价格下跌时出现,S(SS)通常在上涨时出现。", imgs: [c.img] },
+          { name: "BOOM-BOOM-Classic", minTier: c.minTier, badge: "经典版",
+            summary: "Boomboom 提醒的原有经典版本。会以 BBBBLL1、BBBBSS2 这样的简短字样发布。字样中的 L(LL)通常在价格下跌时出现,S(SS)通常在上涨时出现。", imgs: [c.img] },
           { name: "Boomboom M1", minTier: m.minTier, badge: "Beta 测试",
             summary: "加入了额外校正的 Boomboom。目前作为 Beta 测试临时公开,经过进一步验证和完善后将筹备正式推出。会像“LLLL 1”“SSSS 2”这样连同阶段一起发布,并显示精确到秒的提醒时间。", imgs: [m.img] },
           { name: "Boomboom 辅助 1 · 2 · 3", minTier: Math.max(s1.minTier, s2.minTier), badge: "Beta 测试",
