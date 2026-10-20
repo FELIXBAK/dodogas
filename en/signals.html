@@ -37,12 +37,12 @@
   var SECTIONS = [
     { id: "boomboom", title: "Boomboom",
       items: function () {
-        var c = info("BOOM-BOOM-Alert"), m = info("boomboom-m1-test"), s1 = info("boomboom-sub1-test"), s2 = info("boomboom-sub2-test");
+        var c = info("BOOM-BOOM-Classic"), m = info("boomboom-m1-test"), s1 = info("boomboom-sub1-test"), s2 = info("boomboom-sub2-test");
         return [
           { name: "Boomboom Lite", tierLabel: "Open to all", badge: "Telegram",
             summary: "A free Boomboom that anyone can view on Telegram. It has no stage display; it shows a “BBBB” phrase and the alert time down to the second.", imgs: ["../img/boomboom-lite.png"] },
-          { name: "BOOM-BOOM-Alert", minTier: c.minTier, badge: "Original version",
-            summary: "The Boomboom alert we have run from the start. It is posted as short phrases such as BBBBLL1 and BBBBSS2. In the phrase, L (LL) usually appears when price is falling and S (SS) usually when price is rising.", imgs: [c.img] },
+          { name: "BOOM-BOOM-Classic", minTier: c.minTier, badge: "Classic version",
+            summary: "The original, classic version of the Boomboom alert. It is posted as short phrases such as BBBBLL1 and BBBBSS2. In the phrase, L (LL) usually appears when price is falling and S (SS) when it is rising.", imgs: [c.img] },
           { name: "Boomboom M1", minTier: m.minTier, badge: "Beta test",
             summary: "A Boomboom with additional calibration. It is temporarily open as a beta test, and we are preparing an official launch after further verification and refinement. It is posted with a stage such as \u201CLLLL 1\u201D or \u201CSSSS 2\u201D, and the alert time is shown down to the second.", imgs: [m.img] },
           { name: "Boomboom Sub 1 · 2 · 3", minTier: Math.max(s1.minTier, s2.minTier), badge: "Beta test",
