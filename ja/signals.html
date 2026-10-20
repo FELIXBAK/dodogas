@@ -38,12 +38,12 @@
   var SECTIONS = [
     { id: "boomboom", title: "Boomboom",
       items: function () {
-        var c = info("BOOM-BOOM-Alert"), m = info("boomboom-m1-test"), s1 = info("boomboom-sub1-test"), s2 = info("boomboom-sub2-test");
+        var c = info("BOOM-BOOM-Classic"), m = info("boomboom-m1-test"), s1 = info("boomboom-sub1-test"), s2 = info("boomboom-sub2-test");
         return [
           { name: "Boomboom Lite", tierLabel: "全体公開", badge: "テレグラム",
             summary: "テレグラムで誰でも無料で見られるBoomboomです。段階表示はなく、「BBBB」の文言とアラート時刻が秒単位まで表示されます。", imgs: ["../img/boomboom-lite.png"] },
-          { name: "BOOM-BOOM-Alert", minTier: c.minTier, badge: "従来の運用バージョン",
-            summary: "従来から運用しているBoomboomアラートです。BBBBLL1、BBBBSS2のような短い文言で上がります。文言のL(LL)は通常、価格が下がるとき、S(SS)は通常、上がるときに現れます。", imgs: [c.img] },
+          { name: "BOOM-BOOM-Classic", minTier: c.minTier, badge: "クラシック版",
+            summary: "従来のクラシック版のBoomboomアラートです。BBBBLL1、BBBBSS2のような短い文言で投稿されます。文言のL(LL)は通常、価格が下がるとき、S(SS)は通常、上がるときに現れます。", imgs: [c.img] },
           { name: "Boomboom M1", minTier: m.minTier, badge: "ベータテスト",
             summary: "追加補正を加えたBoomboomです。現在はベータテストとして一時公開中で、検証と改善を重ねて正式リリースを準備しています。「LLLL 1」「SSSS 2」のように段階とともに投稿され、アラート時刻が秒単位まで表示されます。", imgs: [m.img] },
           { name: "Boomboom 補助 1 · 2 · 3", minTier: Math.max(s1.minTier, s2.minTier), badge: "ベータテスト",
