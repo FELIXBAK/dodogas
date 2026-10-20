@@ -37,12 +37,12 @@
   var SECTIONS = [
     { id: "boomboom", title: "붐붐이",
       items: function () {
-        var c = info("BOOM-BOOM-Alert"), m = info("붐붐이-m1-테스트"), s1 = info("붐붐이-보조1-테스트"), s2 = info("붐붐이-보조2-테스트");
+        var c = info("BOOM-BOOM-Classic"), m = info("붐붐이-m1-테스트"), s1 = info("붐붐이-보조1-테스트"), s2 = info("붐붐이-보조2-테스트");
         return [
           { name: "붐붐이 Lite", tierLabel: "전체 공개", badge: "텔레그램",
             summary: "텔레그램으로 누구나 무료로 보실 수 있는 붐붐이입니다. 단계 표시 없이 \u201CBBBB\u201D 문구와 알림 시각이 초 단위까지 표시됩니다.", imgs: ["img/boomboom-lite.png"] },
-          { name: "BOOM-BOOM-Alert", minTier: c.minTier, badge: "기존 운영 버전",
-            summary: "기존부터 운영해 온 붐붐이 알림입니다. BBBBLL1, BBBBSS2 같은 짧은 문구로 올라옵니다. 문구의 L(LL)은 보통 가격이 내려갈 때, S(SS)는 보통 올라갈 때 나타납니다.", imgs: [c.img] },
+          { name: "BOOM-BOOM-Classic", minTier: c.minTier, badge: "클래식 버전",
+            summary: "기존 클래식 버전의 붐붐이 알림입니다. BBBBLL1, BBBBSS2 같은 짧은 문구로 올라옵니다. 문구의 L(LL)은 보통 가격이 내려갈 때, S(SS)는 보통 올라갈 때 나타납니다.", imgs: [c.img] },
           { name: "붐붐이 M1", minTier: m.minTier, badge: "베타 테스트",
             summary: "추가 보정이 들어간 붐붐이입니다. 현재는 베타 테스트로 임시 공개 중이며, 검증과 보완을 거쳐 정식 출시를 준비하고 있습니다. \u201CLLLL 1\u201D, \u201CSSSS 2\u201D처럼 단계와 함께 올라오고, 알림 시각이 초 단위까지 표시됩니다.", imgs: [m.img] },
           { name: "붐붐이 보조 1 · 2 · 3", minTier: Math.max(s1.minTier, s2.minTier), badge: "베타 테스트",
