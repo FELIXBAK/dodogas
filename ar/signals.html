@@ -39,12 +39,12 @@
   var SECTIONS = [
     { id: "boomboom", title: "Boomboom",
       items: function () {
-        var c = info("BOOM-BOOM-Alert"), m = info("boomboom-m1-test"), s1 = info("boomboom-sub1-test"), s2 = info("boomboom-sub2-test");
+        var c = info("BOOM-BOOM-Classic"), m = info("boomboom-m1-test"), s1 = info("boomboom-sub1-test"), s2 = info("boomboom-sub2-test");
         return [
           { name: "Boomboom Lite", tierLabel: "متاح للجميع", badge: "تيليجرام",
             summary: "هذا Boomboom يمكن لأي شخص مشاهدته مجانًا عبر تيليجرام. لا يعرض المراحل، بل عبارة «BBBB» ووقت التنبيه بدقة الثانية.", imgs: ["../img/boomboom-lite.png"] },
-          { name: "BOOM-BOOM-Alert", minTier: c.minTier, badge: "النسخة التشغيلية السابقة",
-            summary: "تنبيه Boomboom الذي نشغّله منذ البداية. يُنشر بعبارات قصيرة مثل BBBBLL1 وBBBBSS2. يظهر الحرف L (LL) في العبارة عادةً عندما ينخفض السعر، ويظهر S (SS) عادةً عندما يرتفع.", imgs: [c.img] },
+          { name: "BOOM-BOOM-Classic", minTier: c.minTier, badge: "النسخة الكلاسيكية",
+            summary: "النسخة الكلاسيكية الأصلية من تنبيه Boomboom. تُنشر بعبارات قصيرة مثل BBBBLL1 وBBBBSS2. يظهر L (LL) في العبارة عادةً عندما ينخفض السعر، ويظهر S (SS) عادةً عندما يرتفع.", imgs: [c.img] },
           { name: "Boomboom M1", minTier: m.minTier, badge: "اختبار بيتا",
             summary: "نسخة من Boomboom أُضيف إليها معايرة إضافية. هي متاحة مؤقتًا كاختبار بيتا، ونحن نستعد لإطلاقها رسميًا بعد مزيد من التحقق والتحسين. تُنشر مع المرحلة مثل «LLLL 1» و«SSSS 2»، ويظهر وقت التنبيه بدقة الثانية.", imgs: [m.img] },
           { name: "Boomboom المساعد 1 · 2 · 3", minTier: Math.max(s1.minTier, s2.minTier), badge: "اختبار بيتا",
